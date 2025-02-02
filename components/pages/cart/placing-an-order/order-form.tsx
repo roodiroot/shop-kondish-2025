@@ -15,6 +15,7 @@ import { BanknotesIcon, UsersIcon } from "@heroicons/react/24/outline";
 import ChoicePayRadio from "./choice-pay-radio";
 import { useCartStore } from "@/hooks/cart-store";
 import EmptyCart from "../empty-cart";
+import InputPhone from "@/components/ui/input-phone";
 
 const OrderForm = () => {
   const { cart } = useCartStore();
@@ -70,13 +71,17 @@ const OrderForm = () => {
             <FormField
               control={control}
               name="contact.phone"
-              render={({ field }) => (
+              render={({ field: { value, onChange } }) => (
                 <FormItem className="mt-2">
                   <FormLabel className="text-sm font-medium text-gray-700">
                     Телефон
                   </FormLabel>
                   <FormControl>
-                    <Input className="mt-2" {...field} />
+                    <InputPhone
+                      className="mt-2"
+                      value={value}
+                      setValue={onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +137,6 @@ const OrderForm = () => {
           )}
         />
       </section>
-      <button type="submit">Батон</button>
     </form>
   );
 };

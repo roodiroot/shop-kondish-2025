@@ -1,18 +1,28 @@
 import {
+  requestResetPasswordSchema,
+  resetPasswordSchema,
+} from "@/schema/auth-schemas";
+import {
   Category,
   CategoryData,
   ProductCatalog,
   ProductCatalogData,
 } from "@/types/catalog";
+import { z } from "zod";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
 export interface UserAuth {
+  id: number;
   blocked: boolean;
   confirmed: boolean;
   createdAt: string;
   email: string;
   username: string;
+  ordersArray: string[] | [] | null;
+  fullName: string | null;
+  address: string | null;
+  phone: string | null;
 }
 interface RegisterForm {
   username?: string;
@@ -81,7 +91,7 @@ export const registerUser = async (
 export const loginUser = async (credentials: {
   identifier: string;
   password: string;
-}) => {
+}): Promise<{ jwt: string; user: UserAuth }> => {
   const response = await fetch(`${API_BASE_URL}/auth/local`, {
     method: "POST",
     headers: {
@@ -94,6 +104,120 @@ export const loginUser = async (credentials: {
     const errorData = await response.json();
 
     throw new Error(errorData.message || "Login failed");
+  }
+
+  return await response.json();
+};
+
+export const checkTokenJWT = async (token: string) => {
+  const response = await fetch(`${API_BASE_URL}/auth/check-jwt`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response;
+};
+
+export const resetPassword = async (
+  data: z.infer<typeof resetPasswordSchema>
+) => {
+  console.log("RESET", data);
+  const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+
+    throw new Error(errorData.message || "Reset password failed");
+  }
+
+  return await response.json();
+};
+
+export const requestResetPassword = async (
+  data: z.infer<typeof requestResetPasswordSchema>
+) => {
+  const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+
+    throw new Error(errorData.message || "Reset password failed");
+  }
+
+  return await response.json();
+};
+
+export const updateUser = async (
+  id: number,
+  token: string,
+  updatedData: Record<string, any>
+) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      // Обрабатываем ошибки, если статус ответа не ok
+      const errorData = await response.json();
+      console.error("Ошибка при обновлении пользователя:", errorData);
+      throw new Error(errorData.message || "Не удалось обновить пользователя");
+    }
+
+    const data = await response.json();
+    return data; // Возвращаем обновлённые данные пользователя
+  } catch (error) {
+    console.error("Ошибка в функции updateUser:", error);
+    throw error; // Пробрасываем ошибку для обработки на уровне вызова функции
+  }
+};
+
+export interface User {
+  id: number;
+  documentId: string;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  ordersArray: string[];
+}
+
+export const getMy = async (token: string): Promise<User> => {
+  const response = await fetch(`${API_BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Ошибка получения каталога");
   }
 
   return await response.json();

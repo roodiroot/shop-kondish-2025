@@ -52,7 +52,6 @@ export default async function Brand({ params }: Props) {
       <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">
         <SortForCatalog all_count={products?.meta?.pagination?.total} />
         <BlockFilters filters={filters} />
-        <ListProducts productList={products.data} />
       </div>
     </BaseContainer>
   );

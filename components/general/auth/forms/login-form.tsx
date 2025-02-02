@@ -11,11 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { loginUser } from "@/data/api";
-import { loginFormSchema } from "@/schemas";
+import { loginFormSchema } from "@/schema/auth-schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authcontext";
 import { toast } from "sonner";
+import Link from "next/link";
+import InputPassword from "@/components/ui/input-password";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {
   switchForm: (value: "LOGIN" | "REGISTER") => void;
@@ -78,15 +80,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
             <FormItem>
               <div className="flex items-center">
                 <FormLabel>Пароль</FormLabel>
-                <a
-                  href="#"
+                <Link
+                  onClick={() => onCloseSheet && onCloseSheet()}
+                  href="request-password-reset"
                   className="ml-auto text-sm underline-offset-2 hover:underline"
                 >
                   Забыли пароль?
-                </a>
+                </Link>
               </div>
               <FormControl>
-                <Input {...field} type="password" />
+                <InputPassword {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Cart() {
   // await fetchWithDelay();
   return (
-    <div className="mt-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12 xl:gap-x-16">
+    <div className="mt-8 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12 xl:gap-x-16">
       <section className="">
         <div>
           <div className="flex justify-between items-end py-2">

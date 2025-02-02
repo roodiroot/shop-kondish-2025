@@ -36,7 +36,7 @@ export default async function ProductPage({ params }: Props) {
 
   const product = await getProductBySlug(productSlug);
 
-  const [productCatalog, category, views] = await Promise.all([
+  const [productCatalog, category] = await Promise.all([
     getAllProductCatalog(),
     getAllCategory(`filters[slug]=${product?.category?.slug}`),
     updateProductPopularity(productSlug, "views"),
@@ -66,7 +66,7 @@ export default async function ProductPage({ params }: Props) {
         path={breadcrumbPath}
         className="border-none"
       />
-      <BaseContainer>
+      <BaseContainer className="pb-24">
         <div className="mx-auto max-w-2xl sm:px-6 sm:mt-8 lg:max-w-7xl lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             {/* Image slider */}

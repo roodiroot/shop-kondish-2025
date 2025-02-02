@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ButtonClearCart from "./button-clear-cart";
 
 interface OrderSubmitWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -8,6 +9,7 @@ interface OrderSubmitWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   isError?: boolean;
   onClick?: () => void;
+  buttonClearCart?: boolean;
 }
 
 const OrderSubmitWrapper: React.FC<OrderSubmitWrapperProps> = ({
@@ -18,6 +20,7 @@ const OrderSubmitWrapper: React.FC<OrderSubmitWrapperProps> = ({
   disabled,
   isError,
   onClick,
+  buttonClearCart,
 }) => {
   return (
     <section className="mt-10 lg:mt-0">
@@ -58,6 +61,7 @@ const OrderSubmitWrapper: React.FC<OrderSubmitWrapperProps> = ({
           </Button>
         </div>
       </div>
+      {buttonClearCart && <ButtonClearCart className="mt-2" />}
     </section>
   );
 };

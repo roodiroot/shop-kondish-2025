@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 
 import BaseContainer from "@/components/general/containers/base-container";

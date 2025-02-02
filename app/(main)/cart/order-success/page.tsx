@@ -1,9 +1,14 @@
-import OrderSummarySectionComplate from "@/components/pages/cart/order-submit/order-submit-section-complate";
-import { getOrderById } from "@/data/order-api";
-import { getAllProductsByIds } from "@/data/product-api";
-import { Product } from "@/types/catalog";
-import { getDeliveryTypeLabel } from "@/utils/mappings";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+
+import NotFoundNotification from "@/components/general/notification/not-found-notification";
+import OrderSummarySectionComplate from "@/components/pages/cart/order-submit/order-submit-section-complate";
+
+import { Product } from "@/types/catalog";
+import { getMy, updateUser } from "@/data/api";
+import { getOrderById } from "@/data/order-api";
+import { getDeliveryTypeLabel } from "@/utils/mappings";
+import { getAllProductsBySlug } from "@/data/product-api";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -22,14 +27,41 @@ export const metadata: Metadata = {
 };
 
 export default async function OrderSuccess({ searchParams }: Props) {
+  const cookieStore = await cookies();
   const orderId = (await searchParams).orderId;
-  const order = await getOrderById(orderId || "");
-  const products = await getAllProductsByIds(
-    order.order.products.map((product) => product.productId)
+
+  //Проверяем есть ли такой заказ
+  let order;
+  try {
+    order = await getOrderById(orderId || "");
+  } catch {
+    return <NotFoundNotification />;
+  }
+
+  //Если пользователь залогинен записываем ID ордера к User
+  const token = cookieStore.get("authToken")?.value;
+  if (token && order) {
+    const user = await getMy(token);
+    if (user) {
+      const currentOrderIds = user?.ordersArray || [];
+      // Проверяем что ордера с таким Ids нет в массиве
+      const oldOrder = currentOrderIds?.find((id) => id === orderId);
+      if (!oldOrder)
+        await updateUser(user.id, token, {
+          ordersArray: [...currentOrderIds, orderId],
+        });
+    }
+  }
+
+  //Получаем товары по Ids из ордера
+  const products = await getAllProductsBySlug(
+    order.order.products.map((product) => product.slug)
   );
+
+  //Соединяем 2 массива
   const productsWithCounts = products.data.map((product) => {
     const cartItem = order.order.products.find(
-      (item) => item.productId === product.documentId
+      (item) => item.slug === product.slug
     );
     return {
       product,
@@ -37,13 +69,14 @@ export default async function OrderSuccess({ searchParams }: Props) {
     };
   });
 
+  //Считаем общее кол-во товаров
   const totalProducts = order.order.products.reduce(
     (total, item) => total + Number(item.count),
     0
   );
 
   return (
-    <div className="mt-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12 xl:gap-x-16">
+    <div className="mt-8 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12 xl:gap-x-16">
       <section>
         <div className="flex justify-between items-end py-2">
           <div>

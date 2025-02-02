@@ -44,7 +44,7 @@ export async function createOrder(orderData: OrderData) {
     }
 }
 
-interface Order {
+export interface Order {
   id: number;
   documentId: string;
   delivery: {
@@ -66,10 +66,10 @@ interface Order {
 }
 
 interface Product {
-  productId: string;
   name: string;
+  slug: string;
   price: number | null;
-  count: string; // Хранится как строка
+  count: number; // Хранится как строка
   totalPrice: number;
 }
 

@@ -13,7 +13,7 @@ const HeadCatalog: React.FC<HeadCatalogProps> = ({
   linkArticle,
 }) => {
   return (
-    <div className="py-16">
+    <div className="pt-10 pb-8">
       <div className="flex gap-6 items-center">
         <div className="">
           <div className="flex items-center gap-10">

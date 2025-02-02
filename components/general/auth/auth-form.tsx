@@ -7,8 +7,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import LoginForm from "@/components/general/auth/login-form";
-import RegisterForm from "@/components/general/auth/register-form";
+import LoginForm from "@/components/general/auth/forms/login-form";
+import RegisterForm from "@/components/general/auth/forms/register-form";
 
 interface AuthFormProps {
   onCloseSheet?: () => void;

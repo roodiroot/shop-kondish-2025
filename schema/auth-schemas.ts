@@ -40,3 +40,32 @@ export const registrationFormSchema = z
     message: "Пароли должны совпадать",
     path: ["confirmPassword"], // Указываем, что ошибка относится к confirmPassword
   });
+
+// Схема для отправки почты для сброса пароля
+export const requestResetPasswordSchema = z.object({
+  email: z.string().email("Введите корректный адрес электронной почты"),
+});
+
+// Схема сброса пароля
+export const resetPasswordSchema = z
+  .object({
+    code: z
+      .string()
+      .min(100, { message: "Code is required" }) // Обязательный код сброса пароля
+      .max(255, { message: "Code is too long" }), // Максимальная длина кода
+    password: z
+      .string()
+      .min(6, "Пароль должен содержать минимум 6 символов")
+      .regex(/[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву")
+      .regex(/[a-z]/, "Пароль должен содержать хотя бы одну строчную букву")
+      .regex(/[0-9]/, "Пароль должен содержать хотя бы одну цифру")
+      .regex(
+        /[@$!%*?&]/,
+        "Пароль должен содержать хотя бы один специальный символ (@, $, !, %, *, ?, &)"
+      ),
+    passwordConfirmation: z.string(),
+  })
+  .refine((data) => data.password === data.passwordConfirmation, {
+    message: "Пароли не совпадают", // Пароли должны совпадать
+    path: ["passwordConfirmation"],
+  });

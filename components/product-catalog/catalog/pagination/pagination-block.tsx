@@ -135,7 +135,7 @@ const PaginationBlock: React.FC<PaginationBlockProps> = ({ pagination }) => {
         )}
 
         {/* Отображаем видимые страницы */}
-        {paginArr.map((page, index) => (
+        {paginArr.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
               className="cursor-pointer"

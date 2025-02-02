@@ -71,12 +71,12 @@ export const getAllProductsCart = async (
 };
 
 //Получаем все товары по массиву их Id
-export const getAllProductsByIds = async (
+export const getAllProductsBySlug = async (
   ids: string[]
 ): Promise<ProductsData> => {
   // Формируем строку параметров для фильтров
   const params = ids
-    .map((id, index) => `[filters][documentId][$in][${index}]=${id}`)
+    .map((id, index) => `[filters][slug][$in][${index}]=${id}`)
     .join("&");
 
   // Вызываем getAllProducts с параметрами

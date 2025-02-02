@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { memo, useTransition } from "react";
+import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { createOrder } from "@/data/order-api";
@@ -16,7 +16,7 @@ import CartItemBasketSkeleton from "../product-list/cart-item-basket-skeleton";
 
 import { Product } from "@/types/catalog";
 
-const OrderSummarySection = memo(() => {
+const OrderSummarySection = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { handleSubmit, getValues } = useFormContext();
@@ -66,7 +66,7 @@ const OrderSummarySection = memo(() => {
         } else {
           toast.warning("Что-то пошло не так!");
         }
-      } catch (error) {
+      } catch {
         toast.warning("Что-то пошло не так, попробуйте позже");
       }
     });
@@ -110,6 +110,6 @@ const OrderSummarySection = memo(() => {
           ))}
     </OrderSubmitWrapper>
   );
-});
+};
 
 export default OrderSummarySection;

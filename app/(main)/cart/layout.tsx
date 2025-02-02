@@ -19,7 +19,7 @@ export default async function CartLayout({
   return (
     <OrderFormProvider>
       <BaseContainer>
-        <div className="pt-16 pb-24 max-w-2xl mx-auto lg:max-w-7xl">
+        <div className="pt-10 pb-24 max-w-2xl mx-auto lg:max-w-7xl">
           <div className="flex items-center gap-4 md:gap-10">
             <h1 className="text-gray-900 text-3xl font-bold tracking-tight sm:text-4xl">
               Корзина

@@ -10,14 +10,16 @@ const ItemValue = ({
 }: {
   label: string;
   value: string | null;
-  handleCheckedChange: any;
+  handleCheckedChange: (checked: boolean, value: string | null) => void;
   checked: boolean;
 }) => {
   return (
     <div className="flex items-center gap-3">
       <Checkbox
         checked={checked}
-        onCheckedChange={(checked) => handleCheckedChange(checked, value)}
+        onCheckedChange={(checked) =>
+          handleCheckedChange(checked as boolean, value)
+        }
         id={label}
       />
       <label

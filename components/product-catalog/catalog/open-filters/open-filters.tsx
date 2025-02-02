@@ -11,11 +11,11 @@ interface OpenFiltersProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const OpenFilters: React.FC<OpenFiltersProps> = ({ filters }) => {
+  const params = useSearchParams();
+
   if (!filters) {
     return <div className=""></div>;
   }
-
-  const params = useSearchParams();
 
   const filtersList = getOnFilters(params.toString());
 

@@ -8,15 +8,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 
 import { registerUser } from "@/data/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/authcontext";
-import { registrationFormSchema } from "@/schemas";
+import { registrationFormSchema } from "@/schema/auth-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
+
+import InputPassword from "@/components/ui/input-password";
 
 interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> {
   switchForm: (value: "LOGIN" | "REGISTER") => void;
@@ -103,7 +105,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             <FormItem>
               <FormLabel>Пароль</FormLabel>
               <FormControl>
-                <Input {...field} type="password" />
+                <InputPassword {...field} />
               </FormControl>
               <FormDescription>
                 Придумайте пароль (минимум 8 символов, буквы, цифры, символы).
@@ -119,7 +121,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             <FormItem>
               <FormLabel>Подтверждение пароля</FormLabel>
               <FormControl>
-                <Input {...field} type="password" />
+                <InputPassword {...field} />
               </FormControl>
               <FormDescription>Введите пароль ещё раз.</FormDescription>
               <FormMessage />

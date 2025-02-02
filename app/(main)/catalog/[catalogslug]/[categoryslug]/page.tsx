@@ -5,9 +5,7 @@ import { ListProducts } from "@/components/product-catalog/catalog/list-products
 
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
-import SortForCatalog from "@/components/product-catalog/catalog/sort-for-catalog";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
-import OpenFilters from "@/components/product-catalog/catalog/open-filters/open-filters";
 
 type Props = {
   params: Promise<{ categoryslug: string }>;
