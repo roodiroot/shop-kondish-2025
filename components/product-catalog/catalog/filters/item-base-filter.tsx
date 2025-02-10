@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemValue from "./item";
 import { FilterOption } from "@/types/catalog";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface ItemBaseFilterProps extends FilterOption {
   keyFilter: string;
@@ -15,12 +15,13 @@ const ItemBaseFilter: React.FC<ItemBaseFilterProps> = ({
   keyFilter,
 }) => {
   const params = useSearchParams();
+  const paramsToStr = params.toString();
   const [select, setSelect] = useState<string[]>([]);
   const selectValuesArray = params.get(keyFilter)?.split(",");
 
   useEffect(() => {
     setSelect(selectValuesArray || []);
-  }, [params.toString()]);
+  }, [paramsToStr]);
 
   function handleCheckedChange(isChecked: boolean, value: string | null) {
     if (value === null) value = "null";
@@ -61,7 +62,7 @@ const ItemBaseFilter: React.FC<ItemBaseFilterProps> = ({
   return (
     <div className="last:border-b-0 border-b">
       <fieldset>
-        <legend className="text-sm font-medium text-gray-900 block">
+        <legend className="text-sm font-semibold text-gray-900 block">
           {label}:
         </legend>
         <div className="py-4 grid grid-cols-2 gap-x-6 gap-y-3 max-h-[160px] overflow-y-auto ">

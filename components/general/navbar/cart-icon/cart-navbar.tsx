@@ -15,7 +15,7 @@ const CartNavbar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           aria-hidden="true"
           className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
         />
-        <div className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+        <div className="ml-1 text-sm font-medium text-gray-700 group-hover:text-gray-800">
           <CartCounter />
         </div>
         <span className="sr-only">items in cart, view bag</span>

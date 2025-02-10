@@ -3,6 +3,7 @@ import {
   CartItem,
   getAllProducts,
   getAllProductsCart,
+  getAllProductsFavorites,
 } from "@/data/product-api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -33,6 +34,20 @@ export const useFetchOrder = (documentId: string) => {
     queryKey: ["order-products", documentId],
     queryFn: () => getOrderById(documentId),
     enabled: !!documentId,
+    staleTime: 1000 * 60 * 5, // Данные будут кэшироваться на 5 минут
+  });
+};
+
+// Получение товаров которые добавлены в корзину
+export const useFetchFavoritesProducts = (
+  favorites: number[],
+  string_params?: string
+) => {
+  // console.log("FETCJ PROD");
+  return useQuery({
+    queryKey: ["favorites-products", favorites, string_params],
+    queryFn: () => getAllProductsFavorites(favorites, string_params),
+    enabled: favorites.length > 0, // Запрос выполняется только если корзина не пуста
     staleTime: 1000 * 60 * 5, // Данные будут кэшироваться на 5 минут
   });
 };

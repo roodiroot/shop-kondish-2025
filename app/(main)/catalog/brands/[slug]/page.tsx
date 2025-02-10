@@ -50,7 +50,7 @@ export default async function Brand({ params }: Props) {
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">
         <BlockFilters filters={filters} />
-        <ListProducts string_params={stringApiRespons} />
+        <ListProducts string_params={stringApiRespons} isFiltersButton />
       </div>
     </BaseContainer>
   );

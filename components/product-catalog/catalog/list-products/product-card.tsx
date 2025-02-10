@@ -1,8 +1,15 @@
 import Link from "next/link";
+import { toast } from "sonner";
 import Image from "next/image";
+import { HeartIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { Product } from "@/types/catalog";
-import AddProductCartWrapper from "@/components/general/actions/add-product-cart-wrapper";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/hooks/cart-store";
+import { useFavoritesStore } from "@/hooks/favorites-stor";
+import { updateProductPopularity } from "@/data/product-api";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -16,6 +23,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imagePrevievUrl,
   product,
 }) => {
+  const { cart, addToCart } = useCartStore();
+  const { favorites, addToFavorites, removeFromFavorites } =
+    useFavoritesStore();
+
+  const addToCartHandle = async () => {
+    addToCart(product.id);
+    toast("Товар добавлен в корзину");
+    await updateProductPopularity(slug, "cart_adds");
+  };
+  const addToFavoritesHandle = async () => {
+    addToFavorites(product.id);
+    toast("Товар добавлен в избранное");
+    await updateProductPopularity(slug, "favorites");
+  };
+
+  const removeFavoriteHandle = () => {
+    removeFromFavorites(product.id);
+    toast("Товар удален из избранного");
+  };
+
   return (
     <div className="relative flex flex-col overflow-hidden rounded-lg border bg-white">
       <div className="relative w-full aspect-square p-2">
@@ -33,41 +60,30 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className="absolute inset-0 bg-gray-400/5"></div>
       </div>
+      <div className="absolute top-2 left-2">
+        <button
+          onClick={
+            !!favorites.find((i) => i === product.id)
+              ? removeFavoriteHandle
+              : addToFavoritesHandle
+          }
+          className="p-2 group"
+        >
+          <HeartIcon
+            className={cn(
+              "min-w-6 min-h-6 text-gray-300",
+              !favorites.find((i) => i === product.id) ? "" : "fill-gray-200"
+            )}
+          />
+        </button>
+      </div>
       <div className="p-4 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
           <p className="text-gray-500 text-sm italic">{product?.brand.name}</p>
           <h3 className="text-sm font-medium text-gray-900">
-            <Link href={`/product/${slug}`}>
-              {/* <span aria-hidden="true" className="absolute inset-0"></span> */}
-              {name}
-            </Link>
+            <Link href={`/product/${slug}`}>{name}</Link>
           </h3>
         </div>
-
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">тип компрессора</p>
-          {product?.compressor_type}
-        </div> */}
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">страна</p>
-          {product?.country_of_manufacturer}
-        </div> */}
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">энергопотребление</p>
-          {product?.energy_efficiency_class}
-        </div> */}
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">шум</p>
-          {product?.noise_level}
-        </div> */}
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">wifi</p>
-          {product?.wifi_availability}
-        </div> */}
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">хладогент</p>
-          {product?.refrigerant}
-        </div> */}
         <div className="">
           {product?.series && (
             <div className="text-xs flex gap-2">
@@ -88,20 +104,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           )}
         </div>
-        {/* <div className="text-xs flex gap-2">
-          <p className="font-medium">цвет</p>
-          {product?.color}
-        </div> */}
         <div className="flex flex-col justify-end">
           <div className="flex justify-between items-end mt-auto">
-            <Button asChild className="relative z-10">
-              <AddProductCartWrapper slug={product.slug} productId={product.id}>
-                В корзину
-              </AddProductCartWrapper>
-            </Button>
-            <p className="font-medium text-gray-900 text-base ">
-              {new Intl.NumberFormat("ru-RU").format(Number(product?.price))} р.
-            </p>
+            {!cart.find((i) => i.product === product.id) ? (
+              <Button
+                size="sm"
+                onClick={addToCartHandle}
+                disabled={!!cart.find((i) => i.product === product.id)}
+                className="relative z-10 font-semibold flex"
+              >
+                <span className="pr-2 border-r border-white/40">
+                  {new Intl.NumberFormat("ru-RU").format(
+                    Number(product?.price)
+                  )}{" "}
+                  р.
+                </span>
+                <ShoppingCartIcon className="w-4 h-4" />
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="font-semibold"
+                asChild
+              >
+                <Link href="/cart">В корзине</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>

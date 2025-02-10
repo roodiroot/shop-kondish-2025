@@ -65,7 +65,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ user }) => {
     const hasChanged =
       JSON.stringify(initialValues) !== JSON.stringify(watchedValues);
     setIsModified(hasChanged);
-  }, [watchedValues]);
+  }, [watchedValues, user.address, user?.fullName, user?.phone]);
 
   async function onSubmit(values: z.infer<typeof formInfoProfileSchema>) {
     if (isModified && auth?.token) {

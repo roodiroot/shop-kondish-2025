@@ -51,7 +51,7 @@ export default async function CategoryGroup({ params }: Props) {
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
         <BlockFilters filters={filters} />
-        <ListProducts string_params={stringApiRespons} />
+        <ListProducts string_params={stringApiRespons} isFiltersButton />
       </div>
     </BaseContainer>
   );

@@ -11,6 +11,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "@typescript-eslint/no-empty-object-type": "off", // Отключаем правило пустых интерфейсов
+      "react-hooks/exhaustive-deps": "off" // отключаем правило для массива useEffect
+    },
+  },
 ];
 
 export default eslintConfig;

@@ -44,7 +44,7 @@ const RequestResetPasswordForm: React.FC<RequestResetPasswordFormProps> = ({
           if (data.ok) toast.success("Пароль отправлен на ваш email!");
           form.reset();
         })
-        .catch((e) => toast.error("Что то пошло не так"));
+        .catch(() => toast.error("Что то пошло не так"));
     });
   };
 

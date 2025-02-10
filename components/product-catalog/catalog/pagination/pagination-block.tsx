@@ -25,7 +25,12 @@ const PaginationBlock: React.FC<PaginationBlockProps> = ({ pagination }) => {
   // Устанавливаем currentPage из параметров URL
   useEffect(() => {
     const page = params.get("page");
-    page ? setCurrentPage(Number(page)) : setCurrentPage(1);
+
+    if (page) {
+      setCurrentPage(Number(page));
+    } else {
+      setCurrentPage(1);
+    }
   }, [params]);
 
   // Обработчик изменения страницы
@@ -40,6 +45,7 @@ const PaginationBlock: React.FC<PaginationBlockProps> = ({ pagination }) => {
     }
 
     window.history.pushState(null, "", `?${newParams.toString()}`);
+    window.scrollTo(0, 0);
   };
 
   // функция переключения на предидущую страницу
@@ -56,6 +62,7 @@ const PaginationBlock: React.FC<PaginationBlockProps> = ({ pagination }) => {
     }
 
     window.history.pushState(null, "", `?${searchParams.toString()}`);
+    window.scrollTo(0, 0);
   };
 
   // функция переключения на слдедующую страницу
@@ -69,11 +76,12 @@ const PaginationBlock: React.FC<PaginationBlockProps> = ({ pagination }) => {
     }
 
     window.history.pushState(null, "", `?${searchParams.toString()}`);
+    window.scrollTo(0, 0);
   };
 
   // генерация основных компонентов пагинации
   const generatePaginationArr = useCallback(() => {
-    let arr = new Array(pagination?.pageCount)
+    const arr = new Array(pagination?.pageCount)
       .fill(0)
       .map((_, index) => index + 1);
 

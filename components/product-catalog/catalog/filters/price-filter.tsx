@@ -1,19 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { findMinMax } from "@/utils/filters";
 import { Slider } from "@/components/ui/slider";
 
 const PriceFilter = ({ values }: { values: (string | null)[] }) => {
-  const defaultValue = findMinMax(values);
-  const params = useSearchParams();
-  const [price, setPrice] = useState<number[] | null>(defaultValue);
+  const findMinMaxCallback = useCallback(() => {
+    return findMinMax(values);
+  }, [values]);
+  const defaultValue = findMinMaxCallback();
 
-  if (!defaultValue || defaultValue[0] === defaultValue[1]) {
-    return null;
-  }
+  const params = useSearchParams();
+  const paramsToString = params.toString();
+  const [price, setPrice] = useState<number[] | null>(defaultValue);
 
   useEffect(() => {
     const selectValuesArray = params.get("price")?.split(",");
@@ -29,7 +30,11 @@ const PriceFilter = ({ values }: { values: (string | null)[] }) => {
     } else {
       setPrice(defaultValue);
     }
-  }, [params.toString()]);
+  }, [paramsToString, params]);
+
+  if (!defaultValue || defaultValue[0] === defaultValue[1]) {
+    return null;
+  }
 
   const updatePriceRange = (newRange: number[]) => {
     const updatedParams = new URLSearchParams(params.toString());
@@ -48,26 +53,31 @@ const PriceFilter = ({ values }: { values: (string | null)[] }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-4 border-b">
-      {price && (
-        <div className="w-full flex justify-between px-1">
-          <div className="px-2 py-1 border rounded-sm text-sm text-gray-700">
-            {new Intl.NumberFormat("ru-RU").format(Number(price[0]))} руб.
+    <fieldset>
+      <legend className="text-sm font-semibold text-gray-900 block">
+        Цена:
+      </legend>
+      <div className="flex flex-col gap-4 py-4 border-b">
+        {price && (
+          <div className="w-full flex justify-between px-1">
+            <div className="px-2 py-1 border rounded-sm text-sm text-gray-700">
+              {new Intl.NumberFormat("ru-RU").format(Number(price[0]))} руб.
+            </div>
+            <div className="px-2 py-1 border rounded-sm text-sm  text-gray-700">
+              {new Intl.NumberFormat("ru-RU").format(Number(price[1]))} руб.
+            </div>
           </div>
-          <div className="px-2 py-1 border rounded-sm text-sm  text-gray-700">
-            {new Intl.NumberFormat("ru-RU").format(Number(price[1]))} руб.
-          </div>
-        </div>
-      )}
-      <Slider
-        onValueCommit={(e) => updatePriceRange(e)}
-        onValueChange={(e) => setPrice(e)}
-        value={price ? price : undefined}
-        min={defaultValue[0]}
-        max={defaultValue[1]}
-        step={1000}
-      />
-    </div>
+        )}
+        <Slider
+          onValueCommit={(e) => updatePriceRange(e)}
+          onValueChange={(e) => setPrice(e)}
+          value={price ? price : undefined}
+          min={defaultValue[0]}
+          max={defaultValue[1]}
+          step={1000}
+        />
+      </div>
+    </fieldset>
   );
 };
 

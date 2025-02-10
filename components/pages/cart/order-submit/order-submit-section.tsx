@@ -84,6 +84,7 @@ const OrderSummarySection = () => {
       totalCount={totalCount}
       onClick={handleSubmit(onSubmit)}
       disabled={isPending || !cart.length}
+      buttonClearCart
     >
       {isLoading || isPandingFetch
         ? new Array(2)

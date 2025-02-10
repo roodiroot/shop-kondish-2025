@@ -15,9 +15,9 @@ const CartCounter = () => {
     });
     // Отписка от изменений при размонтировании компонента
     return () => unsubscribe();
-  }, [getTotalCount()]);
+  }, [getTotalCount]);
 
-  return <span>{count}</span>;
+  return <span>{count || ""}</span>;
 };
 
 export default CartCounter;

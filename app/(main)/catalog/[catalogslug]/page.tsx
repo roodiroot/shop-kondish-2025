@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 
 import { getAllCategory, getOneProductCatalogBySlug } from "@/data/api";
@@ -6,6 +5,7 @@ import { ListProducts } from "@/components/product-catalog/catalog/list-products
 
 import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
+import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
 
 type Props = {
   params: Promise<{ catalogslug: string }>;
@@ -43,25 +43,23 @@ export default async function CatalogGroup({ params }: Props) {
     }
   );
   const filters = await datafilters.json();
+
   return (
     <BaseContainer>
       {/* Меню катагорий товарного каталога */}
-      <div className="flex flex-row gap-4 py-6 w-full">
-        {categories.data.map((i) => (
-          <Link
-            key={i.slug}
-            href={`/catalog/${slug}/${i.slug}`}
-            className="flex-1 h-40 rounded-md bg-gray-50 p-4"
-          >
-            {i.name}
-          </Link>
-        ))}
-      </div>
+      <MenuCategoriesSlider
+        href={`/catalog/${slug}`}
+        dataList={categories?.data}
+      />
 
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
-        <BlockFilters filters={filters} />
-        <ListProducts string_params={stringApiRespons} />
+        <BlockFilters
+          filters={filters}
+          dataList={categories?.data}
+          href={`/catalog/${slug}`}
+        />
+        <ListProducts string_params={stringApiRespons} isFiltersButton />
       </div>
     </BaseContainer>
   );

@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { resetPasswordSchema } from "@/schema/auth-schemas";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { toast } from "sonner";
@@ -56,7 +55,7 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
           }
           toast.success("Вы успешно вошли в систему!");
         })
-        .catch((e) => toast.error("Что то пошло не так"));
+        .catch(() => toast.error("Что то пошло не так"));
     });
   };
 

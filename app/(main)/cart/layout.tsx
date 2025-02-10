@@ -6,6 +6,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import OrderFormProvider from "@/providers/order-form-propvider";
 import BaseContainer from "@/components/general/containers/base-container";
 import { safeParseJson } from "@/utils/safe-parse-json";
+import Breadcrumbs from "@/components/general/breadcrumbs/breadcrumbs";
 
 export default async function CartLayout({
   children,
@@ -18,6 +19,12 @@ export default async function CartLayout({
 
   return (
     <OrderFormProvider>
+      <Breadcrumbs
+        breadcrumbMap={{
+          cart: "Корзина",
+          "order-success": "Подтверждение заказа",
+        }}
+      />
       <BaseContainer>
         <div className="pt-10 pb-24 max-w-2xl mx-auto lg:max-w-7xl">
           <div className="flex items-center gap-4 md:gap-10">

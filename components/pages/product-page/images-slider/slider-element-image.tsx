@@ -24,12 +24,12 @@ const SliderElementImage: React.FC<SliderElementMainImgProps> = ({
     <Carousel
       opts={{ align: "start", loop: true }}
       setApi={setApi}
-      className="w-full h-full"
+      className="w-full h-full overflow-hidden"
     >
       <CarouselContent>
         {images.map((imageSrc, index) => (
           <CarouselItem key={index}>
-            <div className="relative aspect-square rounded-md overflow-hidden">
+            <div className="relative aspect-square rounded-md overflow-hidden ">
               <div className="absolute p-[10%] w-full h-full inset-0 rounded-md overflow-hidden">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${imageSrc}`}

@@ -4,9 +4,8 @@ import { getBrandForSlug } from "@/data/api";
 import { getAllProducts } from "@/data/product-api";
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
-import SortForCatalog from "@/components/product-catalog/catalog/sort-for-catalog";
+import SortForCatalog from "@/components/product-catalog/catalog/sort-and-filterls.tsx/sort-for-catalog";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
-import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
 
 type Props = {
   params: Promise<{ slug: string }>;

@@ -31,7 +31,7 @@ export default async function CatalogLayout({
   // console.log(breadcrumbMap);
 
   return (
-    <div className="">
+    <div>
       <Breadcrumbs breadcrumbMap={breadcrumbMap} />
       {children}
     </div>

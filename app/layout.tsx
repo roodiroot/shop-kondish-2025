@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import Footer from "@/components/general/footer/footer";
+import Navbar from "@/components/general/navbar/navbar";
+import TanstackProvider from "@/providers/tanstack-provider";
+import OverlaySection from "@/components/general/overlay-section";
+
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/authcontext";
-import Navbar from "@/components/general/navbar/navbar";
-import { SheetSide } from "@/components/general/auth/sheet";
-import TanstackProvider from "@/providers/tanstack-provider";
 
 import "./globals.css";
-import Footer from "@/components/general/footer/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +47,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1 relative">{children}</main>
             <Footer />
-            <SheetSide />
+            <OverlaySection />
             <Toaster />
           </body>
         </html>

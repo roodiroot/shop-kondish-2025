@@ -1,13 +1,65 @@
-import { Filters } from "@/types/catalog";
-import ItemBaseFilter from "./item-base-filter";
-import OpenFilters from "../open-filters/open-filters";
-import PriceFilter from "./price-filter";
+"use client";
 
-interface BlockFiltersProps extends React.HTMLAttributes<HTMLDivElement> {
-  filters?: Filters;
+import { Filters } from "@/types/catalog";
+
+import OpenFilters from "./open-filters";
+import AllFiltersList from "./all-filters-list";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import FiltersSheetWrapper from "@/components/general/sort-and-filters.tsx/filters-sheet-wrapper";
+import Link from "next/link";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
+
+interface TypeItem {
+  slug: string;
+  name: string;
 }
-const BlockFilters: React.FC<BlockFiltersProps> = ({ filters }) => {
-  // console.log("FILTERS");
+
+interface BlockFiltersProps<T extends TypeItem>
+  extends React.HTMLAttributes<HTMLDivElement> {
+  filters?: Filters;
+  dataList?: T[];
+  href?: string;
+}
+
+const BlockFilters: React.FC<BlockFiltersProps<TypeItem>> = ({
+  filters,
+  dataList,
+  href,
+}) => {
+  const isDesctop = useMediaQuery("(min-width: 768px)");
+
+  if (!isDesctop) {
+    return (
+      <FiltersSheetWrapper>
+        <aside>
+          <h2 className="sr-only">Фильтры</h2>
+          <div className="block md:hidden">
+            {/* Открытые блоки фильтров */}
+            <OpenFilters filters={filters} />
+
+            {/* Категории в котоых могут быть товары */}
+            {dataList?.length ? (
+              <div className="flex flex-col gap-2 mb-8">
+                {dataList?.map((i) => (
+                  <Link
+                    href={href ? `${href}/${i.slug}` : ""}
+                    key={i.name}
+                    className=""
+                  >
+                    {i.name}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+
+            {/* Все фильтры */}
+            <AllFiltersList filters={filters} />
+          </div>
+        </aside>
+      </FiltersSheetWrapper>
+    );
+  }
+
   return (
     <aside>
       <h2 className="sr-only">Фильтры</h2>
@@ -15,26 +67,24 @@ const BlockFilters: React.FC<BlockFiltersProps> = ({ filters }) => {
         {/* Открытые блоки фильтров */}
         <OpenFilters filters={filters} />
 
+        {/* Категории в котоых могут быть товары */}
+        {dataList?.length ? (
+          <div className="flex flex-col gap-2 mb-8">
+            {dataList?.map((i) => (
+              <Link
+                href={href ? `${href}/${i.slug}` : ""}
+                key={i.name}
+                className="flex gap-2 items-center"
+              >
+                {i.name}
+                <ChevronRightIcon className="size-3" />
+              </Link>
+            ))}
+          </div>
+        ) : null}
+
         {/* Все фильтры */}
-        <div className="space-y-8 ">
-          {filters &&
-            Object.entries(filters).map(([key, { label, values }]) => {
-              if (!values.length || values.length === 1) {
-                return null;
-              }
-              if (key === "price") {
-                return <PriceFilter key={key} values={values} />;
-              }
-              return (
-                <ItemBaseFilter
-                  key={key}
-                  keyFilter={key}
-                  label={label}
-                  values={values}
-                />
-              );
-            })}
-        </div>
+        <AllFiltersList filters={filters} />
       </div>
     </aside>
   );

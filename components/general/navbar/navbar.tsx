@@ -1,14 +1,16 @@
-import { navigation, Page } from "@/navigation";
-import Logo from "@/components/general/navbar/logo";
-import Menu from "@/components/general/navbar/menu";
-import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
-import BurgerMenu from "@/components/general/navbar/burger-menu";
-import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
-import { Brand, getAllBrands, getAllCategory } from "@/data/api";
 import {
   groupByProductCatalog,
   GroupedCatalog,
 } from "@/utils/group-by-product-catalog";
+import { navigation, Page } from "@/navigation";
+import { Brand, getAllBrands, getAllCategory } from "@/data/api";
+
+import MobilMenu from "./mobil-menu/mobil-menu";
+import Favorites from "./favorites-icon/favorites";
+import Menu from "@/components/general/navbar/menu";
+import Logo from "@/components/general/navbar/logo";
+import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
+import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
 
 export interface CatalogForNavbar {
   category: GroupedCatalog[];
@@ -39,18 +41,24 @@ export default async function Navbar() {
         >
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
-              <BurgerMenu />
+              <MobilMenu navigation={catalog} />
 
               {/* Logo */}
-              <Logo className="ml-4 lg:ml-0" />
+              <div className="">
+                <Logo className="ml-4 lg:ml-0" />
+              </div>
+
               {/* Flyout menus */}
               <Menu navigation={catalog} />
-              <div className="ml-auto flex items-center">
+              <div className="ml-auto flex items-center gap-x-2">
                 {/* Auth */}
                 <AuthComponentNavbar />
 
+                {/* Favorites */}
+                <Favorites />
+
                 {/* Cart */}
-                <CartNavbar className="ml-4 lg:ml-6" />
+                <CartNavbar />
               </div>
             </div>
           </div>

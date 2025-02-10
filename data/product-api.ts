@@ -70,6 +70,20 @@ export const getAllProductsCart = async (
   return await getAllProducts(`?${params}&populate=*`);
 };
 
+// Получаем все избранные товары
+export const getAllProductsFavorites = async (
+  favorites: number[],
+  string_params?: string
+): Promise<ProductsData> => {
+  // Формируем строку параметров для фильтров
+  const params = favorites
+    .map((id, index) => `[filters][id][$in][${index}]=${id}`)
+    .join("&");
+
+  // Вызываем getAllProducts с параметрами
+  return await getAllProducts(`?${params}&${string_params}&populate=*`);
+};
+
 //Получаем все товары по массиву их Id
 export const getAllProductsBySlug = async (
   ids: string[]

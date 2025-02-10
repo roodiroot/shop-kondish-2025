@@ -7,16 +7,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useFetchProducts } from "@/queries/products";
 import { getFiltersFromQueryString } from "@/utils/filters";
 
-import SortForCatalog from "@/components/product-catalog/catalog/sort-for-catalog";
+import SortForCatalog from "@/components/product-catalog/catalog/sort-and-filterls.tsx/sort-for-catalog";
 import ProductCard from "@/components/product-catalog/catalog/list-products/product-card";
 import PaginationBlock from "@/components/product-catalog/catalog/pagination/pagination-block";
 
 interface ListProductsProps extends React.HTMLAttributes<HTMLDivElement> {
   string_params?: string;
+  isFiltersButton?: boolean;
 }
 
 export const ListProducts: React.FC<ListProductsProps> = ({
   string_params,
+  isFiltersButton,
 }) => {
   const searchParams = useSearchParams();
 
@@ -32,7 +34,10 @@ export const ListProducts: React.FC<ListProductsProps> = ({
 
   return (
     <section className="md:col-span-2 xl:col-span-3">
-      <SortForCatalog all_count={data?.meta?.pagination?.total} />
+      <SortForCatalog
+        all_count={data?.meta?.pagination?.total}
+        isFiltersButton={isFiltersButton}
+      />
       <h2 id="product-heading" className="sr-only">
         Товары
       </h2>
