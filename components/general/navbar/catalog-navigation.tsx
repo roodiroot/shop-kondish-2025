@@ -1,15 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Brand } from "@/data/api";
 import { GroupedCatalog } from "@/utils/group-by-product-catalog";
+import { AlignJustify } from "lucide-react";
 
 interface CatalogNavigationProps extends React.HTMLAttributes<HTMLDivElement> {
   category: GroupedCatalog[];
@@ -20,75 +15,57 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({
   category,
   brands,
 }) => {
-  const [open, setOpen] = useState(false);
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button className="p-0 flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-          Каталог
-        </button>
-      </PopoverTrigger>
-      <PopoverContent className="p-0 w-full">
-        <ul className="flex gap-10 p-10">
-          <li>
+    <div className="relative group">
+      <button className="px-3 py-1 bg-primary/20 h-8 rounded-sm p-0 flex items-center text-sm text-primary font-bold">
+        Каталог
+        <AlignJustify className="w-5 h-5 ml-2" />
+      </button>
+      <ul className="absolute hidden group-hover:flex bg-white shadow-lg py-4 rounded-lg z-10 gap-10 p-10">
+        <li>
+          <Link
+            href="/catalog/brands"
+            className="text-sm font-bold text-gray-900 hover:text-primary"
+          >
+            Бренды
+          </Link>
+          <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
+            {brands.map((i) => (
+              <li key={i.slug}>
+                <Link
+                  className="hover:text-primary"
+                  href={`/catalog/brands/${i.slug}`}
+                >
+                  {i.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </li>
+        {category.map((i) => (
+          <li key={i.name}>
             <Link
-              onClick={() => setOpen(false)}
-              href="/catalog/brands"
-              className="text-sm font-medium text-gray-900"
+              href={`/catalog/${i.slug}`}
+              className="text-sm font-bold hover:text-primary text-gray-900 whitespace-nowrap"
             >
-              Бренды
+              {i.name}
             </Link>
             <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
-              {brands.map((i) => (
-                <li key={i.slug}>
+              {i.category.map((j) => (
+                <li key={j.slug}>
                   <Link
-                    onClick={() => setOpen(false)}
-                    href={`/catalog/brands/${i.slug}`}
+                    className="hover:text-primary"
+                    href={`/catalog/${i.slug}/${j.slug}`}
                   >
-                    {i.name}
+                    {j.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </li>
-          {category.map((i) => (
-            <li key={i.name}>
-              <Link
-                href={`/catalog/${i.slug}`}
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium text-gray-900 whitespace-nowrap"
-              >
-                {i.name}
-              </Link>
-              <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
-                {i.category.map((j) => (
-                  <li key={j.slug}>
-                    <Link
-                      onClick={() => setOpen(false)}
-                      href={`/catalog/${i.slug}/${j.slug}`}
-                    >
-                      {j.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </PopoverContent>
-    </Popover>
-    // <NavigationMenu>
-    //   <NavigationMenuList>
-    //     <NavigationMenuItem>
-    //       <NavigationMenuTrigger className="p-0 flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-    //         Каталог
-    //       </NavigationMenuTrigger>
-    //       <NavigationMenuContent>
-
-    //       </NavigationMenuContent>
-    //     </NavigationMenuItem>
-    //   </NavigationMenuList>
-    // </NavigationMenu>
+        ))}
+      </ul>
+    </div>
   );
 };
 

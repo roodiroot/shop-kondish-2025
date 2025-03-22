@@ -21,7 +21,6 @@ export const ListProducts: React.FC<ListProductsProps> = ({
   isFiltersButton,
 }) => {
   const searchParams = useSearchParams();
-
   // Создание строки URL для API
   const string = getFiltersFromQueryString(searchParams.toString());
   const { data, isError, isLoading } = useFetchProducts(

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
   requestResetPasswordSchema,
   resetPasswordSchema,
@@ -8,9 +9,6 @@ import {
   ProductCatalog,
   ProductCatalogData,
 } from "@/types/catalog";
-import { z } from "zod";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
 export interface UserAuth {
   id: number;
@@ -51,6 +49,8 @@ interface Pagination {
 interface Meta {
   pagination: Pagination; // Информация о пагинации
 }
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
 // Словарь ошибок для перевода на русский
 const errorDictionary: Record<string, string> = {

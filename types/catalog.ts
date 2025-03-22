@@ -31,6 +31,7 @@ export interface ImageForProduct {
   width: number;
   height: number;
   formats: {
+    large: ImageFormat;
     small: ImageFormat;
     thumbnail: ImageFormat;
   };
@@ -95,30 +96,31 @@ export interface Product {
   documentId: string;
   name: string;
   slug: string;
-  description: string | null;
+  description?: string | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  area_of_room: string;
-  energy_efficiency_class: string;
-  compressor_type: string;
-  noise_level: string;
-  wifi_availability: string;
-  series: string;
-  heating_power: string;
-  cooling_power: string;
-  country_of_manufacturer: string;
-  warranty_period: string;
-  refrigerant: string;
-  max_pipe_length: string | null;
-  cooling_capacity: string | null;
-  color: string;
-  price: string;
-  old_price: string | null;
-  images: ImageForProduct[] | null;
-  category: Category;
-  brand: Brand;
-  popularity: number;
+  area_of_room?: string;
+  energy_efficiency_class?: string;
+  compressor_type?: string;
+  noise_level?: string;
+  wifi_availability?: string;
+  series?: string;
+  sale?: number;
+  heating_power?: string;
+  cooling_power?: string;
+  country_of_manufacturer?: string;
+  warranty_period?: string;
+  refrigerant?: string;
+  max_pipe_length?: string | null;
+  cooling_capacity?: string | null;
+  color?: string;
+  price?: string;
+  old_price?: string | null;
+  images?: ImageForProduct[] | null;
+  category?: Category;
+  brand?: Brand;
+  popularity?: number;
 }
 
 export interface ProductsData {
@@ -133,4 +135,44 @@ export interface FilterOption {
 
 export interface Filters {
   [key: string]: FilterOption; // Ключевое поле, описывающее каждый фильтр
+}
+
+// REVIEWS
+
+export interface Reviews {
+  documentId: string;
+  author: string;
+  grade: number;
+  description: string;
+  createdAt: string;
+}
+
+// ARTICLE
+interface MetaArticle {
+  pagination: Pagination;
+}
+
+export interface ArticleData {
+  data: Article[];
+  meta: MetaArticle;
+}
+
+export interface Article {
+  slug: string;
+  documentId: string;
+  title: string;
+  subtitle?: string;
+  text?: string;
+  label?: string;
+  image?: ImageForProduct | null;
+  createdAt: string;
+}
+
+// QA
+
+export interface QA {
+  documentId: string;
+  question: string;
+  answer?: string;
+  link?: string;
 }

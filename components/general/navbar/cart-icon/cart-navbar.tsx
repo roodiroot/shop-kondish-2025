@@ -13,9 +13,9 @@ const CartNavbar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
       <Link href="/cart" className="group -m-2 flex items-center p-2">
         <ShoppingBagIcon
           aria-hidden="true"
-          className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
+          className="size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
         />
-        <div className="ml-1 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+        <div className="ml-1 text-sm font-bold text-gray-700 group-hover:text-gray-800">
           <CartCounter />
         </div>
         <span className="sr-only">items in cart, view bag</span>

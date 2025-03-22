@@ -18,6 +18,7 @@ import { useAuth } from "@/context/authcontext";
 import { toast } from "sonner";
 import Link from "next/link";
 import InputPassword from "@/components/ui/input-password";
+import RequiredField from "@/components/ui/required-field";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {
   switchForm: (value: "LOGIN" | "REGISTER") => void;
@@ -59,17 +60,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-3">
         <FormField
           control={form.control}
           name="identifier"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Электронная почта / Логин</FormLabel>
+              <FormLabel className="font-bold">
+                Электронная почта / Логин
+                <RequiredField />
+              </FormLabel>
               <FormControl>
                 <Input {...field} placeholder="m@example.com" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -79,11 +83,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center">
-                <FormLabel>Пароль</FormLabel>
+                <FormLabel className="font-bold">
+                  Пароль
+                  <RequiredField />
+                </FormLabel>
                 <Link
                   onClick={() => onCloseSheet && onCloseSheet()}
                   href="request-password-reset"
-                  className="ml-auto text-sm underline-offset-2 hover:underline"
+                  className="ml-auto text-xs underline-offset-2 hover:underline"
                 >
                   Забыли пароль?
                 </Link>
@@ -91,18 +98,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
               <FormControl>
                 <InputPassword {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full font-bold">
           Войти
         </Button>
-        <div className="text-center text-sm">
+        <div className="text-xs">
           Нет аккаунта?{" "}
           <span
             onClick={() => switchForm("REGISTER")}
-            className="underline underline-offset-4 cursor-pointer"
+            className="underline underline-offset-4 font-bols text-primary cursor-pointer"
           >
             Создайте его!
           </span>

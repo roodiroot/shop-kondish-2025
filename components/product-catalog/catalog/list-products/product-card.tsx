@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -60,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className="absolute inset-0 bg-gray-400/5"></div>
       </div>
-      <div className="absolute top-2 left-2">
+      <div className="absolute top-0.5 left-0.5">
         <button
           onClick={
             !!favorites.find((i) => i === product.id)
@@ -77,9 +79,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           />
         </button>
       </div>
+      {product?.sale ? (
+        <div className="absolute top-2 right-2 bg-rose-100 rounded-sm font-bold py-1 px-3 text-xs text-rose-500">
+          -{product?.sale}%
+        </div>
+      ) : null}
       <div className="p-4 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
-          <p className="text-gray-500 text-sm italic">{product?.brand.name}</p>
+          <p className="text-gray-500 text-sm italic">{product?.brand?.name}</p>
           <h3 className="text-sm font-medium text-gray-900">
             <Link href={`/product/${slug}`}>{name}</Link>
           </h3>
@@ -115,7 +122,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <span className="pr-2 border-r border-white/40">
                   {new Intl.NumberFormat("ru-RU").format(
-                    Number(product?.price)
+                    Number(
+                      product?.sale
+                        ? Number(product.price) -
+                            Number(product.price) * (product?.sale / 100)
+                        : product.price
+                    )
                   )}{" "}
                   р.
                 </span>

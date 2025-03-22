@@ -1,12 +1,47 @@
-import Link from "next/link";
+import { Metadata } from "next";
 
-export default function Home() {
+import { getQA } from "@/data/qa-api";
+import { getArticles } from "@/data/article-api";
+import { getReviews } from "@/data/reviews-api";
+import { getAllProducts } from "@/data/product-api";
+import { getHeroScreens } from "@/data/hero-screen-api";
+
+import QASection from "@/components/pages/hero-page-components/qa-section/qa-section";
+import BlogSection from "@/components/pages/hero-page-components/blog-section/blog-section";
+import HeroSection from "@/components/pages/hero-page-components/hero-section/hero-section";
+import ReviewsSection from "@/components/pages/hero-page-components/reviews-section/reviews-section";
+import SaleProductsSection from "@/components/pages/hero-page-components/sale-products-section/sale-products-section";
+import { getHeroPage } from "@/data/pages/hero-page-api";
+import AboutSection from "@/components/pages/hero-page-components/about-section/about-section";
+
+export const metadata: Metadata = {
+  title: "Kondish — работаем честно",
+  description:
+    "Kondish — более 10 лет на рынке климатической техники. Честные цены, профессиональный подбор, установка и обслуживание кондиционеров.",
+  icons: "/kondish.svg",
+};
+
+export default async function Home() {
+  // получаем блок героя
+  const heroScreens = await getHeroScreens();
+  // получаем блок о компании
+  const content = await getHeroPage();
+  // получаем товары со скидками
+  const productsSale = await getAllProducts("?filters[sale][$gt]=0&populate=*");
+  // получаем отзывы
+  const reviews = (await getReviews()) || [];
+  // получаем статьи
+  const articles = await getArticles({ limit: 10 });
+  // получаем вопросы, важно не более 5 - 6
+  const qaes = (await getQA({ limit: 5 })) || [];
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      Home
-      <Link href="/protected/profile" className="text-primary">
-        В профиль
-      </Link>
-    </div>
+    <>
+      <HeroSection heroScreens={heroScreens} />
+      <SaleProductsSection products={productsSale.data} />
+      <AboutSection content={content?.aboutContent} />
+      <ReviewsSection reviews={reviews} />
+      <BlogSection articles={articles?.data} />
+      <QASection qaes={qaes} />
+    </>
   );
 }

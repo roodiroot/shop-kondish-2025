@@ -10,8 +10,8 @@ const Favorites: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   return (
     <div {...props} className={cn("flow-root", className)}>
       <Link href="/favorites" className="group -m-2 flex items-center p-2">
-        <HeartIcon className="size-6 text-gray-400 group-hover:text-gray-500" />
-        <div className="ml-1 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+        <HeartIcon className="size-5 text-gray-400 group-hover:text-gray-500" />
+        <div className="ml-1 text-sm font-bold text-gray-700 group-hover:text-gray-800">
           <FavoritesCounter />
         </div>
         <span className="sr-only">items in favorites, view bag</span>

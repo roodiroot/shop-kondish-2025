@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "../logo";
 import { CatalogForNavbar } from "../navbar";
 import { Button } from "@/components/ui/button";
+import FButton from "../../fbutton";
 
 interface MobilMenuBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   closeDrawer: (value: boolean) => void;
@@ -40,16 +41,50 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
                 </Link>
               </li>
             ))}
-            {navigation.staticPage.map((page) => (
-              <li key={page.name} className="text-sm font-semibold text-white">
-                <Link onClick={() => closeDrawer(false)} href={page.href}>
-                  {page.name}
-                </Link>
-              </li>
-            ))}
+            {navigation.staticPage.map((page) => {
+              if (page.href) {
+                return (
+                  <li
+                    key={page.name}
+                    className="text-sm font-semibold text-white"
+                  >
+                    <Link onClick={() => closeDrawer(false)} href={page.href}>
+                      {page.name}
+                    </Link>
+                  </li>
+                );
+              } else if (page.pages?.length) {
+                return (
+                  <li
+                    key={page.name}
+                    className="text-sm font-semibold text-white"
+                  >
+                    {page.name}
+                    <ul className="flex flex-col gap-2 pl-4">
+                      {page.pages.map((subPage) => (
+                        <li
+                          key={subPage.name}
+                          className="text-sm font-semibold text-white"
+                        >
+                          <Link
+                            onClick={() => closeDrawer(false)}
+                            href={subPage.href}
+                          >
+                            {subPage.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              }
+            })}
           </ul>
-          <Button className="w-full mt-5 shadow-none border-white border font-semibold text-xs">
-            Консультация
+          <Button
+            asChild
+            className="w-full mt-5 shadow-none border-white border font-semibold text-xs"
+          >
+            <FButton>Консультация</FButton>
           </Button>
         </div>
         <div className="px-4 py-8 max-w-xs space-y-4">

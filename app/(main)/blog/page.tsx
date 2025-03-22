@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 
 import BaseContainer from "@/components/general/containers/base-container";
+import { getArticles } from "@/data/article-api";
+import Breadcrumbs from "@/components/general/breadcrumbs/breadcrumbs";
+import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
+import BlogSectionForBlogPage from "@/components/pages/blog/blog-section-for-blog-page";
+
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export const metadata: Metadata = {
   title: "Полезные статьи",
@@ -9,10 +16,31 @@ export const metadata: Metadata = {
   icons: "/kondish.svg",
 };
 
-export default async function Blog() {
+export default async function Blog(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const searchParams = await props.searchParams;
+  const queryString = new URLSearchParams(
+    searchParams as Record<string, string>
+  ).toString();
+
+  // получаем статьи
+  const limit = 4;
+  const articles = await getArticles({ queryString, limit });
+
   return (
-    <BaseContainer>
-      <div className="flex flex-row gap-4 py-6 w-full">Blog</div>
-    </BaseContainer>
+    <div>
+      <Breadcrumbs
+        breadcrumbMap={{
+          blog: "Блог",
+        }}
+      />
+      <BaseContainer>
+        {/* Блок оглавление страницы */}
+        <HeadCatalog name="Блог" />
+        <BlogSectionForBlogPage articlesData={articles} />
+      </BaseContainer>
+    </div>
   );
 }

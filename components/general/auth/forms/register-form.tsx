@@ -19,6 +19,7 @@ import { registrationFormSchema } from "@/schema/auth-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import InputPassword from "@/components/ui/input-password";
+import RequiredField from "@/components/ui/required-field";
 
 interface RegisterFormProps extends React.HTMLAttributes<HTMLFormElement> {
   switchForm: (value: "LOGIN" | "REGISTER") => void;
@@ -65,20 +66,23 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-3">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Логин</FormLabel>
+              <FormLabel className="font-bold">
+                Логин
+                <RequiredField />
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
               <FormDescription>
                 Придумайте уникальное имя пользователя (не менее 2 символов).
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -87,14 +91,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Электронная почта</FormLabel>
+              <FormLabel className="font-bold">
+                Электронная почта
+                <RequiredField />
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
               <FormDescription>
                 Введите действующий адрес электронной почты.
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -103,14 +110,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Пароль</FormLabel>
+              <FormLabel className="font-bold">
+                Пароль
+                <RequiredField />
+              </FormLabel>
               <FormControl>
                 <InputPassword {...field} />
               </FormControl>
               <FormDescription>
                 Придумайте пароль (минимум 8 символов, буквы, цифры, символы).
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -119,23 +129,28 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Подтверждение пароля</FormLabel>
+              <FormLabel className="font-bold">
+                Подтверждение пароля
+                <RequiredField />
+              </FormLabel>
               <FormControl>
                 <InputPassword {...field} />
               </FormControl>
-              <FormDescription>Введите пароль ещё раз.</FormDescription>
+              <FormDescription className="text-xs">
+                Введите пароль ещё раз.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full font-bold">
           Войти
         </Button>
-        <div className="text-center text-sm">
+        <div className="text-xs">
           Уже есть аккаунт?{" "}
           <span
             onClick={() => switchForm("LOGIN")}
-            className="underline underline-offset-4 cursor-pointer"
+            className="underline underline-offset-4 font-bols text-primary cursor-pointer"
           >
             Войти
           </span>

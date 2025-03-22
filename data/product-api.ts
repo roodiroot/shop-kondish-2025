@@ -17,16 +17,13 @@ export const getProductBySlug = async (slug: string): Promise<Product> => {
 };
 
 export const getAllProducts = async (params: string): Promise<ProductsData> => {
+  // console.log("HELLO", params);
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products${params}`,
     {
       method: "GET",
     }
   );
-  // console.log(
-  //   "API",
-  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products${params}`
-  // );
   return await data.json();
 };
 

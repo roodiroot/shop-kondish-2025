@@ -21,7 +21,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onCloseSheet }) => {
     case "LOGIN":
       return (
         <>
-          <SheetHeader className="flex flex-col items-center text-center">
+          <SheetHeader className="flex flex-col">
             <SheetTitle className="text-2xl font-bold">
               Авторизоваться
             </SheetTitle>
@@ -38,7 +38,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onCloseSheet }) => {
     case "REGISTER":
       return (
         <>
-          <SheetHeader className="flex flex-col items-center text-center">
+          <SheetHeader className="flex flex-col">
             <SheetTitle className="text-2xl font-bold">
               Создайте аккаунт
             </SheetTitle>

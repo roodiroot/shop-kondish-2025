@@ -15,7 +15,7 @@ import AuthComponentNavbar from "@/components/general/navbar/auth-component-navb
 export interface CatalogForNavbar {
   category: GroupedCatalog[];
   brands: Brand[];
-  staticPage: Page[];
+  staticPage: { name: string; pages?: Page[]; href?: string }[];
 }
 
 export default async function Navbar() {
@@ -50,7 +50,11 @@ export default async function Navbar() {
 
               {/* Flyout menus */}
               <Menu navigation={catalog} />
-              <div className="ml-auto flex items-center gap-x-2">
+
+              <div className="ml-auto flex items-center gap-x-2 md:gap-x-4">
+                <div className="hidden sm:block ml-auto font-bold text-sm">
+                  <a href="tel:74956752555">+7 (495) 675-25-55</a>
+                </div>
                 {/* Auth */}
                 <AuthComponentNavbar />
 

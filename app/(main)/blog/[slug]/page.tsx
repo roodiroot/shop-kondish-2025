@@ -1,11 +1,10 @@
 import type { Metadata, ResolvingMetadata } from "next";
 
-import { getBrandForSlug } from "@/data/api";
-import { getAllProducts } from "@/data/product-api";
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
-import SortForCatalog from "@/components/product-catalog/catalog/sort-and-filterls.tsx/sort-for-catalog";
-import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
+import { getArticleBySlug } from "@/data/article-api";
+import Image from "next/image";
+import BlogContent from "@/components/pages/blog/blog-page/content-blog";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,41 +16,42 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const slug = (await params).slug;
-  const brand = await getBrandForSlug(slug);
-  const previousImages = (await parent).openGraph?.images || [];
-
+  const article = await getArticleBySlug(slug);
   return {
-    title: brand.name,
-    description: `Устанавливаем климатическую технику ${brand.name} более 12 лет в Мосскве и области.`,
-    openGraph: {
-      images: ["/kondish.svg", ...previousImages],
-    },
+    title: article?.title,
+    description: article?.subtitle,
   };
 }
 
-export default async function Brand({ params }: Props) {
+export default async function AriclePage({ params }: Props) {
   const slug = (await params).slug;
-  const brand = await getBrandForSlug(slug);
-  const products = await getAllProducts(
-    `filters[brand][slug]=${slug}&populate=*`
-  );
+  const article = await getArticleBySlug(slug);
 
-  const datafilters = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter`,
-    {
-      method: "GET",
-    }
-  );
-
-  const filters = await datafilters.json();
+  if (!article) {
+    return (
+      <BaseContainer>
+        <div className="pt-10 pb-8">Такой статьи не найдено!</div>
+      </BaseContainer>
+    );
+  }
 
   return (
     <BaseContainer>
-      <HeadCatalog name={brand.name} />
-      <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">
-        <SortForCatalog all_count={products?.meta?.pagination?.total} />
-        <BlockFilters filters={filters} />
+      <div className="pt-10 pb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          {article.title}
+        </h1>
       </div>
+      <div className="relative w-full aspect-[1.5/2] sm:aspect-[2/1] lg:aspect-[2.4/1] bg-gray-100 rounded-lg">
+        <Image
+          width={1200}
+          height={400}
+          className="absolute w-full h-full object-cover"
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${article.image?.formats.large.url}`}
+          alt=""
+        />
+      </div>
+      <BlogContent className="mt-8" content={article?.text} />
     </BaseContainer>
   );
 }
