@@ -41,6 +41,17 @@ export default function RootLayout({
     <AuthProvider>
       <TanstackProvider>
         <html lang="ru">
+          <head>
+            {/* Подключение скриптов */}
+            {/* <Script
+              src="https://lidrekon.ru/slep/js/jquery.js"
+              strategy="beforeInteractive"
+            />
+            <Script
+              src="https://lidrekon.ru/slep/js/uhpv-full.min.js"
+              strategy="afterInteractive"
+            /> */}
+          </head>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
           >

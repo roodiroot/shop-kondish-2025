@@ -1,4 +1,3 @@
-import { Icon } from "@/components/ui/icon";
 import { Reviews } from "@/types/catalog";
 import ReviewsItem from "./reviews-item";
 

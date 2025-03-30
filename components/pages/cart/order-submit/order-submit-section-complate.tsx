@@ -1,7 +1,11 @@
 import OrderSubmitWrapper from "./order-submit-wrapper";
 import CartItemBasket from "../product-list/cart-item-basket";
+import { Product } from "@/types/catalog";
 
-import { ProductWithCount } from "@/app/(main)/cart/order-success/page";
+export interface ProductWithCount {
+  product: Product;
+  count: number;
+}
 
 interface OrderSummarySectionComplateProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,8 +29,8 @@ const OrderSummarySectionComplate: React.FC<
           key={item.product.id}
           slug={item.product.slug}
           name={item.product.name}
-          brandName={item.product.brand.name}
-          categoryName={item.product.category.name}
+          brandName={item.product?.brand?.name}
+          categoryName={item.product.category?.name}
           image={
             item?.product?.images?.length
               ? item?.product?.images[0]?.formats.small.url

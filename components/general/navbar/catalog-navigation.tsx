@@ -7,8 +7,8 @@ import { GroupedCatalog } from "@/utils/group-by-product-catalog";
 import { AlignJustify } from "lucide-react";
 
 interface CatalogNavigationProps extends React.HTMLAttributes<HTMLDivElement> {
-  category: GroupedCatalog[];
-  brands: Brand[];
+  category?: GroupedCatalog[];
+  brands?: Brand[];
 }
 
 const CatalogNavigation: React.FC<CatalogNavigationProps> = ({
@@ -30,7 +30,7 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({
             Бренды
           </Link>
           <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
-            {brands.map((i) => (
+            {brands?.map((i) => (
               <li key={i.slug}>
                 <Link
                   className="hover:text-primary"
@@ -42,28 +42,34 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({
             ))}
           </ul>
         </li>
-        {category.map((i) => (
-          <li key={i.name}>
-            <Link
-              href={`/catalog/${i.slug}`}
-              className="text-sm font-bold hover:text-primary text-gray-900 whitespace-nowrap"
-            >
-              {i.name}
-            </Link>
-            <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
-              {i.category.map((j) => (
-                <li key={j.slug}>
-                  <Link
-                    className="hover:text-primary"
-                    href={`/catalog/${i.slug}/${j.slug}`}
-                  >
-                    {j.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
+        {category?.map((i) => {
+          if (i.available === false) return null;
+          return (
+            <li key={i.name}>
+              <Link
+                href={`/catalog/${i.slug}`}
+                className="text-sm font-bold hover:text-primary text-gray-900 whitespace-nowrap"
+              >
+                {i.name}
+              </Link>
+              <ul className="mt-4 space-y-4 text-sm text-gray-500 whitespace-nowrap">
+                {i.category.map((j) => {
+                  if (j.available === false) return null;
+                  return (
+                    <li key={j.slug}>
+                      <Link
+                        className="hover:text-primary"
+                        href={`/catalog/${i.slug}/${j.slug}`}
+                      >
+                        {j.name}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

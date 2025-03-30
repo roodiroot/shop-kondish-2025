@@ -96,8 +96,8 @@ const OrderSummarySection = () => {
               productId={item.product.id}
               name={item.product.name}
               slug={item.product.slug}
-              brandName={item.product.brand.name}
-              categoryName={item.product.category.name}
+              brandName={item.product.brand?.name}
+              categoryName={item.product.category?.name}
               image={
                 item?.product?.images?.length
                   ? item?.product?.images[0]?.formats.small.url

@@ -54,6 +54,9 @@ export function getFiltersFromQueryString(queryString: string): FilterString {
     }
   }
 
+  // // Убираем товары с available = false
+  // filters.push("filters[available]=true");
+
   // Handle pagination (page and pageSize)
   if (!page) {
     page = "1"; // Default page is 1

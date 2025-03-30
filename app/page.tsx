@@ -27,7 +27,10 @@ export default async function Home() {
   // получаем блок о компании
   const content = await getHeroPage();
   // получаем товары со скидками
-  const productsSale = await getAllProducts("?filters[sale][$gt]=0&populate=*");
+  const productsSale = await getAllProducts(
+    "?filters[available]=true&filters[sale][$gt]=0&populate=*"
+  );
+
   // получаем отзывы
   const reviews = (await getReviews()) || [];
   // получаем статьи
@@ -37,7 +40,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection heroScreens={heroScreens} />
-      <SaleProductsSection products={productsSale.data} />
+      <SaleProductsSection products={productsSale?.data} />
       <AboutSection content={content?.aboutContent} />
       <ReviewsSection reviews={reviews} />
       <BlogSection articles={articles?.data} />

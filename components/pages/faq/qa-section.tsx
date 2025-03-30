@@ -4,6 +4,7 @@ import QABlock from "@/components/pages/hero-page-components/qa-section/qa-block
 
 import { QA } from "@/types/catalog";
 import FButton from "@/components/general/fbutton";
+import { Suspense } from "react";
 
 interface QASectionProps {
   qaes?: QA[];
@@ -23,9 +24,11 @@ const QASectionForPageQA: React.FC<QASectionProps> = ({ qaes }) => {
             связи. Наши специалисты с удовольствием перезвонят и помогут во всем
             разобратся.
           </div>
-          <Button asChild className=" mt-4">
-            <FButton>Помощь менеджера</FButton>
-          </Button>
+          <Suspense>
+            <Button asChild className=" mt-4">
+              <FButton>Помощь менеджера</FButton>
+            </Button>
+          </Suspense>
         </div>
       </div>
     </div>

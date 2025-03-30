@@ -1,4 +1,4 @@
-import { Article, ArticleData } from "@/types/catalog";
+import { ArticleData } from "@/types/catalog";
 
 import BlogPreview from "../hero-page-components/blog-section/blog-preview";
 import PaginationBlockServer from "@/components/product-catalog/catalog/pagination/pagination-block-server";

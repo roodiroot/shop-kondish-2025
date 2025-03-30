@@ -47,19 +47,22 @@ export const ListProducts: React.FC<ListProductsProps> = ({
                 <Skeleton className="w-full h-full" />
               </div>
             ))
-          : data?.data?.map((i: Product) => (
-              <ProductCard
-                key={i.slug}
-                name={i.name}
-                slug={i.slug}
-                imagePrevievUrl={
-                  i?.images?.length
-                    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${i.images[0].formats.small.url}`
-                    : null
-                }
-                product={i}
-              />
-            ))}
+          : data?.data?.map((i: Product) => {
+              const path = i?.images?.length ? i?.images[0]?.url : undefined;
+              return (
+                <ProductCard
+                  key={i.slug}
+                  name={i.name}
+                  slug={i.slug}
+                  imagePrevievUrl={
+                    path
+                      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`
+                      : null
+                  }
+                  product={i}
+                />
+              );
+            })}
       </div>
       <PaginationBlock pagination={data?.meta?.pagination} />
     </section>

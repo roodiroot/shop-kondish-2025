@@ -14,7 +14,8 @@ const eslintConfig = [
   {
     rules: {
       "@typescript-eslint/no-empty-object-type": "off", // Отключаем правило пустых интерфейсов
-      "react-hooks/exhaustive-deps": "off" // отключаем правило для массива useEffect
+      "react-hooks/exhaustive-deps": "off", // отключаем правило для массива useEffect
+      // "@typescript-eslint/no-unused-vars": "off" // Отключаем то что не используется !!!! Включить!!
     },
   },
 ];

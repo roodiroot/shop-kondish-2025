@@ -13,23 +13,23 @@ import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
 import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
 
 export interface CatalogForNavbar {
-  category: GroupedCatalog[];
-  brands: Brand[];
-  staticPage: { name: string; pages?: Page[]; href?: string }[];
+  category?: GroupedCatalog[];
+  brands?: Brand[];
+  staticPage?: { name: string; pages?: Page[]; href?: string }[];
 }
 
 export default async function Navbar() {
   const category = await getAllCategory();
   const brands = await getAllBrands();
 
-  const group = groupByProductCatalog(category.data);
-
+  // Group by product catalog
+  const group = groupByProductCatalog(category?.data);
   const catalog: CatalogForNavbar = {
     category: group,
-    brands: brands.data,
+    brands: brands?.data,
     staticPage: navigation.pages,
   };
-  // console.log(group);
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}

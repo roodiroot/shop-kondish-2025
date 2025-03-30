@@ -16,8 +16,10 @@ export const metadata: Metadata = {
 
 export default async function Catalog() {
   const productCatalog = await getAllProductCatalog();
+
+  const stringApiRespons = `filters[available]=true`;
   const datafilters = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter?${stringApiRespons}`,
     {
       method: "GET",
     }
@@ -36,7 +38,7 @@ export default async function Catalog() {
           dataList={productCatalog?.data}
           href={`/catalog`}
         />
-        <ListProducts isFiltersButton />
+        <ListProducts string_params={stringApiRespons} isFiltersButton />
       </div>
     </BaseContainer>
   );

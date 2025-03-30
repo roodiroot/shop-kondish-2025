@@ -27,21 +27,33 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
       <div className="h-full overflow-auto">
         <div className="px-4 py-8 border-b border-white/60">
           <ul className="flex flex-col gap-5">
-            {navigation.category.map((page) => (
+            {navigation?.category?.map((page) => {
+              if (page.available === false) return null;
+              return (
+                <li
+                  key={page.name}
+                  className="text-sm font-semibold text-white"
+                >
+                  <Link
+                    onClick={() => closeDrawer(false)}
+                    href={`/catalog/${page.slug}`}
+                  >
+                    {page.name}
+                  </Link>
+                </li>
+              );
+            })}
+            {navigation.brands?.map((page) => (
               <li key={page.name} className="text-sm font-semibold text-white">
-                <Link onClick={() => closeDrawer(false)} href={page.slug}>
+                <Link
+                  onClick={() => closeDrawer(false)}
+                  href={`/catalog/brands/${page.slug}`}
+                >
                   {page.name}
                 </Link>
               </li>
             ))}
-            {navigation.brands.map((page) => (
-              <li key={page.name} className="text-sm font-semibold text-white">
-                <Link onClick={() => closeDrawer(false)} href={page.slug}>
-                  {page.name}
-                </Link>
-              </li>
-            ))}
-            {navigation.staticPage.map((page) => {
+            {navigation.staticPage?.map((page) => {
               if (page.href) {
                 return (
                   <li

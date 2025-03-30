@@ -21,10 +21,10 @@ export default async function CatalogLayout({
   productCatalog.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
-  brands.data.forEach((element) => {
+  brands?.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
-  categories.data.forEach((element) => {
+  categories?.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
 

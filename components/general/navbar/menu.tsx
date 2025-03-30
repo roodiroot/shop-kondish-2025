@@ -17,10 +17,10 @@ const Menu: React.FC<MenuProps> = ({ navigation }) => {
     <div className="hidden lg:ml-8 lg:block lg:self-stretch">
       <div className="flex h-full space-x-4 items-center">
         <CatalogNavigation
-          category={navigation.category}
-          brands={navigation.brands}
+          category={navigation?.category}
+          brands={navigation?.brands}
         />
-        {navigation.staticPage.map((page) => {
+        {navigation.staticPage?.map((page) => {
           if (page.href) {
             return (
               <Link

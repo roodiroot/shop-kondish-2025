@@ -4,7 +4,6 @@ import {
   resetPasswordSchema,
 } from "@/schema/auth-schemas";
 import {
-  Category,
   CategoryData,
   ProductCatalog,
   ProductCatalogData,
@@ -240,7 +239,7 @@ export const getOneProductCatalogBySlug = async (
   slug: string
 ): Promise<ProductCatalog> => {
   const response = await fetch(
-    `${API_BASE_URL}/product-catalogs?filters[slug][$eq]=${slug}`
+    `${API_BASE_URL}/product-catalogs?[filters][available]=true&filters[slug][$eq]=${slug}`
   );
 
   if (!response.ok) {
@@ -254,15 +253,16 @@ export const getOneProductCatalogBySlug = async (
 
 export const getAllCategory = async (
   params?: string
-): Promise<CategoryData> => {
+): Promise<CategoryData | null> => {
   const response = await fetch(
-    `${API_BASE_URL}/categories?populate=*&${params}`
+    `${API_BASE_URL}/categories?[filters][available]=true&populate=*&${params}`
   );
 
   if (!response.ok) {
     const errorData = await response.json();
 
-    throw new Error(errorData.message || "Ошибка получения категорий");
+    // throw new Error(errorData.message || "Ошибка получения категорий");
+    return null;
   }
 
   return await response.json();
@@ -271,13 +271,14 @@ export const getAllCategory = async (
 export const getAllBrands = async (): Promise<{
   data: Brand[];
   meta: Meta;
-}> => {
+} | null> => {
   const response = await fetch(`${API_BASE_URL}/brands?populate=*`);
 
   if (!response.ok) {
     const errorData = await response.json();
 
-    throw new Error(errorData.message || "Ошибка получения брендов");
+    // throw new Error(errorData.message || "Ошибка получения брендов");
+    return null;
   }
 
   return await response.json();

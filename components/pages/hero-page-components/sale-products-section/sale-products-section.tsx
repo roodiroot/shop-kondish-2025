@@ -1,6 +1,5 @@
-import BaseContainer from "@/components/general/containers/base-container";
 import ProductsSaleCarousel from "./products-carousel";
-import BlockContainer from "@/components/general/containers/block-container";
+import BaseContainer from "@/components/general/containers/base-container";
 
 import { Product } from "@/types/catalog";
 

@@ -24,7 +24,12 @@ export const getAllProducts = async (params: string): Promise<ProductsData> => {
       method: "GET",
     }
   );
-  return await data.json();
+
+  const response = await data.json();
+
+  console.log(response);
+
+  return response;
 };
 
 //       views: 1, // Вес для просмотров

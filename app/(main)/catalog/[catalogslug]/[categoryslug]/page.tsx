@@ -6,6 +6,7 @@ import { ListProducts } from "@/components/product-catalog/catalog/list-products
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ categoryslug: string }>;
@@ -33,7 +34,7 @@ export async function generateMetadata(
 export default async function CategoryGroup({ params }: Props) {
   const slug = (await params).categoryslug;
   const category = await getCategoryBySlug(slug);
-  const stringApiRespons = `filters[category][slug]=${slug}`;
+  const stringApiRespons = `filters[category][slug]=${slug}&filters[available]=true`;
 
   const datafilters = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter?${stringApiRespons}`,
@@ -51,7 +52,9 @@ export default async function CategoryGroup({ params }: Props) {
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
         <BlockFilters filters={filters} />
-        <ListProducts string_params={stringApiRespons} isFiltersButton />
+        <Suspense>
+          <ListProducts string_params={stringApiRespons} isFiltersButton />
+        </Suspense>
       </div>
     </BaseContainer>
   );

@@ -44,7 +44,7 @@ const FavoritesList = () => {
                 slug={i.slug}
                 imagePrevievUrl={
                   i?.images?.length
-                    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${i.images[0].formats.small.url}`
+                    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${i.images[0].url}`
                     : null
                 }
                 product={i}

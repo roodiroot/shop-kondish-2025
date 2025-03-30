@@ -12,7 +12,6 @@ export function getFiltersFromQueryStringForArticle(
 
   let filters: string[] = [];
   let sortFilter: string | null = null;
-  const keysWithNull: Set<string> = new Set();
   let page: string | null = null;
   let pageSize: string | null = null;
 
@@ -29,6 +28,9 @@ export function getFiltersFromQueryStringForArticle(
       pageSize = decodeURIComponent(value);
     }
   }
+
+  // // Убираем товары с available = false
+  // filters.push("filters[available]=true");
 
   // Handle pagination (page and pageSize)
   if (!page) {

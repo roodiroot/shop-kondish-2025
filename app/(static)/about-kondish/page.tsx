@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { Metadata } from "next";
 
+import FeedbackBlock from "./feedback-block";
 import ContentMarkdown from "@/components/general/content-markdown";
 import Breadcrumbs from "@/components/general/breadcrumbs/breadcrumbs";
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
 
 import { getAboutPage } from "@/data/pages/about-page-api";
-import BlockContainer from "@/components/general/containers/block-container";
-import FeedbackBlock from "./feedback-block";
 
 export const metadata: Metadata = {
   title:
@@ -20,8 +19,6 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const content = await getAboutPage();
-
-  // console.log(content);
 
   return (
     <div>

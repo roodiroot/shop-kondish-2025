@@ -6,6 +6,7 @@ import { ListProducts } from "@/components/product-catalog/catalog/list-products
 import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
 import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ catalogslug: string }>;
@@ -35,7 +36,7 @@ export default async function CatalogGroup({ params }: Props) {
     `&filters[product_catalog][slug][$eq]=${slug}`
   );
 
-  const stringApiRespons = `filters[category][product_catalog][slug]=${slug}`;
+  const stringApiRespons = `filters[category][product_catalog][slug]=${slug}&filters[available]=true`;
   const datafilters = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter?${stringApiRespons}`,
     {
@@ -59,7 +60,9 @@ export default async function CatalogGroup({ params }: Props) {
           dataList={categories?.data}
           href={`/catalog/${slug}`}
         />
-        <ListProducts string_params={stringApiRespons} isFiltersButton />
+        <Suspense>
+          <ListProducts string_params={stringApiRespons} isFiltersButton />
+        </Suspense>
       </div>
     </BaseContainer>
   );

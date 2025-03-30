@@ -2,19 +2,26 @@ import Link from "next/link";
 
 import Logo from "../navbar/logo";
 import FButton from "../fbutton";
+import FooterLink from "./footer-link";
 import BaseContainer from "../containers/base-container";
 import BlockContainer from "../containers/block-container";
-import FooterLink from "./footer-link";
+import SubscribeForm from "../forms/footer/subscribe-form";
 
 import { Icon } from "@/components/ui/icon";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { aboutCompany, forCastomers } from "@/navigation";
-import SubscribeForm from "../forms/footer/subscribe-form";
+import { Suspense } from "react";
 
 const Footer = () => {
   return (
     <footer className="py-6">
+      {/* <img
+        id="specialButton"
+        style={{ cursor: "pointer" }}
+        src="https://lidrekon.ru/images/special.png"
+        alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"
+        title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"
+      /> */}
       <BlockContainer>
         <div className="grid grid-cols-4 gap-y-5 gap-x-4">
           {/* Контакты */}
@@ -78,9 +85,11 @@ const Footer = () => {
 
           {/* Обратная связь кнопка */}
           <div className="col-span-2 sm:col-span-1">
-            <Button size={"sm"} asChild className="font-semibold">
-              <FButton>Обратная связь</FButton>
-            </Button>
+            <Suspense>
+              <Button size={"sm"} asChild className="font-semibold">
+                <FButton>Обратная связь</FButton>
+              </Button>
+            </Suspense>
           </div>
 
           {/* Соцсети */}

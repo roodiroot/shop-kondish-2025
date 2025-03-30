@@ -53,6 +53,7 @@ export interface ProductCatalog {
   documentId: string;
   name: string;
   slug: string;
+  available: boolean | null;
   createdAt: string; // ISO 8601 format date string
   updatedAt: string; // ISO 8601 format date string
   publishedAt: string; // ISO 8601 format date string
@@ -69,6 +70,7 @@ export interface Category {
   name: string;
   description: string;
   slug: string;
+  available: boolean | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -97,9 +99,7 @@ export interface Product {
   name: string;
   slug: string;
   description?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  available: boolean | null;
   area_of_room?: string;
   energy_efficiency_class?: string;
   compressor_type?: string;
@@ -117,10 +117,13 @@ export interface Product {
   color?: string;
   price?: string;
   old_price?: string | null;
+  popularity?: number;
   images?: ImageForProduct[] | null;
   category?: Category;
   brand?: Brand;
-  popularity?: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
 
 export interface ProductsData {

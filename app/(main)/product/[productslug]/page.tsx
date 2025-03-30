@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: Props) {
   breadcrumbMap["catalog"] = "Каталог";
 
   const breadcrumbPath = `/catalog/${category.data[0].product_catalog.slug}/${
-    product.category.slug
+    product.category?.slug
   }/${product.name.replace(/\//g, "|")}`;
 
   return (

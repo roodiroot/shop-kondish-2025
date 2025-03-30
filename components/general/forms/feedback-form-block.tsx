@@ -50,6 +50,7 @@ const FeedbackFormBlock: React.FC<FeedbackFormBlockProps> = ({
       message: values.message,
     }).then((data) => {
       if (data.ok) {
+        console.log(data);
         if (onCloseSheet) onCloseSheet();
         toast("Форма успешно отправлена");
         form.reset({

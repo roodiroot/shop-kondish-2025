@@ -11,7 +11,7 @@ const AllFiltersList: React.FC<AllFiltersListProps> = ({ filters }) => {
   return (
     <div className="space-y-8 ">
       {filters &&
-        Object.entries(filters).map(([key, { label, values }]) => {
+        Object.entries(filters)?.map(([key, { label, values }]) => {
           if (!values.length || values.length === 1) {
             return null;
           }

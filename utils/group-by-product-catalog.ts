@@ -2,11 +2,13 @@ interface ProductCatalogItem {
   id: number;
   name: string;
   slug: string;
+  available: boolean | null;
 }
 
 export interface GroupedCatalog {
   name: string;
   slug: string;
+  available: boolean | null;
   category: ProductCatalogItem[];
 }
 
@@ -16,31 +18,41 @@ export interface GroupedCatalog {
  * @returns An array of grouped catalog objects, each containing a name and a category list.
  */
 export function groupByProductCatalog(
-  array: {
-    product_catalog: { name: string; slug: string };
+  array?: {
+    product_catalog: { name: string; slug: string; available: boolean | null };
     id: number;
     name: string;
     slug: string;
+    available: boolean | null;
   }[]
 ): GroupedCatalog[] {
   const grouped: { [key: string]: GroupedCatalog } = {};
 
-  array.forEach((item) => {
-    if (item.product_catalog && typeof item.product_catalog === "object") {
-      const catalogName = item.product_catalog.name;
-      const slug = item.product_catalog.slug;
+  if (array)
+    array.forEach((item) => {
+      if (item.product_catalog && typeof item.product_catalog === "object") {
+        const catalogName = item.product_catalog.name;
+        const slug = item.product_catalog.slug;
+        const availableProductCatalog = item.product_catalog.available;
+        const availableCategory = item.available;
 
-      if (!grouped[catalogName]) {
-        grouped[catalogName] = { name: catalogName, slug, category: [] };
+        if (!grouped[catalogName]) {
+          grouped[catalogName] = {
+            name: catalogName,
+            available: availableProductCatalog,
+            slug,
+            category: [],
+          };
+        }
+
+        grouped[catalogName].category.push({
+          name: item.name,
+          id: item.id,
+          slug: item.slug,
+          available: availableCategory,
+        });
       }
-
-      grouped[catalogName].category.push({
-        name: item.name,
-        id: item.id,
-        slug: item.slug,
-      });
-    }
-  });
+    });
 
   return Object.values(grouped);
 }

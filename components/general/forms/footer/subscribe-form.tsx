@@ -1,20 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { z } from "zod";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { subscribe } from "@/data/forms/forms-api";
 import { formSubscribeSchema } from "@/schema/feed-back-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 const SubscribeForm = () => {
   const form = useForm<z.infer<typeof formSubscribeSchema>>({
@@ -29,6 +24,7 @@ const SubscribeForm = () => {
       email: values.email,
     }).then((data) => {
       if (data.ok) {
+        console.log(data);
         toast("Спасибо за подписку");
         form.reset({ email: "" });
       }

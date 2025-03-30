@@ -1,20 +1,17 @@
-import type { Metadata, ResolvingMetadata } from "next";
-
-import BaseContainer from "@/components/general/containers/base-container";
-import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
-import { getArticleBySlug } from "@/data/article-api";
 import Image from "next/image";
+import type { Metadata } from "next";
+
 import BlogContent from "@/components/pages/blog/blog-page/content-blog";
+import BaseContainer from "@/components/general/containers/base-container";
+
+import { getArticleBySlug } from "@/data/article-api";
 
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).slug;
   const article = await getArticleBySlug(slug);
   return {
