@@ -3,6 +3,7 @@
 import ProductCard from "@/components/product-catalog/catalog/list-products/product-card";
 import PaginationBlock from "@/components/product-catalog/catalog/pagination/pagination-block";
 import SortForCatalog from "@/components/product-catalog/catalog/sort-and-filterls.tsx/sort-for-catalog";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFavoritesStore } from "@/hooks/favorites-stor";
 import { useFetchFavoritesProducts } from "@/queries/products";
@@ -12,13 +13,9 @@ import { useSearchParams } from "next/navigation";
 
 const FavoritesList = () => {
   const searchParams = useSearchParams();
-  // Создание строки URL для API
+  const { favorites } = useFavoritesStore();
   const string = getFiltersFromQueryString(searchParams.toString());
 
-  // Получаем ID товаров в избранном
-  const { favorites } = useFavoritesStore();
-
-  // Получаем товары в избранном
   const { data, isLoading, isPending } = useFetchFavoritesProducts(
     favorites,
     string
@@ -42,6 +39,7 @@ const FavoritesList = () => {
                 key={i.slug}
                 name={i.name}
                 slug={i.slug}
+                brand={i.brand?.name || ""}
                 imagePrevievUrl={
                   i?.images?.length
                     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${i.images[0].url}`

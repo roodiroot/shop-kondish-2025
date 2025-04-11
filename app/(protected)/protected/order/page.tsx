@@ -61,7 +61,7 @@ export default async function OrderSuccess({ searchParams }: Props) {
   );
 
   //Соединяем 2 массива
-  const productsWithCounts = products.data.map((product) => {
+  const productsWithCounts = products?.data.map((product) => {
     const cartItem = order.order.products.find(
       (item) => item.slug === product.slug
     );

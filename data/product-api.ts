@@ -1,35 +1,39 @@
 import { Product, ProductsData } from "@/types/catalog";
+import { fetchWithRetry } from "./utils";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
+export const getProductBySlug = async (
+  slug: string
+): Promise<Product | null> => {
+  const params = new URLSearchParams({
+    "filters[slug][$eq]": slug,
+    populate: "*",
+  });
 
-export const getProductBySlug = async (slug: string): Promise<Product> => {
-  const response = await fetch(
-    `${API_BASE_URL}/products?filters[slug][$eq]=${slug}&populate=*`
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.message || "Ошибка получения бренда");
+  try {
+    const response = await fetchWithRetry(`/products?${params.toString()}`);
+    return response.data[0] || null;
+  } catch (error) {
+    console.error(
+      "Ошибка получения продукта по slug:",
+      error instanceof Error ? error.message : "Неизвестная ошибка"
+    );
+    return null;
   }
-
-  return (await response.json()).data[0];
 };
 
-export const getAllProducts = async (params: string): Promise<ProductsData> => {
-  // console.log("HELLO", params);
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products${params}`,
-    {
-      method: "GET",
-    }
-  );
-
-  const response = await data.json();
-
-  console.log(response);
-
-  return response;
+export const getAllProducts = async (
+  params?: string
+): Promise<ProductsData | null> => {
+  try {
+    const response = await fetchWithRetry(`/products?${params}`);
+    return response;
+  } catch (error) {
+    console.error(
+      "Ошибка получения списка продуктов:",
+      error instanceof Error ? error.message : "Неизвестная ошибка"
+    );
+    return null;
+  }
 };
 
 //       views: 1, // Вес для просмотров
@@ -62,39 +66,39 @@ export interface CartItem {
 
 export const getAllProductsCart = async (
   cart: CartItem[]
-): Promise<ProductsData> => {
+): Promise<ProductsData | null> => {
   // Формируем строку параметров для фильтров
   const params = cart
     .map((item, index) => `[filters][id][$in][${index}]=${item.product}`)
     .join("&");
 
   // Вызываем getAllProducts с параметрами
-  return await getAllProducts(`?${params}&populate=*`);
+  return await getAllProducts(`${params}&populate=*`);
 };
 
 // Получаем все избранные товары
 export const getAllProductsFavorites = async (
   favorites: number[],
   string_params?: string
-): Promise<ProductsData> => {
+): Promise<ProductsData | null> => {
   // Формируем строку параметров для фильтров
   const params = favorites
     .map((id, index) => `[filters][id][$in][${index}]=${id}`)
     .join("&");
 
   // Вызываем getAllProducts с параметрами
-  return await getAllProducts(`?${params}&${string_params}&populate=*`);
+  return await getAllProducts(`${params}&${string_params}`);
 };
 
 //Получаем все товары по массиву их Id
 export const getAllProductsBySlug = async (
   ids: string[]
-): Promise<ProductsData> => {
+): Promise<ProductsData | null> => {
   // Формируем строку параметров для фильтров
   const params = ids
     .map((id, index) => `[filters][slug][$in][${index}]=${id}`)
     .join("&");
 
   // Вызываем getAllProducts с параметрами
-  return await getAllProducts(`?${params}&populate=*`);
+  return await getAllProducts(`${params}&populate=*`);
 };

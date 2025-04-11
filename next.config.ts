@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
         search: "",
       },
       {
+        protocol: "https",
+        hostname: "strapi.kondish.suundefined",
+        port: "",
+        pathname: "/**",
+        search: "",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "1337",

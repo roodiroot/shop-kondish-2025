@@ -9,7 +9,7 @@ export interface ProductWithCount {
 
 interface OrderSummarySectionComplateProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  productList: ProductWithCount[];
+  productList?: ProductWithCount[];
   totalOrderPrice: number;
   totalProducts: number;
 }

@@ -27,26 +27,28 @@ const ProductsSaleCarousel: React.FC<ProductsSaleCarouselProps> = ({
       <div className="">
         <CarouselContent>
           {products
-            ? products.map((product, index) => (
-                <CarouselItem
-                  key={index}
-                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 pl-2"
-                >
-                  <div className="p-1 h-full">
-                    <ProductCardHero
-                      key={product.slug}
-                      name={product?.name || ""}
-                      slug={product?.slug}
-                      imagePrevievUrl={
-                        product?.images?.length
-                          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${product.images[0].formats.small.url}`
-                          : null
-                      }
-                      product={product}
-                    />
-                  </div>
-                </CarouselItem>
-              ))
+            ? products.map((product, index) => {
+                const path = product?.images?.length
+                  ? product?.images[0]?.url
+                  : undefined;
+                return (
+                  <CarouselItem
+                    key={index}
+                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 pl-2"
+                  >
+                    <div className="p-1 h-full">
+                      <ProductCardHero
+                        key={product.slug}
+                        brand={product.brand?.name || ""}
+                        name={product?.name || ""}
+                        slug={product?.slug}
+                        imagePrevievUrl={path ? path : null}
+                        product={product}
+                      />
+                    </div>
+                  </CarouselItem>
+                );
+              })
             : null}
         </CarouselContent>
       </div>

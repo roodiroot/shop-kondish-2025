@@ -6,6 +6,7 @@ import { ListProducts } from "@/components/product-catalog/catalog/list-products
 import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
 import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
+import { getAllFiltersByParams } from "@/data/faset-api";
 
 export const metadata: Metadata = {
   title: "Каталог товаров",
@@ -15,17 +16,13 @@ export const metadata: Metadata = {
 };
 
 export default async function Catalog() {
-  const productCatalog = await getAllProductCatalog();
+  const params = new URLSearchParams({
+    "filters[available]": "true",
+  });
 
-  const stringApiRespons = `filters[available]=true`;
-  const datafilters = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter?${stringApiRespons}`,
-    {
-      method: "GET",
-    }
-  );
-  const filters = await datafilters.json();
-  // console.log("CATALOG");
+  const productCatalog = await getAllProductCatalog();
+  const filters = await getAllFiltersByParams(params.toString());
+
   return (
     <BaseContainer>
       {/* Меню товарного каталога */}
@@ -33,12 +30,8 @@ export default async function Catalog() {
 
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
-        <BlockFilters
-          filters={filters}
-          dataList={productCatalog?.data}
-          href={`/catalog`}
-        />
-        <ListProducts string_params={stringApiRespons} isFiltersButton />
+        <BlockFilters filters={filters} />
+        <ListProducts string_params={params.toString()} isFiltersButton />
       </div>
     </BaseContainer>
   );

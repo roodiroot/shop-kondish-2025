@@ -16,12 +16,14 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   slug: string;
+  brand: string;
   imagePrevievUrl: string | null;
   product: Product;
 }
 const ProductCard: React.FC<ProductCardProps> = ({
   slug,
   name,
+  brand,
   imagePrevievUrl,
   product,
 }) => {
@@ -46,8 +48,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-lg border bg-white">
-      <div className="relative w-full aspect-square p-2">
+    <div className="relative flex flex-col overflow-hidden bg-white">
+      <div className="relative w-full aspect-square p-2  overflow-hidden rounded-lg">
         <div className="relative w-full h-full">
           {imagePrevievUrl && (
             <Image
@@ -84,11 +86,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           -{product?.sale}%
         </div>
       ) : null}
-      <div className="p-4 flex-1 flex h-full flex-col space-y-2 justify-between">
+      <div className="pt-4 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
-          <p className="text-gray-500 text-sm italic">{product?.brand?.name}</p>
-          <h3 className="text-sm font-medium text-gray-900">
-            <Link href={`/product/${slug}`}>{name}</Link>
+          {/* <p className="text-gray-500 text-sm italic">{product?.brand?.name}</p> */}
+          <h3 className="text-sm font-bold text-gray-900">
+            <Link href={`/product/${slug}`}>{brand + " " + name}</Link>
           </h3>
         </div>
         <div className="">
@@ -111,6 +113,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           )}
         </div>
+        {product.sale && (
+          <div className="line-through text-gray-500 text-sm">
+            {new Intl.NumberFormat("ru-RU").format(
+              Number(product.price) +
+                Number(product.price) * (Number(product.sale) / 100)
+            )}{" "}
+            р.
+          </div>
+        )}
         <div className="flex flex-col justify-end">
           <div className="flex justify-between items-end mt-auto">
             {!cart.find((i) => i.product === product.id) ? (
@@ -121,14 +132,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 className="relative z-10 font-semibold flex"
               >
                 <span className="pr-2 border-r border-white/40">
-                  {new Intl.NumberFormat("ru-RU").format(
-                    Number(
-                      product?.sale
-                        ? Number(product.price) -
-                            Number(product.price) * (product?.sale / 100)
-                        : product.price
-                    )
-                  )}{" "}
+                  {new Intl.NumberFormat("ru-RU").format(Number(product.price))}{" "}
                   р.
                 </span>
                 <ShoppingCartIcon className="w-4 h-4" />

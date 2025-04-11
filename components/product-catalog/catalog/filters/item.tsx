@@ -13,6 +13,7 @@ const ItemValue = ({
   handleCheckedChange: (checked: boolean, value: string | null) => void;
   checked: boolean;
 }) => {
+  if (!value) return null;
   return (
     <div className="flex items-center gap-3">
       <Checkbox

@@ -12,8 +12,7 @@ export const useFetchProducts = (string_params?: string) => {
   // console.log(string_params);
   return useQuery({
     queryKey: ["products", string_params],
-    queryFn: () =>
-      getAllProducts(`${string_params ? string_params + "&" : "?"}populate=*`),
+    queryFn: () => getAllProducts(string_params),
   });
 };
 

@@ -21,10 +21,9 @@ export const ListProducts: React.FC<ListProductsProps> = ({
   isFiltersButton,
 }) => {
   const searchParams = useSearchParams();
-  // Создание строки URL для API
   const string = getFiltersFromQueryString(searchParams.toString());
   const { data, isError, isLoading } = useFetchProducts(
-    `?${string}&${string_params}`
+    string_params + "&" + string
   );
 
   if (isError) {
@@ -54,6 +53,7 @@ export const ListProducts: React.FC<ListProductsProps> = ({
                   key={i.slug}
                   name={i.name}
                   slug={i.slug}
+                  brand={i.brand?.name || ""}
                   imagePrevievUrl={
                     path
                       ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`

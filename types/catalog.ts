@@ -136,8 +136,24 @@ export interface FilterOption {
   values: Array<string | null>; // Значения фильтра (массив строк или null)
 }
 
-export interface Filters {
-  [key: string]: FilterOption; // Ключевое поле, описывающее каждый фильтр
+export type FilterData = {
+  simpleFilters: SimpleFilters;
+  complexFilters: ComplexFilters;
+};
+export interface ComplexFilters {
+  [key: string]: {
+    label: string;
+    values: Array<{
+      value: string | null;
+      slug: string;
+    }>;
+  };
+}
+export interface SimpleFilters {
+  [key: string]: {
+    label: string;
+    values: (string | null)[];
+  };
 }
 
 // REVIEWS

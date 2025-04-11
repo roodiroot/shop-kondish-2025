@@ -22,14 +22,24 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+  const paramsSale = new URLSearchParams({
+    "filters[available]": "true",
+    "filters[sale][$gt]": "0",
+    populate: "*",
+  });
+  const paramsHit = new URLSearchParams({
+    "filters[available]": "true",
+    "filters[hit]": "true",
+    populate: "*",
+  });
+
   // получаем блок героя
   const heroScreens = await getHeroScreens();
   // получаем блок о компании
   const content = await getHeroPage();
-  // получаем товары со скидками
-  const productsSale = await getAllProducts(
-    "?filters[available]=true&filters[sale][$gt]=0&populate=*"
-  );
+  // получаем товары
+  const productsSale = await getAllProducts(paramsSale.toString());
+  const productsHit = await getAllProducts(paramsHit.toString());
 
   // получаем отзывы
   const reviews = (await getReviews()) || [];
@@ -40,7 +50,11 @@ export default async function Home() {
   return (
     <>
       <HeroSection heroScreens={heroScreens} />
-      <SaleProductsSection products={productsSale?.data} />
+      <SaleProductsSection
+        title="Сегодня со скидкой"
+        products={productsSale?.data}
+      />
+      <SaleProductsSection title="Хиты продаж" products={productsHit?.data} />
       <AboutSection content={content?.aboutContent} />
       <ReviewsSection reviews={reviews} />
       <BlogSection articles={articles?.data} />

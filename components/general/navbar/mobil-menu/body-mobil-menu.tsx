@@ -1,8 +1,14 @@
 import Link from "next/link";
+import { Suspense } from "react";
+
 import Logo from "../logo";
+import FButton from "../../fbutton";
+
 import { CatalogForNavbar } from "../navbar";
 import { Button } from "@/components/ui/button";
-import FButton from "../../fbutton";
+
+import StaticPageLink from "./static-page-link";
+import BrandPageLink from "./brand-page-link";
 
 interface MobilMenuBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   closeDrawer: (value: boolean) => void;
@@ -24,8 +30,8 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
           8 (495) 675-2555
         </a>
       </div>
-      <div className="h-full overflow-auto">
-        <div className="px-4 py-8 border-b border-white/60">
+      <div className="h-full  overflow-auto flex flex-col justify-between">
+        <div className="relative px-4 py-8 border-b border-white/60">
           <ul className="flex flex-col gap-5">
             {navigation?.category?.map((page) => {
               if (page.available === false) return null;
@@ -43,61 +49,28 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
                 </li>
               );
             })}
-            {navigation.brands?.map((page) => (
-              <li key={page.name} className="text-sm font-semibold text-white">
-                <Link
-                  onClick={() => closeDrawer(false)}
-                  href={`/catalog/brands/${page.slug}`}
-                >
-                  {page.name}
-                </Link>
-              </li>
+            {navigation.brands?.length && (
+              <BrandPageLink
+                brands={navigation.brands}
+                closeDrawer={closeDrawer}
+              />
+            )}
+            {navigation.staticPage?.map((page) => (
+              <StaticPageLink
+                key={page.name}
+                closeDrawer={closeDrawer}
+                page={page}
+              />
             ))}
-            {navigation.staticPage?.map((page) => {
-              if (page.href) {
-                return (
-                  <li
-                    key={page.name}
-                    className="text-sm font-semibold text-white"
-                  >
-                    <Link onClick={() => closeDrawer(false)} href={page.href}>
-                      {page.name}
-                    </Link>
-                  </li>
-                );
-              } else if (page.pages?.length) {
-                return (
-                  <li
-                    key={page.name}
-                    className="text-sm font-semibold text-white"
-                  >
-                    {page.name}
-                    <ul className="flex flex-col gap-2 pl-4">
-                      {page.pages.map((subPage) => (
-                        <li
-                          key={subPage.name}
-                          className="text-sm font-semibold text-white"
-                        >
-                          <Link
-                            onClick={() => closeDrawer(false)}
-                            href={subPage.href}
-                          >
-                            {subPage.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
-              }
-            })}
           </ul>
-          <Button
-            asChild
-            className="w-full mt-5 shadow-none border-white border font-semibold text-xs"
-          >
-            <FButton>Консультация</FButton>
-          </Button>
+          <Suspense>
+            <Button
+              asChild
+              className="w-full mt-5 shadow-none border-white border font-semibold text-xs"
+            >
+              <FButton>Консультация</FButton>
+            </Button>
+          </Suspense>
         </div>
         <div className="px-4 py-8 max-w-xs space-y-4">
           <div className="text-xs text-white">

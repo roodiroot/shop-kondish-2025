@@ -7,6 +7,7 @@ import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
 import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
 import { Suspense } from "react";
+import { getAllFiltersByParams } from "@/data/faset-api";
 
 type Props = {
   params: Promise<{ catalogslug: string }>;
@@ -32,18 +33,16 @@ export async function generateMetadata(
 }
 export default async function CatalogGroup({ params }: Props) {
   const slug = (await params).catalogslug;
-  const categories = await getAllCategory(
-    `&filters[product_catalog][slug][$eq]=${slug}`
-  );
+  const param = new URLSearchParams({
+    "filters[category][product_catalog][slug]": slug,
+    "filters[available]": "true",
+  });
+  const paramForCategory = new URLSearchParams({
+    "filters[product_catalog][slug][$eq]": slug,
+  });
 
-  const stringApiRespons = `filters[category][product_catalog][slug]=${slug}&filters[available]=true`;
-  const datafilters = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/filter?${stringApiRespons}`,
-    {
-      method: "GET",
-    }
-  );
-  const filters = await datafilters.json();
+  const categories = await getAllCategory(paramForCategory.toString());
+  const filters = await getAllFiltersByParams(param.toString());
 
   return (
     <BaseContainer>
@@ -55,13 +54,9 @@ export default async function CatalogGroup({ params }: Props) {
 
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
-        <BlockFilters
-          filters={filters}
-          dataList={categories?.data}
-          href={`/catalog/${slug}`}
-        />
+        <BlockFilters filters={filters} />
         <Suspense>
-          <ListProducts string_params={stringApiRespons} isFiltersButton />
+          <ListProducts string_params={param.toString()} isFiltersButton />
         </Suspense>
       </div>
     </BaseContainer>

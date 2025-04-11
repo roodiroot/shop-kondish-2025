@@ -2,12 +2,12 @@
 
 import { useSearchParams } from "next/navigation";
 
-import { Filters } from "@/types/catalog";
+import { FilterData } from "@/types/catalog";
 import { getOnFilters } from "@/utils/filters";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface OpenFiltersProps extends React.HTMLAttributes<HTMLDivElement> {
-  filters?: Filters;
+  filters?: FilterData | null;
 }
 
 const OpenFilters: React.FC<OpenFiltersProps> = ({ filters }) => {
@@ -35,7 +35,7 @@ const OpenFilters: React.FC<OpenFiltersProps> = ({ filters }) => {
           onClick={() => dropFilter(i)}
           className="h-7 px-2 py-1 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 rounded-sm"
         >
-          {filters[i]?.label}
+          {filters.simpleFilters[i]?.label}
           <XMarkIcon className="w-4 h-4 cursor-pointer" />
         </div>
       ))}

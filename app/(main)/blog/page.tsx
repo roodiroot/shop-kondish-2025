@@ -26,7 +26,7 @@ export default async function Blog(props: {
   ).toString();
 
   // получаем статьи
-  const limit = 4;
+  const limit = 20;
   const articles = await getArticles({ queryString, limit });
 
   return (
