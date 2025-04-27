@@ -132,7 +132,7 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
                 size="sm"
                 onClick={addToCartHandle}
                 disabled={!!cart.find((i) => i.product === product.id)}
-                className="relative z-10 font-semibold flex"
+                className="relative z-10 font-bold flex"
               >
                 <span className="pr-2 border-r border-white/40">
                   {new Intl.NumberFormat("ru-RU").format(Number(product.price))}{" "}

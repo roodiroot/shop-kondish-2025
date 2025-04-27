@@ -5,10 +5,12 @@ import {
 } from "@/components/ui/carousel";
 
 import ItemSlider from "./item-slider";
+import { ImageForProduct } from "@/types/catalog";
 
 interface BaseItem {
   slug: string;
   name: string;
+  image?: ImageForProduct | null;
 }
 
 interface MenuCategoriesSliderProps<T extends BaseItem>
@@ -27,7 +29,11 @@ const MenuCategoriesSlider: React.FC<MenuCategoriesSliderProps<BaseItem>> = ({
           {dataList?.map((i, index) => (
             <CarouselItem key={index} className="pl-1 basis-1/2 md:basis-1/3">
               <div className="p-1">
-                <ItemSlider title={i.name} href={`${href}/${i.slug}`} />
+                <ItemSlider
+                  title={i.name}
+                  href={`${href}/${i.slug}`}
+                  image={i.image}
+                />
               </div>
             </CarouselItem>
           ))}

@@ -68,7 +68,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
                     className="absolute w-full h-full object-cover"
                   />
                   {screen?.title ? (
-                    <div className="absolute inset-0 p-10 bg-gray-100">
+                    <div className="absolute inset-0 p-10 ">
                       <div className="max-w-xl space-y-4 mt-10">
                         <div className="">{screen?.subtitle}</div>
                         <div className="text-2xl sm:text-3xl font-bold">

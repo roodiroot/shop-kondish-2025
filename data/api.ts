@@ -5,6 +5,7 @@ import {
 } from "@/schema/auth-schemas";
 import {
   CategoryData,
+  ImageForProduct,
   ProductCatalog,
   ProductCatalogData,
 } from "@/types/catalog";
@@ -31,7 +32,7 @@ export interface Brand {
   createdAt: string; // Дата и время создания
   documentId: string; // Уникальный идентификатор документа
   id: number; // Числовой идентификатор
-  image: string | null; // Ссылка на изображение или null
+  image: ImageForProduct | null; // Ссылка на изображение или null
   name: string; // Название документа
   description: string; // Описание бренда
   publishedAt: string; // Дата и время публикации

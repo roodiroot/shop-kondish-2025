@@ -29,16 +29,42 @@ const OpenFilters: React.FC<OpenFiltersProps> = ({ filters }) => {
   return (
     <div className="flex flex-wrap gap-1 pb-8">
       <h3 className="sr-only">Включенные фильтры</h3>
-      {filtersList.map((i) => (
-        <div
-          key={i}
-          onClick={() => dropFilter(i)}
-          className="h-7 px-2 py-1 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 rounded-sm"
-        >
-          {filters.simpleFilters[i]?.label}
-          <XMarkIcon className="w-4 h-4 cursor-pointer" />
-        </div>
-      ))}
+      {filtersList.map((i) => {
+        if (i === "category.name") {
+          return (
+            <div
+              key={i}
+              onClick={() => dropFilter(i)}
+              className="h-7 px-2 py-1 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 rounded-sm"
+            >
+              Категория
+              <XMarkIcon className="w-4 h-4 cursor-pointer" />
+            </div>
+          );
+        }
+        if (i === "brand.name") {
+          return (
+            <div
+              key={i}
+              onClick={() => dropFilter(i)}
+              className="h-7 px-2 py-1 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 rounded-sm"
+            >
+              Бренд
+              <XMarkIcon className="w-4 h-4 cursor-pointer" />
+            </div>
+          );
+        }
+        return (
+          <div
+            key={i}
+            onClick={() => dropFilter(i)}
+            className="h-7 px-2 py-1 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 rounded-sm"
+          >
+            {filters.simpleFilters[i]?.label}
+            <XMarkIcon className="w-4 h-4 cursor-pointer" />
+          </div>
+        );
+      })}
     </div>
   );
 };

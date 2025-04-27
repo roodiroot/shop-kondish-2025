@@ -52,7 +52,7 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
           <div className="px-2 py-1 bg-primary/40 text-xs text-primary font-bold rounded-sm">
             {label}
           </div>
-          <data className="text-xs font-extralight text-primary" value="">
+          <data className="text-xs text-primary" value="">
             {formattedDate}
           </data>
         </div>

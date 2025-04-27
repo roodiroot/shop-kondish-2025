@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function Brands() {
   const brands = await getAllBrands();
+
   return (
     <BaseContainer>
       <BrandsList brandsList={brands?.data} />

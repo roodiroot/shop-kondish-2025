@@ -33,6 +33,7 @@ export interface ImageForProduct {
   formats: {
     large: ImageFormat;
     small: ImageFormat;
+    medium: ImageFormat;
     thumbnail: ImageFormat;
   };
   hash: string;
@@ -54,6 +55,7 @@ export interface ProductCatalog {
   name: string;
   slug: string;
   available: boolean | null;
+  image?: ImageForProduct | null;
   createdAt: string; // ISO 8601 format date string
   updatedAt: string; // ISO 8601 format date string
   publishedAt: string; // ISO 8601 format date string
@@ -88,6 +90,7 @@ export interface Brand {
   documentId: string;
   name: string;
   slug: string;
+  image?: ImageForProduct | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

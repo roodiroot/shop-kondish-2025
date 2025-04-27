@@ -109,7 +109,7 @@ export const getOnFilters = (queryString: string) => {
 
   const filters = [];
 
-  for (const [key, value] of params.entries()) {
+  for (const [key] of params.entries()) {
     if (key !== "page" && key !== "sort" && key !== "pageSize") {
       filters.push(key);
     }

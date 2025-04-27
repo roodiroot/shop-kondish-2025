@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import Footer from "@/components/general/footer/footer";
 import Navbar from "@/components/general/navbar/navbar";
@@ -9,17 +8,9 @@ import OverlaySection from "@/components/general/overlay-section";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/authcontext";
 
+import { Lato } from "next/font/google";
+
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),
@@ -31,6 +22,12 @@ export const metadata: Metadata = {
     "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
   icons: "/kondish.svg",
 };
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "300", "900", "700"], // Укажи нужные веса
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -53,7 +50,7 @@ export default function RootLayout({
             /> */}
           </head>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+            className={`${lato.className} antialiased min-h-screen flex flex-col`}
           >
             <Navbar />
             <main className="flex-1 relative">{children}</main>
