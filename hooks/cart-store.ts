@@ -3,17 +3,17 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 // Тип для элемента корзины
 interface CartItem {
-  product: number; // ID товара
+  product: string; // ID товара
   count: number; // Количество
 }
 
 // Тип для состояния хранилища
 interface CartState {
   cart: CartItem[];
-  addToCart: (productId: number) => void;
-  removeFromCart: (productId: number) => void;
-  decrementProduct: (productId: number) => void;
-  setProductQuantity: (productId: number, quantity: number) => void;
+  addToCart: (productId: string) => void;
+  removeFromCart: (productId: string) => void;
+  decrementProduct: (productId: string) => void;
+  setProductQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   getTotalCount: () => number;
 }

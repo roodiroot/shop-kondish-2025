@@ -23,8 +23,8 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: brand.name,
-    description: `Устанавливаем климатическую технику ${brand.name} более 12 лет в Мосскве и области.`,
+    title: brand?.name,
+    description: `Устанавливаем климатическую технику ${brand?.name} более 12 лет в Мосскве и области.`,
     openGraph: {
       images: ["/kondish.svg", ...previousImages],
     },
@@ -45,7 +45,7 @@ export default async function Brand({ params }: Props) {
   return (
     <BaseContainer>
       {/* Блок оглавление страницы */}
-      <HeadCatalog name={brand.name} description={brand.description} />
+      <HeadCatalog name={brand?.name} description={brand?.description} />
 
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">

@@ -21,6 +21,7 @@ export default async function Catalog() {
   });
   const paramsProductCatalog = new URLSearchParams({
     populate: "*",
+    "[filters][available]": "true",
   });
 
   const productCatalog = await getAllProductCatalog(

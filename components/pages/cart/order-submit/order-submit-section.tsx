@@ -30,7 +30,7 @@ const OrderSummarySection = () => {
   } = useFetchCartProducts(cart);
 
   const productsWithCounts = productCart?.data.map((product: Product) => {
-    const cartItem = cart.find((item) => item.product === product.id);
+    const cartItem = cart.find((item) => item.product === product.documentId);
     return {
       product: product,
       count: cartItem ? cartItem.count : 0, // Если товара нет в корзине, count = 0
@@ -93,7 +93,7 @@ const OrderSummarySection = () => {
         : productsWithCounts?.map((item) => (
             <CartItemBasket
               key={item.product.id}
-              productId={item.product.id}
+              productId={item.product.documentId}
               name={item.product.name}
               slug={item.product.slug}
               brandName={item.product.brand?.name}

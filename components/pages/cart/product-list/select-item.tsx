@@ -3,10 +3,10 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
-  productId?: number;
+  productId?: string;
   disabled?: boolean;
   count?: number;
-  setCount?: (productId: number, quantity: number) => void;
+  setCount?: (productId: string, quantity: number) => void;
 }
 
 const Select: React.FC<SelectProps> = ({

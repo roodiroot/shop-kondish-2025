@@ -4,6 +4,7 @@ import {
   getAllProducts,
   getAllProductsCart,
   getAllProductsFavorites,
+  getAllProductsSearch,
 } from "@/data/product-api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -13,6 +14,15 @@ export const useFetchProducts = (string_params?: string) => {
   return useQuery({
     queryKey: ["products", string_params],
     queryFn: () => getAllProducts(string_params),
+  });
+};
+
+// Получение всех товаров из поисковой строки
+export const useFetchProductsSearch = (query: string) => {
+  // console.log(string_params);
+  return useQuery({
+    queryKey: ["product-query", query],
+    queryFn: () => getAllProductsSearch(query),
   });
 };
 
@@ -39,7 +49,7 @@ export const useFetchOrder = (documentId: string) => {
 
 // Получение товаров которые добавлены в корзину
 export const useFetchFavoritesProducts = (
-  favorites: number[],
+  favorites: string[],
   string_params?: string
 ) => {
   // console.log("FETCJ PROD");

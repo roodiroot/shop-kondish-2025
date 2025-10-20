@@ -6,11 +6,13 @@ interface HeadCatalogProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   description?: string;
   linkArticle?: string;
+  linkLabel?: string;
 }
 const HeadCatalog: React.FC<HeadCatalogProps> = ({
   name,
   description,
   linkArticle,
+  linkLabel,
 }) => {
   return (
     <div className="pt-10 pb-8">
@@ -26,7 +28,7 @@ const HeadCatalog: React.FC<HeadCatalogProps> = ({
                 className="flex gap-2 items-center text-sm text-sky-700 px-3 py-0.5 hover:bg-gray-50 rounded-full cursor-pointer"
               >
                 <ExclamationCircleIcon className="w-4" />
-                <span>Узнать подробнее</span>
+                <span>{linkLabel ? linkLabel : "Узнать подробнее"}</span>
               </Link>
             ) : null}
           </div>

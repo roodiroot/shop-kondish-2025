@@ -32,18 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
     useFavoritesStore();
 
   const addToCartHandle = async () => {
-    addToCart(product.id);
+    addToCart(product.documentId);
     toast("Товар добавлен в корзину");
     await updateProductPopularity(slug, "cart_adds");
   };
   const addToFavoritesHandle = async () => {
-    addToFavorites(product.id);
+    addToFavorites(product.documentId);
     toast("Товар добавлен в избранное");
     await updateProductPopularity(slug, "favorites");
   };
 
   const removeFavoriteHandle = () => {
-    removeFromFavorites(product.id);
+    removeFromFavorites(product.documentId);
     toast("Товар удален из избранного");
   };
 
@@ -67,7 +67,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="absolute top-0.5 left-0.5">
         <button
           onClick={
-            !!favorites.find((i) => i === product.id)
+            !!favorites.find((i) => i === product.documentId)
               ? removeFavoriteHandle
               : addToFavoritesHandle
           }
@@ -76,7 +76,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <HeartIcon
             className={cn(
               "min-w-6 min-h-6 text-gray-300",
-              !favorites.find((i) => i === product.id) ? "" : "fill-gray-200"
+              !favorites.find((i) => i === product.documentId)
+                ? ""
+                : "fill-gray-200"
             )}
           />
         </button>
@@ -124,11 +126,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
         <div className="flex flex-col justify-end">
           <div className="flex justify-between items-end mt-auto">
-            {!cart.find((i) => i.product === product.id) ? (
+            {!cart.find((i) => i.product === product.documentId) ? (
               <Button
                 size="sm"
                 onClick={addToCartHandle}
-                disabled={!!cart.find((i) => i.product === product.id)}
+                disabled={!!cart.find((i) => i.product === product.documentId)}
                 className="relative z-10 font-semibold flex"
               >
                 <span className="pr-2 border-r border-white/40">
@@ -144,7 +146,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 className="font-semibold"
                 asChild
               >
-                <Link href="/cart">В корзине</Link>
+                <Link href="/cart">В корзину</Link>
               </Button>
             )}
           </div>

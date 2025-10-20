@@ -11,6 +11,8 @@ import Menu from "@/components/general/navbar/menu";
 import Logo from "@/components/general/navbar/logo";
 import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
 import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
+import InputSearch from "@/components/ui/input-search";
+import { Suspense } from "react";
 
 export interface CatalogForNavbar {
   category?: GroupedCatalog[];
@@ -50,8 +52,14 @@ export default async function Navbar() {
 
               {/* Flyout menus */}
               <Menu navigation={catalog} />
-
-              <div className="ml-auto flex items-center gap-x-2 md:gap-x-4">
+              {/* Search section*/}
+              <div className="pl-8 flex-1">
+                <Suspense fallback={null}>
+                  <InputSearch navigation={catalog} />
+                </Suspense>
+              </div>
+              {/* Right section */}
+              <div className="ml-auto pl-8 flex items-center gap-x-2 md:gap-x-4">
                 <div className="hidden sm:block ml-auto font-bold text-sm">
                   <a href="tel:74956752555">+7 (495) 675-25-55</a>
                 </div>

@@ -22,6 +22,7 @@ interface AccordionDescriptionProps {
   color?: string | null;
   category?: string | null;
   brand?: string | null;
+  chars: { Title: string; description?: string }[];
 }
 
 const AccordionDescription: React.FC<AccordionDescriptionProps> = ({
@@ -41,6 +42,7 @@ const AccordionDescription: React.FC<AccordionDescriptionProps> = ({
   color,
   category,
   brand,
+  chars,
 }) => {
   const features = [
     { label: "Площадь помещения: м².", value: area_of_room },
@@ -88,6 +90,21 @@ const AccordionDescription: React.FC<AccordionDescriptionProps> = ({
                     </div>
                   );
                 }
+              })}
+              {chars.map((char, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="relative pl-1.5 my-2 pr-6 w-full flex gap-4 justify-between sm:pl-6 sm:before:top-1/2 sm:before:-translate-y-1/2 sm:before:absolute sm:before:left-2 sm:before:w-1 sm:before:h-1 sm:before:bg-slate-200"
+                  >
+                    <dt className="flex-1 leading-4 text-balance text-gray-500">
+                      {char.Title}
+                    </dt>
+                    <dd className="text-gray-900 font-medium text-right leading-4">
+                      {char?.description}
+                    </dd>
+                  </div>
+                );
               })}
             </dl>
           </AccordionContent>

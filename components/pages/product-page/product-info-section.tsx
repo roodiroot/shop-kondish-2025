@@ -1,26 +1,29 @@
 import PriceSection from "@/components/pages/product-page/price-section";
 import TitleProduct from "@/components/pages/product-page/title-product";
 import ActionButtons from "@/components/pages/product-page/action-buttons";
-import RevievsSection from "@/components/pages/product-page/reviews-section";
+import ReviewsSection from "@/components/pages/product-page/reviews-section";
 import AccordionDescription from "@/components/pages/product-page/accordion-description";
 import MainDescriptionProductSection from "@/components/pages/product-page/main-description-product-section";
 
 import { Product } from "@/types/catalog";
 
 interface ProductInfoSectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  product?: Product;
+  product: Product;
 }
 const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product }) => {
   return (
     <div className="mt-10 px-1 sm:mt-16 sm:px-0 lg:mt-0">
       {/* Название продукта */}
-      <TitleProduct name={product?.name} />
+      <TitleProduct name={product?.brand?.name + " " + product?.name} />
 
       {/* Блок цены */}
       <PriceSection price={product?.price} />
 
       {/* Блок отзывов  */}
-      <RevievsSection />
+      <ReviewsSection
+        ratingValue={product?.reviews?.grade || 0}
+        reviewsCount={product?.reviews?.count}
+      />
 
       {/* Блок описания и основыных характеристик товара */}
       <MainDescriptionProductSection
@@ -34,7 +37,7 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product }) => {
       />
 
       {/* Кнопки добавления в карзину и инзбранное */}
-      <ActionButtons />
+      <ActionButtons slug={product?.slug} documentId={product?.documentId} />
 
       {/* Блок описания продукта */}
       <AccordionDescription
@@ -54,6 +57,7 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product }) => {
         color={product?.color}
         category={product?.category?.name}
         brand={product?.brand?.name}
+        chars={product?.chars || []}
       />
     </div>
   );

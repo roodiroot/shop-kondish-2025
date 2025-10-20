@@ -89,7 +89,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
                 </FormLabel>
                 <Link
                   onClick={() => onCloseSheet && onCloseSheet()}
-                  href="request-password-reset"
+                  href="/request-password-reset"
                   className="ml-auto text-xs underline-offset-2 hover:underline"
                 >
                   Забыли пароль?

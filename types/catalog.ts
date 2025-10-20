@@ -127,6 +127,18 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  chars: CharsArray[] | [];
+  reviews: ReviewsPropduct;
+}
+
+interface ReviewsPropduct {
+  grade: number;
+  count?: number;
+}
+
+interface CharsArray {
+  Title: string;
+  description?: string;
 }
 
 export interface ProductsData {

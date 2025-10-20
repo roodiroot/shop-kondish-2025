@@ -3,9 +3,9 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 // Тип для состояния хранилища
 interface FavoritesState {
-  favorites: number[];
-  addToFavorites: (productId: number) => void;
-  removeFromFavorites: (productId: number) => void;
+  favorites: string[];
+  addToFavorites: (productId: string) => void;
+  removeFromFavorites: (productId: string) => void;
   clearFavorites: () => void;
   getTotalCount: () => number;
 }

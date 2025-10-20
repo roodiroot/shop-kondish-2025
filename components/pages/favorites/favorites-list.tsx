@@ -21,6 +21,8 @@ const FavoritesList = () => {
     string
   );
 
+  console.log(data, favorites);
+
   return (
     <div className="pb-10">
       <SortForCatalog all_count={data?.meta?.pagination?.total} />

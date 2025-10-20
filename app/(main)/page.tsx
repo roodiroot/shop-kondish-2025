@@ -5,13 +5,13 @@ import { getArticles } from "@/data/article-api";
 import { getReviews } from "@/data/reviews-api";
 import { getAllProducts } from "@/data/product-api";
 import { getHeroScreens } from "@/data/hero-screen-api";
+import { getHeroPage } from "@/data/pages/hero-page-api";
 
 import QASection from "@/components/pages/hero-page-components/qa-section/qa-section";
 import BlogSection from "@/components/pages/hero-page-components/blog-section/blog-section";
 import HeroSection from "@/components/pages/hero-page-components/hero-section/hero-section";
 import ReviewsSection from "@/components/pages/hero-page-components/reviews-section/reviews-section";
 import SaleProductsSection from "@/components/pages/hero-page-components/sale-products-section/sale-products-section";
-import { getHeroPage } from "@/data/pages/hero-page-api";
 import AboutSection from "@/components/pages/hero-page-components/about-section/about-section";
 
 export const metadata: Metadata = {

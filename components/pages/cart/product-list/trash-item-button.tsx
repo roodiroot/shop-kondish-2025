@@ -3,9 +3,9 @@
 import { LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 interface TrashButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  productId?: number;
+  productId?: string;
   disabled?: boolean;
-  removeFromCart?: (productId: number) => void;
+  removeFromCart?: (productId: string) => void;
 }
 const TrashButton: React.FC<TrashButtonProps> = ({
   productId,

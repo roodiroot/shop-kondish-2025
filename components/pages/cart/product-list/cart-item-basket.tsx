@@ -7,15 +7,15 @@ import TrashButton from "./trash-item-button";
 interface CartItemBasketProps extends React.HTMLAttributes<HTMLLIElement> {
   name: string;
   slug: string;
-  productId?: number;
+  productId?: string;
   brandName?: string;
   categoryName?: string;
   image?: string | null;
   price: number;
   count: number;
   disabled?: boolean;
-  setCount?: (productId: number, quantity: number) => void;
-  removeFromCart?: (productId: number) => void;
+  setCount?: (productId: string, quantity: number) => void;
+  removeFromCart?: (productId: string) => void;
 }
 
 const CartItemBasket: React.FC<CartItemBasketProps> = ({

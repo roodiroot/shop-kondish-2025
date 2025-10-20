@@ -13,7 +13,7 @@ interface OrderData {
   statusPay: "new" | "processing" | "shipped" | "delivered" | "cancelled"; // Перечисление (Enumeration)
   totalPrice: number; // Поле decimal
   products: {
-    product: number; // Это ID продукта
+    product: string; // Это ID продукта
     count: number;
   }[];
 }

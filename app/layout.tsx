@@ -11,6 +11,7 @@ import { AuthProvider } from "@/context/authcontext";
 import { Lato } from "next/font/google";
 
 import "./globals.css";
+import "@smastrom/react-rating/style.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),

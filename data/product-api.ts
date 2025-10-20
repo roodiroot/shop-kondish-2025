@@ -35,6 +35,20 @@ export const getAllProducts = async (
     return null;
   }
 };
+export const getAllProductsSearch = async (
+  query: string
+): Promise<ProductsData | null> => {
+  try {
+    const response = await fetchWithRetry(`/product/search?q=${query}`);
+    return response;
+  } catch (error) {
+    console.error(
+      "Ошибка получения списка продуктов:",
+      error instanceof Error ? error.message : "Неизвестная ошибка"
+    );
+    return null;
+  }
+};
 
 //       views: 1, // Вес для просмотров
 //       favorites: 5, // Вес для добавления в избранное
@@ -60,7 +74,7 @@ export const updateProductPopularity = async (
 };
 
 export interface CartItem {
-  product: number; // ID товара
+  product: string; // ID товара
   count: number; // Количество
 }
 
@@ -69,7 +83,9 @@ export const getAllProductsCart = async (
 ): Promise<ProductsData | null> => {
   // Формируем строку параметров для фильтров
   const params = cart
-    .map((item, index) => `[filters][id][$in][${index}]=${item.product}`)
+    .map(
+      (item, index) => `[filters][documentId][$in][${index}]=${item.product}`
+    )
     .join("&");
 
   // Вызываем getAllProducts с параметрами
@@ -78,12 +94,12 @@ export const getAllProductsCart = async (
 
 // Получаем все избранные товары
 export const getAllProductsFavorites = async (
-  favorites: number[],
+  favorites: string[],
   string_params?: string
 ): Promise<ProductsData | null> => {
   // Формируем строку параметров для фильтров
   const params = favorites
-    .map((id, index) => `[filters][id][$in][${index}]=${id}`)
+    .map((id, index) => `[filters][documentId][$in][${index}]=${id}`)
     .join("&");
 
   // Вызываем getAllProducts с параметрами

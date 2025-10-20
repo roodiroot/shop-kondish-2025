@@ -10,6 +10,7 @@ export const fetchWithRetry = async (
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), timeout);
+      // console.log(url);
 
       const response = await fetch(API_BASE_URL + url, {
         ...options,
