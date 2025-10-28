@@ -32,18 +32,18 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
     useFavoritesStore();
 
   const addToCartHandle = async () => {
-    addToCart(product.id);
+    addToCart(product.documentId);
     toast("Товар добавлен в корзину");
     await updateProductPopularity(slug, "cart_adds");
   };
   const addToFavoritesHandle = async () => {
-    addToFavorites(product.id);
+    addToFavorites(product.documentId);
     toast("Товар добавлен в избранное");
     await updateProductPopularity(slug, "favorites");
   };
 
   const removeFavoriteHandle = () => {
-    removeFromFavorites(product.id);
+    removeFromFavorites(product.documentId);
     toast("Товар удален из избранного");
   };
 
@@ -67,7 +67,7 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
       <div className="absolute hidden  z-10 bottom-0 right-0 group-hover:flex transition-all justify-end items-end pr-3">
         <button
           onClick={
-            !!favorites.find((i) => i === product.id)
+            !!favorites.find((i) => i === product.documentId)
               ? removeFavoriteHandle
               : addToFavoritesHandle
           }
@@ -76,7 +76,9 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
           <HeartIcon
             className={cn(
               "min-w-6 min-h-6 text-gray-200 mt-auto",
-              !favorites.find((i) => i === product.id) ? "" : "fill-gray-100"
+              !favorites.find((i) => i === product.documentId)
+                ? ""
+                : "fill-gray-100"
             )}
           />
         </button>
@@ -127,11 +129,11 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
         </div>
         <div className="flex flex-col justify-end">
           <div className="flex justify-between items-end mt-auto">
-            {!cart.find((i) => i.product === product.id) ? (
+            {!cart.find((i) => i.product === product.documentId) ? (
               <Button
                 size="sm"
                 onClick={addToCartHandle}
-                disabled={!!cart.find((i) => i.product === product.id)}
+                disabled={!!cart.find((i) => i.product === product.documentId)}
                 className="relative z-10 font-bold flex"
               >
                 <span className="pr-2 border-r border-white/40">

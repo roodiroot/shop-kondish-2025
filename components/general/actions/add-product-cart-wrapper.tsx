@@ -7,7 +7,7 @@ import { updateProductPopularity } from "@/data/product-api";
 
 interface AddProductCartWrapperProps
   extends React.HTMLAttributes<HTMLButtonElement> {
-  productId: number;
+  productId: string;
   slug: string;
 }
 

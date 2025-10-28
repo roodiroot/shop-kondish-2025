@@ -13,6 +13,7 @@ import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
 import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
 import InputSearch from "@/components/ui/input-search";
 import { Suspense } from "react";
+import { getAllProducts } from "@/data/product-api";
 
 export interface CatalogForNavbar {
   category?: GroupedCatalog[];
@@ -21,8 +22,18 @@ export interface CatalogForNavbar {
 }
 
 export default async function Navbar() {
+  const paramsPopularProducts = new URLSearchParams({
+    "filters[available]": "true",
+    sort: "popularity:DESC",
+    "pagination[pageSize]": "3",
+    "populate[0]": "brand",
+    "populate[1]": "images",
+    "populate[2]": "category",
+  });
+
   const category = await getAllCategory();
   const brands = await getAllBrands();
+  const products = await getAllProducts(paramsPopularProducts.toString());
 
   // Group by product catalog
   const group = groupByProductCatalog(category?.data);
@@ -55,7 +66,7 @@ export default async function Navbar() {
               {/* Search section*/}
               <div className="pl-8 flex-1">
                 <Suspense fallback={null}>
-                  <InputSearch navigation={catalog} />
+                  <InputSearch navigation={catalog} products={products} />
                 </Suspense>
               </div>
               {/* Right section */}

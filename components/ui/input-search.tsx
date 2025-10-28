@@ -8,12 +8,18 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import AutocompleteSearch from "./autocomplete-serach";
 import { CatalogForNavbar } from "../general/navbar/navbar";
+import { ProductsData } from "@/types/catalog";
 
 interface InputSearchProps extends React.HTMLAttributes<HTMLInputElement> {
   navigation: CatalogForNavbar;
+  products: ProductsData | null;
 }
 
-const InputSearch: React.FC<InputSearchProps> = ({ navigation, ...props }) => {
+const InputSearch: React.FC<InputSearchProps> = ({
+  navigation,
+  products,
+  ...props
+}) => {
   const [value, setValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [historySearch, setHistorySearch] = useState<string[]>([]);
@@ -39,7 +45,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ navigation, ...props }) => {
       router.push(`/search?${params.toString()}`);
       setHistorySearch((state) => {
         const filtered = state.filter((item) => item !== value);
-        const updated = [...filtered, value].slice(-5);
+        const updated = [...filtered, value].slice(-3);
         localStorage.setItem("historySearch", JSON.stringify(updated));
         return updated;
       });
@@ -58,7 +64,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ navigation, ...props }) => {
     router.push(`/search?${params.toString()}`);
     setHistorySearch((state) => {
       const filtered = state.filter((item) => item !== value);
-      const updated = [...filtered, value].slice(-5);
+      const updated = [...filtered, value].slice(-3);
       localStorage.setItem("historySearch", JSON.stringify(updated));
       return updated;
     });
@@ -98,10 +104,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ navigation, ...props }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        onFocus={() => {
-          console.log("focus");
-          setIsOpen(true);
-        }}
+        onFocus={() => setIsOpen(true)}
         {...props}
         type="search"
         className="pl-10"
@@ -110,7 +113,10 @@ const InputSearch: React.FC<InputSearchProps> = ({ navigation, ...props }) => {
         <AutocompleteSearch
           navigation={navigation}
           historySearch={historySearch}
+          setHistorySearch={setHistorySearch}
           handleSubmit={handleSubmitAutocomplete}
+          products={products}
+          setIsOpen={setIsOpen}
         />
       )}
     </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Rating as ReactRating, Star } from "@smastrom/react-rating";
 
 const myStyles = {
