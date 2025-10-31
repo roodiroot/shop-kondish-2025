@@ -12,6 +12,12 @@ import { useCartStore } from "@/hooks/cart-store";
 import { useFavoritesStore } from "@/hooks/favorites-stor";
 import { updateProductPopularity } from "@/data/product-api";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -99,7 +105,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {product?.series && (
             <div className="text-xs flex gap-2">
               <p className="text-gray-700">Серия:</p>
-              <p className="font-semibold">{product?.series}</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <p className="font-semibold line-clamp-1">
+                      {product?.series}
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{product?.series}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           )}
           {product?.compressor_type === "Инвертор" && (

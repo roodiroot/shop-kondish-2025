@@ -44,7 +44,7 @@ export default async function Navbar() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white relative z-20">
       {/* Mobile menu */}
 
       <header className="relative bg-white">

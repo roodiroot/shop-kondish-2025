@@ -52,8 +52,12 @@ const ProductsSaleCarousel: React.FC<ProductsSaleCarouselProps> = ({
             : null}
         </CarouselContent>
       </div>
-      <CarouselPrevious className="left-3" />
-      <CarouselNext className="right-3" />
+      {products?.length && products?.length > 5 ? (
+        <>
+          <CarouselPrevious className="left-3" />
+          <CarouselNext className="right-3" />
+        </>
+      ) : null}
     </Carousel>
   );
 };

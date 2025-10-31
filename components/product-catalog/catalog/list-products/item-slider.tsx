@@ -13,9 +13,9 @@ const ItemSlider: React.FC<ItemSliderProps> = ({ href, title, image }) => {
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${image?.formats?.medium?.url}`
     : "";
   return (
-    <div className="rounded-xl bg-gray-100 overflow-hidden relative">
+    <div className="rounded-xl bg-[#FB4C01] overflow-hidden relative hover:shadow-md transition-shadow">
       <div className="relative z-10 flex aspect-[2/1.3] sm:aspect-[2.26/1] items-center justify-center p-6">
-        <div className="absolute inset-0 line-clamp-2 p-3 text-xs sm:text-lg font-bold">
+        <div className="absolute text-white inset-0 line-clamp-2 p-3 text-xs sm:text-lg font-bold">
           {title}
         </div>
       </div>
