@@ -57,20 +57,20 @@ export default async function Navbar() {
               <MobilMenu navigation={catalog} />
 
               {/* Logo */}
-              <div className="">
+              <div>
                 <Logo className="ml-4 lg:ml-0" />
               </div>
 
               {/* Flyout menus */}
               <Menu navigation={catalog} />
               {/* Search section*/}
-              <div className="pl-8 flex-1">
+              <div className=" pl-4 lg:pl-8 flex-1">
                 <Suspense fallback={null}>
                   <InputSearch navigation={catalog} products={products} />
                 </Suspense>
               </div>
               {/* Right section */}
-              <div className="ml-auto pl-8 flex items-center gap-x-2 md:gap-x-4">
+              <div className="ml-auto pl-4 lg:pl-8 flex items-center gap-x-2 md:gap-x-4">
                 <div className="hidden sm:block ml-auto font-bold text-sm">
                   <a href="tel:74956752555">+7 (495) 675-25-55</a>
                 </div>

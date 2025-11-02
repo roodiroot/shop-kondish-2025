@@ -7,8 +7,10 @@ import { HistoryIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ProductsData } from "@/types/catalog";
 import { CatalogForNavbar } from "../general/navbar/navbar";
+import { cn } from "@/lib/utils";
 
-interface AutocompleteSearchProps {
+interface AutocompleteSearchProps
+  extends React.HTMLAttributes<HTMLUListElement> {
   navigation: CatalogForNavbar;
   historySearch: string[];
   products: ProductsData | null;
@@ -24,10 +26,11 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
   setHistorySearch,
   handleSubmit,
   setIsOpen,
+  ...props
 }) => {
   const router = useRouter();
   return (
-    <ul className="absolute left-0 right-0 mt-1 bg-white border py-4 px-1 border-gray-200 rounded-md shadow-lg overflow-auto z-10">
+    <ul className={cn("", props.className)}>
       <li className="px-3">
         <ul className="flex flex-wrap gap-1">
           {navigation?.brands?.map((brand) => (
@@ -86,18 +89,18 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
                   }}
                   className="absolute inset-0 cursor-pointer"
                 />
-                <div className="relative aspect-square w-16 p-2 bg-white overflow-hidden rounded-md">
-                  <div className="relative">
+                <div className="relative aspect-square w-16 p-2 bg-white overflow-hidden rounded-md ">
+                  <div className="relative w-full h-full">
                     <Image
-                      className="absolute object-contain "
+                      className="absolute object-contain w-full h-full"
                       width={100}
                       height={100}
                       priority={false}
                       src={
-                        item?.images
+                        item?.images && item?.images[0]?.formats?.small?.url
                           ? process.env.NEXT_PUBLIC_API_BASE_URL +
-                            item?.images[0].formats.small.url
-                          : "/no-image.jpg"
+                            item?.images[0]?.formats?.small?.url
+                          : "/images/no-image.png"
                       }
                       alt={`img_${item.name}`}
                     />

@@ -46,6 +46,20 @@ interface Pagination {
   total: number; // Общее количество элементов
 }
 
+export interface User {
+  id: number;
+  documentId: string;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  ordersArray: string[];
+}
+
 interface Meta {
   pagination: Pagination; // Информация о пагинации
 }
@@ -62,6 +76,8 @@ const errorDictionary: Record<string, string> = {
   "User not found": "Пользователь не найден",
   // Добавьте другие возможные ошибки
 };
+
+// USER AUTH API CALLS
 
 export const registerUser = async (
   userData: RegisterForm
@@ -192,20 +208,6 @@ export const updateUser = async (
   }
 };
 
-export interface User {
-  id: number;
-  documentId: string;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  ordersArray: string[];
-}
-
 export const getMy = async (token: string): Promise<User> => {
   const response = await fetch(`${API_BASE_URL}/users/me`, {
     method: "GET",
@@ -223,6 +225,8 @@ export const getMy = async (token: string): Promise<User> => {
   return await response.json();
 };
 
+// CATALOG API CALLS
+
 export const getAllProductCatalog = async (
   params?: string
 ): Promise<ProductCatalogData> => {
@@ -236,6 +240,7 @@ export const getAllProductCatalog = async (
 
   return await response.json();
 };
+
 export const getOneProductCatalogBySlug = async (
   slug: string
 ): Promise<ProductCatalog> => {

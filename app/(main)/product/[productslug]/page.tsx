@@ -64,6 +64,10 @@ export default async function ProductPage({ params }: Props) {
     return redirect("/not-found");
   }
 
+  const relatedProducts = products?.data.filter(
+    (item) => item.slug !== product.slug
+  );
+
   const breadcrumbMap: Record<string, string> = {};
   productCatalog.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
@@ -95,11 +99,11 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
       </BaseContainer>
-      {!!products?.data.length ? (
+      {!!relatedProducts?.length ? (
         <div className="px-1 pb-24">
           <SaleProductsSection
             title="Похожие товары"
-            products={products?.data}
+            products={relatedProducts}
           />
         </div>
       ) : null}
