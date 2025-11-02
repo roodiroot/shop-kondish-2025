@@ -153,7 +153,7 @@ const InputSearch: React.FC<InputSearchProps> = ({
       />
       {isOpen && (
         <AutocompleteSearch
-          className="absolute left-0 right-0 mt-1 bg-white min-w-[350px] border py-4 px-1 border-gray-200 rounded-md shadow-lg overflow-auto z-10"
+          className="absolute left-0 right-0 mt-1 bg-white min-w-[380px] border py-4 px-1 border-gray-200 rounded-md shadow-lg overflow-auto z-10"
           navigation={navigation}
           historySearch={historySearch}
           setHistorySearch={setHistorySearch}
