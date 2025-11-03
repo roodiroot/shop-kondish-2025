@@ -4,10 +4,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import ProductCardHero from "./product-card-hero";
+import CarouselButtons from "./carousel-buttons";
 
 interface ProductsSaleCarouselProps {
   products?: Product[];
@@ -52,12 +51,7 @@ const ProductsSaleCarousel: React.FC<ProductsSaleCarouselProps> = ({
             : null}
         </CarouselContent>
       </div>
-      {products?.length && products?.length > 5 ? (
-        <>
-          <CarouselPrevious className="left-3" />
-          <CarouselNext className="right-3" />
-        </>
-      ) : null}
+      {products?.length && products?.length > 5 ? <CarouselButtons /> : null}
     </Carousel>
   );
 };
