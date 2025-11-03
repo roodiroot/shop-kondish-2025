@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: nameProduct,
     description: `Преобретайте климатическую технику ${nameProduct} в интернет магазине Kondish.`,
     openGraph: {
-      title: product?.name,
+      title: nameProduct,
       description:
         "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
       siteName: "Kóndish",
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         {
           url: image
             ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${image}`
-            : "/main_open_graph.jpg",
+            : "/images/main_open_graph.jpg",
           width: 1200,
           height: 630,
           alt: "Kóndish установка и продажа кондиционеров в Москве.",

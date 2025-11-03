@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: "https://kondish.su",
     images: [
       {
-        url: "/main_open_graph.jpg",
+        url: "/images/main_open_graph.jpg",
         width: 1200,
         height: 630,
         alt: "Kóndish установка и продажа кондиционеров в Москве.",
