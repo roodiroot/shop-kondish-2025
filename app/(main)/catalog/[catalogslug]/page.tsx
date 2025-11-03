@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 import { getAllCategory, getOneProductCatalogBySlug } from "@/data/api";
 import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
@@ -14,12 +14,8 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).catalogslug;
-  const previousImages = (await parent).openGraph?.images || [];
 
   const catalog = await getOneProductCatalogBySlug(slug);
 
