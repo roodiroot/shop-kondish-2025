@@ -22,6 +22,23 @@ export const metadata: Metadata = {
   description:
     "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
   icons: "/kondish.svg",
+  openGraph: {
+    title: "Kóndish установка и продажа кондиционеров в Москве.",
+    description:
+      "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+    siteName: "Kóndish",
+    type: "website",
+    locale: "ru_RU",
+    url: "https://kondish.su",
+    images: [
+      {
+        url: "/main_open_graph.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kóndish установка и продажа кондиционеров в Москве.",
+      },
+    ],
+  },
 };
 
 const lato = Lato({

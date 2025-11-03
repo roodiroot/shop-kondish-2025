@@ -21,7 +21,7 @@ const MainDescriptionProductSection: React.FC<
 }) => {
   const features = [
     { label: "Бренд производитель:", value: brand },
-    { label: "Тип усстройства:", value: category },
+    { label: "Тип устройства:", value: category },
     { label: "Серия:", value: series },
     { label: "Площадь помещения: м².", value: area_of_room },
     { label: "Тип компрессора:", value: compressor_type },

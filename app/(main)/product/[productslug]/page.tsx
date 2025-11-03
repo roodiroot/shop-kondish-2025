@@ -20,19 +20,33 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const productslug = (await params).productslug;
-  const previousImages = (await parent).openGraph?.images || [];
   const product = await getProductBySlug(productslug);
+  const nameProduct = product?.brand?.name + " " + product?.name;
+  const image = product?.images?.[0]?.url;
 
   return {
-    title: product?.name,
-    description: `Преобретайте климатическую технику ${product?.name} в интернет магазине Kondish.`,
+    title: nameProduct,
+    description: `Преобретайте климатическую технику ${nameProduct} в интернет магазине Kondish.`,
     openGraph: {
-      images: ["/kondish.svg", ...previousImages],
+      title: product?.name,
+      description:
+        "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+      siteName: "Kóndish",
+      type: "website",
+      locale: "ru_RU",
+      url: "https://kondish.su",
+      images: [
+        {
+          url: image
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${image}`
+            : "/main_open_graph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Kóndish установка и продажа кондиционеров в Москве.",
+        },
+      ],
     },
   };
 }
