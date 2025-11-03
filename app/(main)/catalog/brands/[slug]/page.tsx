@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
 import { getBrandForSlug } from "@/data/api";
 import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
@@ -14,19 +14,32 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).slug;
   const brand = await getBrandForSlug(slug);
-  const previousImages = (await parent).openGraph?.images || [];
+  const image = brand?.image?.url;
 
   return {
     title: brand?.name,
     description: `Устанавливаем климатическую технику ${brand?.name} более 12 лет в Мосскве и области.`,
     openGraph: {
-      images: ["/kondish.svg", ...previousImages],
+      title: "Kóndish установка и продажа кондиционеров в Москве.",
+      description:
+        "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+      siteName: "Kóndish",
+      type: "website",
+      locale: "ru_RU",
+      url: "https://kondish.su",
+      images: [
+        {
+          url: image
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${image}`
+            : `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
+          width: 600,
+          height: 315,
+          alt: "Kóndish установка и продажа кондиционеров в Москве.",
+        },
+      ],
     },
   };
 }
