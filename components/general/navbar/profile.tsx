@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { use } from "react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 const ProfileForNavbar = () => {

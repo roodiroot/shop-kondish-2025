@@ -1,8 +1,7 @@
 "use client";
 
-import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { use } from "react";
+import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const CarouselButtons = () => {
   const isDesktop = useMediaQuery("(min-width: 640px)");
