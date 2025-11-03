@@ -4,15 +4,14 @@ import Footer from "@/components/general/footer/footer";
 import Navbar from "@/components/general/navbar/navbar";
 import TanstackProvider from "@/providers/tanstack-provider";
 import OverlaySection from "@/components/general/overlay-section";
+import GeneralToaster from "@/components/general/toaster/general-toaster";
 
-import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/authcontext";
 
 import { Lato } from "next/font/google";
 
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
-import GeneralToaster from "@/components/general/toaster/general-toaster";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),

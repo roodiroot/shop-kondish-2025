@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { registerUser } from "@/data/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/context/authcontext";
 import { registrationFormSchema } from "@/schema/auth-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -30,9 +29,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   switchForm,
   onCloseSheet,
 }) => {
-  const authContext = useAuth();
-  const { login } = authContext ?? {};
-
   const form = useForm<z.infer<typeof registrationFormSchema>>({
     resolver: zodResolver(registrationFormSchema),
     defaultValues: {
