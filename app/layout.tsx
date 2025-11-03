@@ -12,6 +12,7 @@ import { Lato } from "next/font/google";
 
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
+import GeneralToaster from "@/components/general/toaster/general-toaster";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),
@@ -57,7 +58,7 @@ export default function RootLayout({
             <main className="flex-1 relative">{children}</main>
             <Footer />
             <OverlaySection />
-            <Toaster />
+            <GeneralToaster />
           </body>
         </html>
       </TanstackProvider>

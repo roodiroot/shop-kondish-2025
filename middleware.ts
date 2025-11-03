@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkTokenJWT } from "./data/api";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
-
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("authToken"); // Получаем токен из cookies
+  const pathname = req.nextUrl.pathname;
 
   // Если токена нет, перенаправляем на логин
   if (!token) {

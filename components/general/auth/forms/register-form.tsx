@@ -49,17 +49,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       email: values.email,
       password: values.password,
     })
-      .then((data) => {
-        if (login) {
-          login(data.jwt, data.user);
-        }
+      .then(() => {
         if (onCloseSheet) {
           onCloseSheet();
         }
-
-        toast.success("Вы успешно зарегестрировались!");
+        toast.success("Письмо с подтверждением отправлено на ваш email.");
       })
       .catch(() => {
+        toast.error("Ошибка регестрации.");
         form.reset();
       });
   };

@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import InputPassword from "@/components/ui/input-password";
 import RequiredField from "@/components/ui/required-field";
+import { useRouter } from "next/navigation";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {
   switchForm: (value: "LOGIN" | "REGISTER") => void;
@@ -27,6 +28,7 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLFormElement> {
 const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
   const authContext = useAuth();
   const { login } = authContext ?? {};
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -44,6 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchForm, onCloseSheet }) => {
       .then((data) => {
         if (login) {
           login(data.jwt, data.user);
+          router.push("/protected/profile");
         }
         if (onCloseSheet) {
           onCloseSheet();
