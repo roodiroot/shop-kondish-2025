@@ -52,7 +52,9 @@ export const getProductBySlug = async (
 export const getAllProducts = async (
   params = ""
 ): Promise<ProductsData | null> => {
-  const { data, error } = await apiFetch<ProductsData>(`/products?${params}`);
+  const { data, error } = await apiFetch<ProductsData>(`/products?${params}`, {
+    next: { revalidate: 60 },
+  });
 
   if (error) {
     console.error("Ошибка получения списка продуктов:", error);

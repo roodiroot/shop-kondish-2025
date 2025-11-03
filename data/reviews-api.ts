@@ -1,19 +1,18 @@
 import { Reviews } from "@/types/catalog";
+import { apiFetch } from "./api-fetch";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
-
-export const getReviews = async (): Promise<Reviews[] | undefined> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/reviews`);
-
-    if (!response.ok) {
-      const errorData = await response.json();
-
-      throw new Error(errorData.message || "Ошибка получения отзывов");
+export const getReviews = async (): Promise<Reviews[]> => {
+  const { data, error } = await apiFetch<{ data: Reviews[] }>(
+    "/reviews?[sort]=createdAt:desc",
+    {
+      next: { revalidate: 60 },
     }
+  );
 
-    return (await response.json()).data;
-  } catch (error) {
+  if (error) {
+    console.error("Ошибка получения отзывов:", error);
     return [];
   }
+
+  return data?.data || [];
 };
