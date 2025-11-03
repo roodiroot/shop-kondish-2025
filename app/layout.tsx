@@ -12,6 +12,7 @@ import { Lato } from "next/font/google";
 
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
+import CookieBanner from "@/components/general/cookie-banner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),
@@ -75,6 +76,7 @@ export default function RootLayout({
             <Footer />
             <OverlaySection />
             <GeneralToaster />
+            <CookieBanner />
           </body>
         </html>
       </TanstackProvider>
