@@ -1,7 +1,11 @@
 import { Article, ArticleData } from "@/types/catalog";
 import { getFiltersFromQueryStringForArticle } from "@/utils/get-fulters-fromquery-string-for-article";
+import { apiFetch } from "./api-fetch";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
+interface ApiResult<T> {
+  data?: T;
+  error?: string;
+}
 
 export const getArticles = async ({
   limit = 1,
@@ -11,34 +15,24 @@ export const getArticles = async ({
   limit?: number;
   params?: string;
   queryString?: string;
-}): Promise<ArticleData | undefined> => {
-  const string = getFiltersFromQueryStringForArticle(queryString || "", limit);
+}): Promise<ApiResult<ArticleData>> => {
+  const filters = getFiltersFromQueryStringForArticle(queryString || "", limit);
+  const query = `${filters}${params ? "&" + params : ""}&populate=*`;
 
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/articles?${string}&${params ?? params + "&"}populate=*`
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-
-      throw new Error(errorData.message || "Ошибка получения статей");
-    }
-    return await response.json();
-  } catch (error) {
-    return undefined;
-  }
+  return await apiFetch<ArticleData>(`/articles?${query}`);
 };
 
 export const getArticleBySlug = async (
   slug: string
 ): Promise<Article | undefined> => {
-  // Формируем строку параметров для фильтров
-
-  // Вызываем getAllProducts с параметрами
-  const article = await getArticles({
+  const { data, error } = await getArticles({
     params: `filters[slug][$eq]=${slug}&`,
   });
 
-  if (article) return article.data[0];
+  if (error) {
+    console.error("Ошибка при получении статьи по slug:", error);
+    return undefined;
+  }
+
+  return data?.data?.[0];
 };

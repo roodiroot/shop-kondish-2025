@@ -1,5 +1,7 @@
 import Breadcrumbs from "@/components/general/breadcrumbs/breadcrumbs";
-import { getAllBrands, getAllCategory, getAllProductCatalog } from "@/data/api";
+import { getAllBrands } from "@/data/brand-api";
+import { getAllProductCatalog } from "@/data/catalog-api";
+import { getAllCategory } from "@/data/category-api";
 
 type BreadcrumbMap = Record<string, string>;
 const breadcrumbMap: BreadcrumbMap = {
@@ -18,7 +20,7 @@ export default async function CatalogLayout({
     getAllCategory(),
   ]);
 
-  productCatalog.data.forEach((element) => {
+  productCatalog?.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
   brands?.data.forEach((element) => {

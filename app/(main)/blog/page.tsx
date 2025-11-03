@@ -39,7 +39,7 @@ export default async function Blog(props: {
       <BaseContainer>
         {/* Блок оглавление страницы */}
         <HeadCatalog name="Блог" />
-        <BlogSectionForBlogPage articlesData={articles} />
+        <BlogSectionForBlogPage articlesData={articles.data} />
       </BaseContainer>
     </div>
   );

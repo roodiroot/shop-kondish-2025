@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 
-import { Brand } from "@/data/api";
 import { GroupedCatalog } from "@/utils/group-by-product-catalog";
 import { AlignJustify } from "lucide-react";
+import { Brand } from "@/data/brand-api";
 
 interface CatalogNavigationProps extends React.HTMLAttributes<HTMLDivElement> {
   category?: GroupedCatalog[];

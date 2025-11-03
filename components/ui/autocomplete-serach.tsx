@@ -29,6 +29,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
   ...props
 }) => {
   const router = useRouter();
+
   return (
     <ul className={cn("", props.className)}>
       <li className="px-3">
@@ -97,9 +98,12 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
                       height={100}
                       priority={false}
                       src={
-                        item?.images && item?.images[0]?.formats?.small?.url
+                        item?.images?.[0]?.formats?.small?.url
                           ? process.env.NEXT_PUBLIC_API_BASE_URL +
                             item?.images[0]?.formats?.small?.url
+                          : item?.images?.[0]?.formats?.thumbnail?.url
+                          ? process.env.NEXT_PUBLIC_API_BASE_URL +
+                            item?.images[0]?.formats?.thumbnail?.url
                           : "/images/no-image.png"
                       }
                       alt={`img_${item.name}`}

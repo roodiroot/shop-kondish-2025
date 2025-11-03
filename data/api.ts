@@ -3,12 +3,6 @@ import {
   requestResetPasswordSchema,
   resetPasswordSchema,
 } from "@/schema/auth-schemas";
-import {
-  CategoryData,
-  ImageForProduct,
-  ProductCatalog,
-  ProductCatalogData,
-} from "@/types/catalog";
 
 export interface UserAuth {
   id: number;
@@ -28,24 +22,6 @@ interface RegisterForm {
   password: string;
 }
 
-export interface Brand {
-  createdAt: string; // Дата и время создания
-  documentId: string; // Уникальный идентификатор документа
-  id: number; // Числовой идентификатор
-  image: ImageForProduct | null; // Ссылка на изображение или null
-  name: string; // Название документа
-  description: string; // Описание бренда
-  publishedAt: string; // Дата и время публикации
-  slug: string; // Уникальный "человекочитаемый" идентификатор
-  updatedAt: string; // Дата и время обновления
-}
-interface Pagination {
-  page: number; // Текущая страница
-  pageSize: number; // Количество элементов на странице
-  pageCount: number; // Общее количество страниц
-  total: number; // Общее количество элементов
-}
-
 export interface User {
   id: number;
   documentId: string;
@@ -58,10 +34,6 @@ export interface User {
   updatedAt: string;
   publishedAt: string;
   ordersArray: string[];
-}
-
-interface Meta {
-  pagination: Pagination; // Информация о пагинации
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
@@ -223,82 +195,4 @@ export const getMy = async (token: string): Promise<User> => {
   }
 
   return await response.json();
-};
-
-// CATALOG API CALLS
-
-export const getAllProductCatalog = async (
-  params?: string
-): Promise<ProductCatalogData> => {
-  const response = await fetch(`${API_BASE_URL}/product-catalogs?${params}`);
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.message || "Ошибка получения каталога");
-  }
-
-  return await response.json();
-};
-
-export const getOneProductCatalogBySlug = async (
-  slug: string
-): Promise<ProductCatalog> => {
-  const response = await fetch(
-    `${API_BASE_URL}/product-catalogs?[filters][available]=true&filters[slug][$eq]=${slug}`
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.message || "Ошибка получения каталога");
-  }
-
-  return (await response.json()).data[0];
-};
-
-export const getAllCategory = async (
-  params?: string
-): Promise<CategoryData | null> => {
-  const response = await fetch(
-    `${API_BASE_URL}/categories?[filters][available]=true&populate=*&${params}`
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    // throw new Error(errorData.message || "Ошибка получения категорий");
-    return null;
-  }
-
-  return await response.json();
-};
-
-export const getAllBrands = async (): Promise<{
-  data: Brand[];
-  meta: Meta;
-} | null> => {
-  const response = await fetch(`${API_BASE_URL}/brands?populate=*`);
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    // throw new Error(errorData.message || "Ошибка получения брендов");
-    return null;
-  }
-
-  return await response.json();
-};
-export const getBrandForSlug = async (slug: string): Promise<Brand> => {
-  const response = await fetch(
-    `${API_BASE_URL}/brands?filters[slug][$eq]=${slug}&populate=*`
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json();
-
-    throw new Error(errorData.message || "Ошибка получения бренда");
-  }
-
-  return (await response.json()).data[0];
 };

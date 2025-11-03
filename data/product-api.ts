@@ -1,6 +1,13 @@
-import { Product, ProductsData } from "@/types/catalog";
+import { apiFetch } from "./api-fetch";
 import { fetchWithRetry } from "./utils";
+import { Product, ProductsData } from "@/types/catalog";
 
+export interface CartItem {
+  product: string; // ID товара
+  count: number; // Количество
+}
+
+//  Получить один товар по slug
 export const getProductBySlug = async (
   slug: string
 ): Promise<Product | null> => {
@@ -9,75 +16,139 @@ export const getProductBySlug = async (
     populate: "*",
   });
 
-  try {
-    const response = await fetchWithRetry(`/products?${params.toString()}`);
-    return response.data[0] || null;
-  } catch (error) {
-    console.error(
-      "Ошибка получения продукта по slug:",
-      error instanceof Error ? error.message : "Неизвестная ошибка"
-    );
+  const { data, error } = await apiFetch<{ data: Product[] }>(
+    `/products?${params.toString()}`
+  );
+
+  if (error) {
+    console.error("Ошибка получения продукта по slug:", error);
     return null;
   }
+
+  return data?.data?.[0] ?? null;
 };
 
+// export const getProductBySlug = async (
+//   slug: string
+// ): Promise<Product | null> => {
+//   const params = new URLSearchParams({
+//     "filters[slug][$eq]": slug,
+//     populate: "*",
+//   });
+
+//   try {
+//     const response = await fetchWithRetry(`/products?${params.toString()}`);
+//     return response.data[0] || null;
+//   } catch (error) {
+//     console.error(
+//       "Ошибка получения продукта по slug:",
+//       error instanceof Error ? error.message : "Неизвестная ошибка"
+//     );
+//     return null;
+//   }
+// };
+
+// Получить все товары (с любыми параметрами)
 export const getAllProducts = async (
-  params?: string
+  params = ""
 ): Promise<ProductsData | null> => {
-  try {
-    const response = await fetchWithRetry(`/products?${params}`);
-    return response;
-  } catch (error) {
-    console.error(
-      "Ошибка получения списка продуктов:",
-      error instanceof Error ? error.message : "Неизвестная ошибка"
-    );
+  const { data, error } = await apiFetch<ProductsData>(`/products?${params}`);
+
+  if (error) {
+    console.error("Ошибка получения списка продуктов:", error);
     return null;
   }
+
+  return data ?? null;
 };
+
+// export const getAllProducts = async (
+//   params?: string
+// ): Promise<ProductsData | null> => {
+//   try {
+//     const response = await fetchWithRetry(`/products?${params}`);
+//     return response;
+//   } catch (error) {
+//     console.error(
+//       "Ошибка получения списка продуктов:",
+//       error instanceof Error ? error.message : "Неизвестная ошибка"
+//     );
+//     return null;
+//   }
+// };
+// Поиск товаров
 export const getAllProductsSearch = async (
   query: string
 ): Promise<ProductsData | null> => {
-  try {
-    const response = await fetchWithRetry(`/product/search?q=${query}`);
-    return response;
-  } catch (error) {
-    console.error(
-      "Ошибка получения списка продуктов:",
-      error instanceof Error ? error.message : "Неизвестная ошибка"
-    );
+  const { data, error } = await apiFetch<ProductsData>(
+    `/product/search?q=${query}`
+  );
+
+  if (error) {
+    console.error("Ошибка поиска продуктов:", error);
     return null;
   }
-};
 
-//       views: 1, // Вес для просмотров
-//       favorites: 5, // Вес для добавления в избранное
-//       cart_adds: 10, // Вес для добавления в корзину
+  return data ?? null;
+};
+// export const getAllProductsSearch = async (
+//   query: string
+// ): Promise<ProductsData | null> => {
+//   try {
+//     const response = await fetchWithRetry(`/product/search?q=${query}`);
+//     return response;
+//   } catch (error) {
+//     console.error(
+//       "Ошибка получения списка продуктов:",
+//       error instanceof Error ? error.message : "Неизвестная ошибка"
+//     );
+//     return null;
+//   }
+// };
+
+// Обновление популярности товара
 export const updateProductPopularity = async (
   slug: string,
   action: "views" | "favorites" | "cart_adds"
-) => {
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/increment-popularity`,
+): Promise<any | null> => {
+  const { data, error } = await apiFetch<any>(
+    `/products/increment-popularity`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        slug,
-        action,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ slug, action }),
     }
   );
-  return data.json();
+
+  if (error) {
+    console.error("Ошибка обновления популярности:", error);
+    return null;
+  }
+
+  return data ?? null;
 };
 
-export interface CartItem {
-  product: string; // ID товара
-  count: number; // Количество
-}
+// export const updateProductPopularity = async (
+//   slug: string,
+//   action: "views" | "favorites" | "cart_adds"
+// ) => {
+//   const data = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/increment-popularity`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         slug,
+//         action,
+//       }),
+//     }
+//   );
+//   return data.json();
+// };
 
+// Товары из корзины
 export const getAllProductsCart = async (
   cart: CartItem[]
 ): Promise<ProductsData | null> => {
@@ -88,11 +159,10 @@ export const getAllProductsCart = async (
     )
     .join("&");
 
-  // Вызываем getAllProducts с параметрами
   return await getAllProducts(`${params}&populate=*`);
 };
 
-// Получаем все избранные товары
+// Избранные товары
 export const getAllProductsFavorites = async (
   favorites: string[],
   string_params?: string
@@ -102,11 +172,10 @@ export const getAllProductsFavorites = async (
     .map((id, index) => `[filters][documentId][$in][${index}]=${id}`)
     .join("&");
 
-  // Вызываем getAllProducts с параметрами
   return await getAllProducts(`${params}&${string_params}`);
 };
 
-//Получаем все товары по массиву их Id
+// Товары по массиву slug
 export const getAllProductsBySlug = async (
   ids: string[]
 ): Promise<ProductsData | null> => {
@@ -115,6 +184,5 @@ export const getAllProductsBySlug = async (
     .map((id, index) => `[filters][slug][$in][${index}]=${id}`)
     .join("&");
 
-  // Вызываем getAllProducts с параметрами
   return await getAllProducts(`${params}&populate=*`);
 };

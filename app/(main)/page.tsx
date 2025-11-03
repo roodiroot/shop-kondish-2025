@@ -57,7 +57,7 @@ export default async function Home() {
       <SaleProductsSection title="Хиты продаж" products={productsHit?.data} />
       <AboutSection content={content?.aboutContent} />
       <ReviewsSection reviews={reviews} />
-      <BlogSection articles={articles?.data} />
+      <BlogSection articles={articles?.data?.data} />
       <QASection qaes={qaes} />
     </>
   );

@@ -99,9 +99,9 @@ const OrderSummarySection = () => {
               brandName={item.product.brand?.name}
               categoryName={item.product.category?.name}
               image={
-                item?.product?.images?.length
-                  ? item?.product?.images[0]?.formats.small.url
-                  : null
+                item?.product?.images?.[0].formats?.small?.url
+                  ? item?.product?.images?.[0].formats?.small?.url
+                  : item?.product?.images?.[0].formats?.thumbnail?.url
               }
               price={Number(item.product.price)}
               count={item.count}

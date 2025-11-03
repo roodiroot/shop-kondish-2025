@@ -11,6 +11,7 @@ import Image from "next/image";
 // } from "@/components/ui/carousel";
 import { HeroScreens } from "@/data/hero-screen-api";
 import { Icon } from "@/components/ui/icon";
+import FButton from "@/components/general/fbutton";
 
 interface HeroCarouselProps {
   heroScreens?: HeroScreens[];
@@ -35,9 +36,9 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
                 </span>
               </div>
               <div className="mt-4">
-                <button className="border-2 border-black py-3 px-7 text-xs uppercase font-semibold hover:bg-black hover:text-[#FB4C01] transition-colors">
+                <FButton className="border-2 border-black py-3 px-7 text-xs uppercase font-semibold hover:bg-black hover:text-[#FB4C01] transition-colors">
                   Заказать установку
-                </button>
+                </FButton>
               </div>
             </div>
           </div>

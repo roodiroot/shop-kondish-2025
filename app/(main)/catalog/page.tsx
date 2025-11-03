@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
-import { getAllProductCatalog } from "@/data/api";
 import { getAllFiltersByParams } from "@/data/faset-api";
 import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
 
 import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
 import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
+import { getAllProductCatalog } from "@/data/catalog-api";
 
 export const metadata: Metadata = {
   title: "Каталог товаров",

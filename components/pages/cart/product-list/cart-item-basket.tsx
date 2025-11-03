@@ -33,17 +33,18 @@ const CartItemBasket: React.FC<CartItemBasketProps> = ({
 }) => {
   return (
     <li className="flex px-4 py-6 lg:px-6 border-b">
-      <div className="relative shrink-0 w-24 h-24 rounded-md p-4 bg-white">
-        {image ? (
-          <Image
-            className="w-full h-full object-cover"
-            width={96}
-            height={96}
-            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${image}`}
-            alt="profuct_item_in_cart"
-          />
-        ) : null}
-
+      <div className="relative shrink-0 w-24 h-24 rounded-md p-1 bg-white">
+        <Image
+          className="w-full h-full object-contain"
+          width={96}
+          height={96}
+          src={
+            image
+              ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${image}`
+              : "/images/no-image.png"
+          }
+          alt="profuct_item_in_cart"
+        />
         <span className="absolute inset-0 bg-gray-400/5"></span>
       </div>
       <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
@@ -51,7 +52,10 @@ const CartItemBasket: React.FC<CartItemBasketProps> = ({
           <div className="flex-1">
             <div className="flex justify-between">
               <h3 className="text-sm font-medium">
-                <Link href={`/product/${slug}`} className="text-gray-700">
+                <Link
+                  href={`/product/${slug}`}
+                  className="text-gray-700 font-semibold"
+                >
                   {name}
                 </Link>
               </h3>
@@ -68,7 +72,7 @@ const CartItemBasket: React.FC<CartItemBasketProps> = ({
           </div>
         </div>
         <div className="flex flex-1 items-end justify-between pt-2">
-          <div className="text-sm font-medium text-gray-900">
+          <div className="text-sm font-semibold text-gray-900">
             {new Intl.NumberFormat("ru").format(price)} р.
           </div>
           <Select

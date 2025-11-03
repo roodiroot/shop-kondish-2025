@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { getAllBrands } from "@/data/api";
 import BaseContainer from "@/components/general/containers/base-container";
 import BrandsList from "@/components/product-catalog/brands/brands-list";
+import { getAllBrands } from "@/data/brand-api";
 
 export const metadata: Metadata = {
   title: "Бренды",

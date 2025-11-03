@@ -23,7 +23,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({ articles }) => {
       <div className="overflow-hidden">
         <CarouselContent>
           {articles
-            ? articles.map((article, index) => (
+            ? articles?.map((article, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
                     <BlogPreview

@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
-import { getAllCategory, getAllProductCatalog } from "@/data/api";
 import {
   getAllProducts,
   getProductBySlug,
@@ -14,6 +13,8 @@ import ProductInfoSection from "@/components/pages/product-page/product-info-sec
 import ImagesSlider from "@/components/pages/product-page/images-slider/images-slider";
 import SaleProductsSection from "@/components/pages/hero-page-components/sale-products-section/sale-products-section";
 import { cn } from "@/lib/utils";
+import { getAllProductCatalog } from "@/data/catalog-api";
+import { getAllCategory } from "@/data/category-api";
 
 type Props = {
   params: Promise<{ productslug: string }>;
@@ -83,10 +84,10 @@ export default async function ProductPage({ params }: Props) {
   );
 
   const breadcrumbMap: Record<string, string> = {};
-  productCatalog.data.forEach((element) => {
+  productCatalog?.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
-  category.data.forEach((element) => {
+  category?.data.forEach((element) => {
     breadcrumbMap[element.slug] = element.name;
   });
   breadcrumbMap["catalog"] = "Каталог";

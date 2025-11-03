@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import { getAllCategory, getAllProductCatalog } from "@/data/api";
+
 import { getAllProducts } from "@/data/product-api";
+import { getAllProductCatalog } from "@/data/catalog-api";
+import { getAllCategory } from "@/data/category-api";
 
 export async function GET() {
   const paramProduct = new URLSearchParams({

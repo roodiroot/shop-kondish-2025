@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 
-import { getBrandForSlug } from "@/data/api";
+import { Suspense } from "react";
+
+import { getAllFiltersByParams } from "@/data/faset-api";
 import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
 
 import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
-import { Suspense } from "react";
-import { getAllFiltersByParams } from "@/data/faset-api";
+import { getBrandForSlug } from "@/data/brand-api";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -58,7 +59,7 @@ export default async function Brand({ params }: Props) {
   return (
     <BaseContainer>
       {/* Блок оглавление страницы */}
-      <HeadCatalog name={brand?.name} description={brand?.description} />
+      <HeadCatalog name={brand?.name || ""} description={brand?.description} />
 
       {/* Фильтры и товары */}
       <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">

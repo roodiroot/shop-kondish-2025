@@ -1,19 +1,21 @@
+import { Suspense } from "react";
+
 import {
   groupByProductCatalog,
   GroupedCatalog,
 } from "@/utils/group-by-product-catalog";
 import { navigation, Page } from "@/navigation";
-import { Brand, getAllBrands, getAllCategory } from "@/data/api";
+import { getAllProducts } from "@/data/product-api";
+import { getAllCategory } from "@/data/category-api";
+import { Brand, getAllBrands } from "@/data/brand-api";
 
 import MobilMenu from "./mobil-menu/mobil-menu";
 import Favorites from "./favorites-icon/favorites";
 import Menu from "@/components/general/navbar/menu";
 import Logo from "@/components/general/navbar/logo";
+import InputSearch from "@/components/ui/input-search";
 import CartNavbar from "@/components/general/navbar/cart-icon/cart-navbar";
 import AuthComponentNavbar from "@/components/general/navbar/auth-component-navbar";
-import InputSearch from "@/components/ui/input-search";
-import { Suspense } from "react";
-import { getAllProducts } from "@/data/product-api";
 
 export interface CatalogForNavbar {
   category?: GroupedCatalog[];
