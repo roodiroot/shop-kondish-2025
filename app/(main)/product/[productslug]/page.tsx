@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 import { getAllCategory, getAllProductCatalog } from "@/data/api";
 import {
