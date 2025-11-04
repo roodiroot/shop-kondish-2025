@@ -19,7 +19,9 @@ export const getArticles = async ({
   const filters = getFiltersFromQueryStringForArticle(queryString || "", limit);
   const query = `${filters}${params ? "&" + params : ""}&populate=*`;
 
-  return await apiFetch<ArticleData>(`/articles?${query}`);
+  return await apiFetch<ArticleData>(`/articles?${query}`, {
+    next: { revalidate: 600 },
+  });
 };
 
 export const getArticleBySlug = async (

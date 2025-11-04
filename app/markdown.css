@@ -52,7 +52,7 @@
   
   /* Ссылки */
   .markdown a {
-    @apply text-primary underline hover:text-orange-700;
+    @apply text-primary hover:underline hover:text-orange-500 font-semibold;
   }
   
   /* Цитаты */

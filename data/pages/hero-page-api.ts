@@ -1,23 +1,18 @@
-import { ImageForProduct } from "@/types/catalog";
+import { apiFetch } from "../api-fetch";
 
 interface HeroPage {
   aboutContent: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
-
 export const getHeroPage = async (): Promise<HeroPage | undefined> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/hero-page`);
+  const { data, error } = await apiFetch<{ data: HeroPage }>("/hero-page", {
+    next: { revalidate: 600 },
+  });
 
-    if (!response.ok) {
-      const errorData = await response.json();
+  if (error) {
+    console.error("Ошибка при получении страницы:", error);
+    return undefined;
+  }
 
-      throw new Error(
-        errorData.message || "Ошибка получения блока вопросов и ответов"
-      );
-    }
-
-    return (await response.json()).data;
-  } catch (error) {}
+  return data?.data;
 };

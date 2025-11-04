@@ -17,6 +17,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: article?.title,
     description: article?.subtitle,
+    icons: "/kondish.svg",
+    openGraph: {
+      title: article?.title,
+      description: article?.subtitle,
+      siteName: "Kóndish",
+      type: "website",
+      locale: "ru_RU",
+      url: "https://kondish.su",
+      images: [
+        {
+          url: article?.image?.formats?.large?.url
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.large?.url}`
+            : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.medium?.url}`,
+          width: 1200,
+          height: 630,
+          alt: "Kóndish установка и продажа кондиционеров в Москве.",
+        },
+      ],
+    },
   };
 }
 
@@ -39,12 +58,16 @@ export default async function AriclePage({ params }: Props) {
           {article.title}
         </h1>
       </div>
-      <div className="relative w-full aspect-[1.5/2] sm:aspect-[2/1] lg:aspect-[2.4/1] bg-gray-100 rounded-lg">
+      <div className="relative w-full overflow-hidden aspect-[1.5/2] sm:aspect-[2/1] lg:aspect-[2.4/1] bg-gray-100 rounded-lg">
         <Image
           width={1200}
           height={400}
           className="absolute w-full h-full object-cover"
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${article.image?.formats.large.url}`}
+          src={
+            article.image?.formats?.large?.url
+              ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.large?.url}`
+              : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.medium?.url}`
+          }
           alt=""
         />
       </div>

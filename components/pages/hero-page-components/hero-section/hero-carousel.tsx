@@ -45,6 +45,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
           <Image
             width={1216}
             height={369}
+            priority
             src={"/images/main_hero_page.jpg"}
             alt={"command_kondish"}
             className="absolute w-full h-full object-cover z-0"
