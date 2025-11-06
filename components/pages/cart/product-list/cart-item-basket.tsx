@@ -65,6 +65,16 @@ const CartItemBasket: React.FC<CartItemBasketProps> = ({
           </div>
           <div className="ml-4 shrink-0">
             <TrashButton
+              productMetrik={{
+                id: productId || "",
+                name: brandName ? brandName + " " + name : name,
+                price: price,
+                brand: brandName || "",
+                category: categoryName || "",
+                quantity: count,
+                list: "Корзина",
+                position: 1,
+              }}
               removeFromCart={removeFromCart}
               productId={productId}
               disabled={disabled}

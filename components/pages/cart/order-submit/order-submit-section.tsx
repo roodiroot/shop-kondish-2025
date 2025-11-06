@@ -15,6 +15,7 @@ import CartItemBasket from "../product-list/cart-item-basket";
 import CartItemBasketSkeleton from "../product-list/cart-item-basket-skeleton";
 
 import { Product } from "@/types/catalog";
+import { useEcommerce } from "@/hooks/use-ecommerce";
 
 const OrderSummarySection = () => {
   const router = useRouter();
@@ -28,6 +29,8 @@ const OrderSummarySection = () => {
     isError,
     isPending: isPandingFetch,
   } = useFetchCartProducts(cart);
+
+  const { purchase } = useEcommerce();
 
   const productsWithCounts = productCart?.data.map((product: Product) => {
     const cartItem = cart.find((item) => item.product === product.documentId);
@@ -57,9 +60,29 @@ const OrderSummarySection = () => {
         });
 
         if (response?.ok) {
+          // Отправка данных о покупке в Метрику
+          if (productsWithCounts?.length) {
+            // console.log(response?.data);
+            purchase({
+              id: response?.data?.id,
+              products: productsWithCounts?.map((item) => ({
+                id: item.product.documentId,
+                name: item.product.brand?.name + " " + item.product.name,
+                price: isNaN(Number(item.product.price))
+                  ? 0
+                  : Number(item.product.price),
+                brand: item.product.brand?.name || "",
+                category: item.product?.category?.name || "",
+                quantity: item.count,
+                list: "Корзина",
+                position: 1,
+              })),
+            });
+          }
           router.push(
             `/cart/order-success?orderId=${response?.data?.documentId}`
           );
+
           saveOrderId(response?.data?.documentId);
           localStorage.removeItem("cart-storage");
           clearCart();
@@ -93,17 +116,17 @@ const OrderSummarySection = () => {
         : productsWithCounts?.map((item) => (
             <CartItemBasket
               key={item.product.id}
-              productId={item.product.documentId}
-              name={item.product.name}
-              slug={item.product.slug}
-              brandName={item.product.brand?.name}
-              categoryName={item.product.category?.name}
+              productId={item.product?.documentId}
+              name={item.product?.name}
+              slug={item.product?.slug}
+              brandName={item.product?.brand?.name}
+              categoryName={item.product?.category?.name}
               image={
                 item?.product?.images?.[0].formats?.small?.url
                   ? item?.product?.images?.[0].formats?.small?.url
                   : item?.product?.images?.[0].formats?.thumbnail?.url
               }
-              price={Number(item.product.price)}
+              price={Number(item.product?.price)}
               count={item.count}
               setCount={setProductQuantity}
               removeFromCart={removeFromCart}

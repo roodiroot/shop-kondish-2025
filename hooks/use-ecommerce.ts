@@ -15,7 +15,6 @@ export type ProductMetrik = {
 
 type Order = {
   id: string | number;
-  revenue: number;
   products: ProductMetrik[];
 };
 
@@ -96,7 +95,6 @@ export function useEcommerce() {
           purchase: {
             actionField: {
               id: order.id,
-              revenue: order.revenue,
             },
             products: order.products,
           },

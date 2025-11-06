@@ -1,22 +1,27 @@
 "use client";
 
+import { ProductMetrik, useEcommerce } from "@/hooks/use-ecommerce";
 import { LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 interface TrashButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  productMetrik: ProductMetrik;
   productId?: string;
   disabled?: boolean;
   removeFromCart?: (productId: string) => void;
 }
 const TrashButton: React.FC<TrashButtonProps> = ({
+  productMetrik,
   productId,
   removeFromCart,
   disabled,
 }) => {
+  const { removeFromCart: removeFromCartMetrik } = useEcommerce();
   return (
     <button
       onClick={() => {
         if (removeFromCart && productId) {
           removeFromCart(productId);
+          removeFromCartMetrik({ ...productMetrik });
         }
       }}
       type="button"

@@ -15,6 +15,7 @@ import SaleProductsSection from "@/components/pages/hero-page-components/sale-pr
 import { cn } from "@/lib/utils";
 import { getAllProductCatalog } from "@/data/catalog-api";
 import { getAllCategory } from "@/data/category-api";
+import ClientMetrikComponent from "@/components/pages/product-page/client-metric-component";
 
 type Props = {
   params: Promise<{ productslug: string }>;
@@ -98,6 +99,18 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
+      <ClientMetrikComponent
+        product={{
+          id: product.documentId,
+          name: product?.brand?.name + " " + product?.name,
+          price: isNaN(Number(product?.price)) ? 0 : Number(product?.price),
+          brand: product?.brand?.name || "",
+          category: product?.category?.name || "",
+          quantity: 1,
+          list: "Карточка товара",
+          position: 1,
+        }}
+      />
       <Breadcrumbs
         breadcrumbMap={breadcrumbMap}
         path={breadcrumbPath}

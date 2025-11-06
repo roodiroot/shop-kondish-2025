@@ -32,8 +32,10 @@ const OrderSummarySectionComplate: React.FC<
           brandName={item.product?.brand?.name}
           categoryName={item.product.category?.name}
           image={
-            item?.product?.images?.length
-              ? item?.product?.images[0]?.formats.small.url
+            item?.product?.images?.[0]?.formats?.small?.url
+              ? item?.product?.images[0]?.formats?.small?.url
+              : item?.product?.images?.[0]?.formats?.thumbnail?.url
+              ? item?.product?.images?.[0]?.formats?.thumbnail?.url
               : null
           }
           disabled
