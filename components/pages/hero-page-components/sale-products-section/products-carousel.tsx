@@ -9,10 +9,12 @@ import ProductCardHero from "./product-card-hero";
 import CarouselButtons from "./carousel-buttons";
 
 interface ProductsSaleCarouselProps {
+  titleBlock?: string;
   products?: Product[];
 }
 
 const ProductsSaleCarousel: React.FC<ProductsSaleCarouselProps> = ({
+  titleBlock,
   products,
 }) => {
   return (
@@ -32,12 +34,13 @@ const ProductsSaleCarousel: React.FC<ProductsSaleCarouselProps> = ({
                   : undefined;
                 return (
                   <CarouselItem
-                    key={index}
+                    key={product.slug + index}
                     className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 pl-2"
                   >
                     <div className="p-1 h-full">
                       <ProductCardHero
-                        key={product.slug}
+                        titleBlock={titleBlock}
+                        positionProduct={index + 1}
                         brand={product.brand?.name || ""}
                         name={product?.name || ""}
                         slug={product?.slug}

@@ -61,7 +61,11 @@ export default async function CategoryGroup({ params }: Props) {
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
         <BlockFilters filters={filters} />
         <Suspense>
-          <ListProducts string_params={param.toString()} isFiltersButton />
+          <ListProducts
+            string_params={param.toString()}
+            isFiltersButton
+            titleBlock={`Категория ${category.name}`}
+          />
         </Suspense>
       </div>
     </BaseContainer>

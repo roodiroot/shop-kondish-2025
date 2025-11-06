@@ -67,7 +67,11 @@ export default async function CatalogGroup({ params }: Props) {
       <div className="grid pb-12 grid-cols-1 gap-x-6 md:grid-cols-3  lg:gap-x-8 xl:grid-cols-4">
         <BlockFilters filters={filters} />
         <Suspense>
-          <ListProducts string_params={param.toString()} isFiltersButton />
+          <ListProducts
+            string_params={param.toString()}
+            isFiltersButton
+            titleBlock="Каталог товаров"
+          />
         </Suspense>
       </div>
     </BaseContainer>

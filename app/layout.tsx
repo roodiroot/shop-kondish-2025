@@ -3,30 +3,31 @@ import type { Metadata } from "next";
 import Footer from "@/components/general/footer/footer";
 import Navbar from "@/components/general/navbar/navbar";
 import TanstackProvider from "@/providers/tanstack-provider";
+import CookieBanner from "@/components/general/cookie-banner";
 import OverlaySection from "@/components/general/overlay-section";
 import GeneralToaster from "@/components/general/toaster/general-toaster";
 
-import { AuthProvider } from "@/context/authcontext";
-
 import { Lato } from "next/font/google";
+import { AuthProvider } from "@/context/authcontext";
 
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
-import CookieBanner from "@/components/general/cookie-banner";
+import { Suspense } from "react";
+import { Metrika } from "./(static)/metrika/metrika";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),
   title: {
-    template: "%s | Kóndish установка и продажа кондиционеров в Москве.",
+    template: "%s | Kóndish установка и продажа кондиционеров.",
     default: "Kóndish установка кондиционеров в Москве и Московской области.",
   },
   description:
-    "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+    "Установка и подбор кондиционеров и сплит-систем. | Более 15 лет устанавливаем климатическую технику в ваших домах.",
   icons: "/kondish.svg",
   openGraph: {
     title: "Kóndish установка и продажа кондиционеров в Москве.",
     description:
-      "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+      "Установка и подбор кондиционеров и сплит-систем. | Более 15 лет устанавливаем климатическую технику в ваших домах.",
     siteName: "Kóndish",
     type: "website",
     locale: "ru_RU",
@@ -77,6 +78,9 @@ export default function RootLayout({
             <OverlaySection />
             <GeneralToaster />
             <CookieBanner />
+            <Suspense>
+              <Metrika />
+            </Suspense>
           </body>
         </html>
       </TanstackProvider>

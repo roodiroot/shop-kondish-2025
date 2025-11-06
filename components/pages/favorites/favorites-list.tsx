@@ -34,9 +34,11 @@ const FavoritesList = () => {
                 <Skeleton className="w-full h-full" />
               </div>
             ))
-          : data?.data?.map((i: Product) => (
+          : data?.data?.map((i: Product, index) => (
               <ProductCard
                 key={i.slug}
+                titleBlock="Избранные товары"
+                positionProduct={index + 1}
                 name={i.name}
                 slug={i.slug}
                 brand={i.brand?.name || ""}

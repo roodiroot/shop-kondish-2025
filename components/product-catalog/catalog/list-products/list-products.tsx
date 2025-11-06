@@ -14,11 +14,13 @@ import PaginationBlock from "@/components/product-catalog/catalog/pagination/pag
 interface ListProductsProps extends React.HTMLAttributes<HTMLDivElement> {
   string_params?: string;
   isFiltersButton?: boolean;
+  titleBlock?: string;
 }
 
 export const ListProducts: React.FC<ListProductsProps> = ({
   string_params,
   isFiltersButton,
+  titleBlock,
 }) => {
   const searchParams = useSearchParams();
   const string = getFiltersFromQueryString(searchParams.toString());
@@ -46,11 +48,13 @@ export const ListProducts: React.FC<ListProductsProps> = ({
                 <Skeleton className="w-full h-full" />
               </div>
             ))
-          : data?.data?.map((i: Product) => {
+          : data?.data?.map((i: Product, index) => {
               const path = i?.images?.length ? i?.images[0]?.url : undefined;
               return (
                 <ProductCard
                   key={i.slug}
+                  positionProduct={index + 1}
+                  titleBlock={titleBlock}
                   name={i.name}
                   slug={i.slug}
                   brand={i.brand?.name || ""}

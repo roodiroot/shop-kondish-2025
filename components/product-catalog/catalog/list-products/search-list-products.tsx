@@ -47,11 +47,13 @@ export const SearchListProducts: React.FC<SearchListProductsProps> = ({
                 <Skeleton className="w-full h-full" />
               </div>
             ))
-          : data?.data?.map((i: Product) => {
+          : data?.data?.map((i: Product, index) => {
               const path = i?.images?.length ? i?.images[0]?.url : undefined;
               return (
                 <ProductCard
                   key={i.slug}
+                  positionProduct={index + 1}
+                  titleBlock={`Результаты поиска по запросу "${query}"`}
                   name={i.name}
                   slug={i.slug}
                   brand={i.brand?.name || ""}

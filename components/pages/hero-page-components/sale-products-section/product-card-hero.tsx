@@ -18,6 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ProductMetrik, useEcommerce } from "@/hooks/use-ecommerce";
 
 interface ProductCardHeroProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -25,6 +26,8 @@ interface ProductCardHeroProps extends React.HTMLAttributes<HTMLDivElement> {
   brand: string;
   imagePrevievUrl: string | null;
   product: Product;
+  titleBlock?: string;
+  positionProduct?: number;
 }
 const ProductCardHero: React.FC<ProductCardHeroProps> = ({
   slug,
@@ -32,14 +35,18 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
   imagePrevievUrl,
   brand,
   product,
+  titleBlock,
+  positionProduct,
 }) => {
   const { cart, addToCart } = useCartStore();
+  const { addToCart: addToCartMetrik } = useEcommerce();
   const { favorites, addToFavorites, removeFromFavorites } =
     useFavoritesStore();
 
-  const addToCartHandle = async () => {
+  const addToCartHandle = async (addProduct: ProductMetrik) => {
     addToCart(product.documentId);
     toast("Товар добавлен в корзину");
+    addToCartMetrik({ ...addProduct });
     await updateProductPopularity(slug, "cart_adds");
   };
   const addToFavoritesHandle = async () => {
@@ -149,7 +156,20 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
             {!cart.find((i) => i.product === product.documentId) ? (
               <Button
                 size="sm"
-                onClick={addToCartHandle}
+                onClick={() => {
+                  return addToCartHandle({
+                    id: product.documentId,
+                    name: brand + " " + product.name,
+                    price: isNaN(Number(product.price))
+                      ? 0
+                      : Number(product.price),
+                    quantity: 1,
+                    list: titleBlock || "Блок не указан",
+                    position: positionProduct || 0,
+                    brand: brand,
+                    category: product.category?.name || "",
+                  });
+                }}
                 disabled={!!cart.find((i) => i.product === product.documentId)}
                 className="relative z-10 font-bold flex"
               >

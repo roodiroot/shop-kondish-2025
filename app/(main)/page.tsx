@@ -17,7 +17,7 @@ import AboutSection from "@/components/pages/hero-page-components/about-section/
 export const metadata: Metadata = {
   title: "Kondish — работаем честно",
   description:
-    "Kondish — более 10 лет на рынке климатической техники. Честные цены, профессиональный подбор, установка и обслуживание кондиционеров.",
+    "Kondish — более 15 лет работаем для вас. Честные цены, профессиональный подбор, установка и обслуживание кондиционеров.",
   icons: "/kondish.svg",
 };
 

@@ -65,7 +65,11 @@ export default async function Brand({ params }: Props) {
       <div className="grid pb-12 grid-cols-1 md:grid-cols-3  md:gap-x-6 xl:grid-cols-4">
         <BlockFilters filters={filters} />
         <Suspense>
-          <ListProducts string_params={param.toString()} isFiltersButton />
+          <ListProducts
+            string_params={param.toString()}
+            isFiltersButton
+            titleBlock={`Каталог бренда ${brand?.name}`}
+          />
         </Suspense>
       </div>
     </BaseContainer>

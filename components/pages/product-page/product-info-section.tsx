@@ -37,7 +37,20 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product }) => {
       />
 
       {/* Кнопки добавления в карзину и инзбранное */}
-      <ActionButtons slug={product?.slug} documentId={product?.documentId} />
+      <ActionButtons
+        slug={product?.slug}
+        documentId={product?.documentId}
+        productMetrik={{
+          id: product.documentId,
+          name: product?.brand?.name + " " + product.name,
+          price: isNaN(Number(product.price)) ? 0 : Number(product.price),
+          quantity: 1,
+          list: "Карточка товара",
+          brand: product?.brand?.name || "",
+          category: product.category?.name || "",
+          position: 1,
+        }}
+      />
 
       {/* Блок описания продукта */}
       <AccordionDescription
