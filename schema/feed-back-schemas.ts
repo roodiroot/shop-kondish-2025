@@ -11,6 +11,7 @@ export const feedbackFormSchema = z.object({
   email: z
     .string()
     .email("Введите корректный адрес электронной почты")
+    .or(z.literal(""))
     .optional(),
   phone: z
     .string()

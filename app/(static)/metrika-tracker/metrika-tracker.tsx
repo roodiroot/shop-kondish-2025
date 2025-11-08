@@ -3,15 +3,16 @@
 import Script from "next/script";
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useEcommerce } from "@/hooks/use-ecommerce";
 
-export function Metrika() {
+export function MetrikaTracker() {
+  const { hit } = useEcommerce();
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && typeof ym === "function") {
-      ym(105133061, "hit", window.location.href);
-    }
+    if (!pathName) return;
+    hit(window.location.href);
   }, [pathName, searchParams]);
 
   return (

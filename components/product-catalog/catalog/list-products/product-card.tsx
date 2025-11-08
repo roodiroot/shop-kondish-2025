@@ -104,8 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       ) : null}
       <div className="pt-4 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
-          {/* <p className="text-gray-500 text-sm italic">{product?.brand?.name}</p> */}
-          <h3 className="text-sm font-bold text-gray-900">
+          <h3 className="text-sm font-bold text-gray-900 text-balance line-clamp-2">
             <Link href={`/product/${slug}`}>{brand + " " + name}</Link>
           </h3>
         </div>

@@ -18,6 +18,8 @@ type Order = {
   products: ProductMetrik[];
 };
 
+const METRIKA_ID = 105133061;
+
 export function useEcommerce() {
   // Ждём, пока Метрика и dataLayer будут доступны
   const ensureDataLayerReady = useCallback(() => {
@@ -104,14 +106,40 @@ export function useEcommerce() {
     [pushToDataLayer]
   );
 
-  return { viewProduct, addToCart, removeFromCart, purchase };
-}
+  const reachGoal = useCallback(
+    (goalName: string, params?: Record<string, any>) => {
+      if (typeof window === "undefined") return;
+      if (typeof (window as any).ym !== "function") {
+        // если Метрика не готова — подождать
+        const interval = setInterval(() => {
+          if (typeof (window as any).ym === "function") {
+            (window as any).ym(METRIKA_ID, "reachGoal", goalName, params);
+            clearInterval(interval);
+          }
+        }, 500);
+        setTimeout(() => clearInterval(interval), 5000);
+        return;
+      }
+      (window as any).ym(METRIKA_ID, "reachGoal", goalName, params);
+    },
+    []
+  );
 
-// impressions — просмотр списка товаров;
-// click — клик по товару в списке;
-// detail — просмотр товара;
-// add — добавление товара в корзину;
-// remove — удаление товара из корзины;
-// purchase — покупка;
-// promoView — просмотр внутренней рекламы;
-// promoClick — клик по внутренней рекламе.
+  const hit = useCallback((url: string) => {
+    if (typeof window === "undefined") return;
+    if (typeof (window as any).ym === "function") {
+      (window as any).ym(METRIKA_ID, "hit", url);
+    } else {
+      // Если Метрика ещё не готова — подождать
+      const interval = setInterval(() => {
+        if (typeof (window as any).ym === "function") {
+          (window as any).ym(METRIKA_ID, "hit", url);
+          clearInterval(interval);
+        }
+      }, 500);
+      setTimeout(() => clearInterval(interval), 5000);
+    }
+  }, []);
+
+  return { viewProduct, addToCart, removeFromCart, purchase, reachGoal, hit };
+}

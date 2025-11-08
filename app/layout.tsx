@@ -13,7 +13,7 @@ import { AuthProvider } from "@/context/authcontext";
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
 import { Suspense } from "react";
-import { Metrika } from "./(static)/metrika/metrika";
+import { MetrikaTracker } from "./(static)/metrika-tracker/metrika-tracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),
@@ -79,7 +79,7 @@ export default function RootLayout({
             <GeneralToaster />
             <CookieBanner />
             <Suspense>
-              <Metrika />
+              <MetrikaTracker />
             </Suspense>
           </body>
         </html>

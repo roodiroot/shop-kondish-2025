@@ -3,6 +3,7 @@
 import { z } from "zod";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import RequiredField from "@/components/ui/required-field";
@@ -23,6 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { feedbackCastomer } from "@/data/forms/forms-api";
 import { feedbackFormSchema } from "@/schema/feed-back-schemas";
+import { useEcommerce } from "@/hooks/use-ecommerce";
 
 interface FeedbackFormProps extends React.HTMLAttributes<HTMLFormElement> {
   onCloseSheet?: () => void;
@@ -32,6 +34,9 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
   onCloseSheet,
   className,
 }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const { reachGoal } = useEcommerce();
+
   const form = useForm<z.infer<typeof feedbackFormSchema>>({
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
@@ -43,17 +48,29 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
   });
 
   const onSubmit = async (values: z.infer<typeof feedbackFormSchema>) => {
+    setIsDisabled(true);
     await feedbackCastomer({
       username: values.username,
-      email: values.email,
+      email: values?.email || "no-email@example.com",
       phone: values.phone,
       message: values.message,
-    }).then((data) => {
-      if (data.ok) {
-        if (onCloseSheet) onCloseSheet();
-        toast("Форма успешно отправлена");
-      }
-    });
+    })
+      .then((data) => {
+        if (data.ok) {
+          reachGoal("FEEDBACK_FORM_SUBMIT");
+          if (onCloseSheet) onCloseSheet();
+          toast("Форма успешно отправлена");
+          form.reset({
+            username: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+        }
+      })
+      .finally(() => {
+        setIsDisabled(false);
+      });
   };
 
   return (
@@ -85,7 +102,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
             <FormItem>
               <FormLabel className="font-bold">
                 Электронная почта
-                <RequiredField />
+                {/* <RequiredField /> */}
               </FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
@@ -127,7 +144,11 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full font-bold">
+        <Button
+          disabled={isDisabled}
+          type="submit"
+          className="w-full font-bold"
+        >
           Отправить
         </Button>
         <div className="text-xs">

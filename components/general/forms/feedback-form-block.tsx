@@ -3,6 +3,7 @@
 import { z } from "zod";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import RequiredField from "@/components/ui/required-field";
@@ -23,6 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { feedbackCastomer } from "@/data/forms/forms-api";
 import { feedbackFormSchema } from "@/schema/feed-back-schemas";
+import { useEcommerce } from "@/hooks/use-ecommerce";
 
 interface FeedbackFormBlockProps extends React.HTMLAttributes<HTMLFormElement> {
   onCloseSheet?: () => void;
@@ -32,6 +34,9 @@ const FeedbackFormBlock: React.FC<FeedbackFormBlockProps> = ({
   onCloseSheet,
   className,
 }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const { reachGoal } = useEcommerce();
+
   const form = useForm<z.infer<typeof feedbackFormSchema>>({
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
@@ -43,24 +48,29 @@ const FeedbackFormBlock: React.FC<FeedbackFormBlockProps> = ({
   });
 
   const onSubmit = async (values: z.infer<typeof feedbackFormSchema>) => {
+    setIsDisabled(true);
     await feedbackCastomer({
       username: values.username,
-      email: values.email,
+      email: values?.email || "no-email@example.com",
       phone: values.phone,
       message: values.message,
-    }).then((data) => {
-      if (data.ok) {
-        console.log(data);
-        if (onCloseSheet) onCloseSheet();
-        toast("Форма успешно отправлена");
-        form.reset({
-          username: "",
-          email: "",
-          phone: "",
-          message: "",
-        });
-      }
-    });
+    })
+      .then((data) => {
+        if (data.ok) {
+          reachGoal("FEEDBACK_FORM_SUBMIT");
+          if (onCloseSheet) onCloseSheet();
+          toast("Форма успешно отправлена");
+          form.reset({
+            username: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+        }
+      })
+      .finally(() => {
+        setIsDisabled(false);
+      });
   };
 
   return (
@@ -93,10 +103,7 @@ const FeedbackFormBlock: React.FC<FeedbackFormBlockProps> = ({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">
-                Электронная почта
-                <RequiredField />
-              </FormLabel>
+              <FormLabel className="font-bold">Электронная почта</FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
               </FormControl>
@@ -137,7 +144,11 @@ const FeedbackFormBlock: React.FC<FeedbackFormBlockProps> = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full font-bold">
+        <Button
+          disabled={isDisabled}
+          type="submit"
+          className="w-full font-bold"
+        >
           Отправить
         </Button>
         <div className="text-xs">

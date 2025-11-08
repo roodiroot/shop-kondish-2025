@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { getAllCategory } from "@/data/category-api";
 import { getAllFiltersByParams } from "@/data/faset-api";
+import { getOneProductCatalogBySlug } from "@/data/catalog-api";
 import { ListProducts } from "@/components/product-catalog/catalog/list-products/list-products";
 
 import BaseContainer from "@/components/general/containers/base-container";
 import BlockFilters from "@/components/product-catalog/catalog/filters/block-filters";
 import MenuCategoriesSlider from "@/components/product-catalog/catalog/list-products/menu-categories-slider";
-import { getOneProductCatalogBySlug } from "@/data/catalog-api";
-import { getAllCategory } from "@/data/category-api";
 
 type Props = {
   params: Promise<{ catalogslug: string }>;

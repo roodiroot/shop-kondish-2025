@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { createOrder } from "@/data/order-api";
@@ -19,7 +19,7 @@ import { useEcommerce } from "@/hooks/use-ecommerce";
 
 const OrderSummarySection = () => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [isDisabled, setIsDisabled] = useState(false);
   const { handleSubmit, getValues } = useFormContext();
   const { cart, setProductQuantity, removeFromCart, clearCart } =
     useCartStore();
@@ -48,51 +48,51 @@ const OrderSummarySection = () => {
   // console.log("ORDER SUBMIT SECTION");
 
   async function onSubmit() {
+    setIsDisabled(true);
     const values = getValues();
 
-    startTransition(async () => {
-      try {
-        const response = await createOrder({
-          ...values,
-          statusPay: "new",
-          totalPrice: totalCartPrice ?? 0,
-          products: cart,
-        });
+    try {
+      const response = await createOrder({
+        ...values,
+        statusPay: "new",
+        totalPrice: totalCartPrice ?? 0,
+        products: cart,
+      });
 
-        if (response?.ok) {
-          // Отправка данных о покупке в Метрику
-          if (productsWithCounts?.length) {
-            // console.log(response?.data);
-            purchase({
-              id: response?.data?.id,
-              products: productsWithCounts?.map((item) => ({
-                id: item.product.documentId,
-                name: item.product.brand?.name + " " + item.product.name,
-                price: isNaN(Number(item.product.price))
-                  ? 0
-                  : Number(item.product.price),
-                brand: item.product.brand?.name || "",
-                category: item.product?.category?.name || "",
-                quantity: item.count,
-                list: "Корзина",
-                position: 1,
-              })),
-            });
-          }
-          router.push(
-            `/cart/order-success?orderId=${response?.data?.documentId}`
-          );
-
-          saveOrderId(response?.data?.documentId);
-          localStorage.removeItem("cart-storage");
-          clearCart();
-        } else {
-          toast.warning("Что-то пошло не так!");
+      if (response?.ok) {
+        // Отправка данных о покупке в Метрику
+        if (productsWithCounts?.length) {
+          // console.log(response?.data);
+          purchase({
+            id: response?.data?.id,
+            products: productsWithCounts?.map((item) => ({
+              id: item.product.documentId,
+              name: item.product.brand?.name + " " + item.product.name,
+              price: isNaN(Number(item.product.price))
+                ? 0
+                : Number(item.product.price),
+              brand: item.product.brand?.name || "",
+              category: item.product?.category?.name || "",
+              quantity: item.count,
+              list: "Корзина",
+              position: 1,
+            })),
+          });
         }
-      } catch {
-        toast.warning("Что-то пошло не так, попробуйте позже");
+        router.push(
+          `/cart/order-success?orderId=${response?.data?.documentId}`
+        );
+
+        saveOrderId(response?.data?.documentId);
+        localStorage.removeItem("cart-storage");
+        clearCart();
+      } else {
+        toast.warning("Что-то пошло не так!");
       }
-    });
+    } catch {
+      toast.warning("Что-то пошло не так, попробуйте позже");
+    }
+    setIsDisabled(false);
   }
 
   if (!cart || !cart.length) {
@@ -106,7 +106,7 @@ const OrderSummarySection = () => {
       totalCartPrice={totalCartPrice || 0}
       totalCount={totalCount}
       onClick={handleSubmit(onSubmit)}
-      disabled={isPending || !cart.length}
+      disabled={isDisabled || !cart.length}
       buttonClearCart
     >
       {isLoading || isPandingFetch
