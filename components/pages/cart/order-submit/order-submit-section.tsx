@@ -8,6 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { createOrder } from "@/data/order-api";
 import { useCartStore } from "@/hooks/cart-store";
 import { saveOrderId } from "@/utils/save-order-id";
+import { useEcommerce } from "@/hooks/use-ecommerce";
 import { useFetchCartProducts } from "@/queries/products";
 
 import OrderSubmitWrapper from "./order-submit-wrapper";
@@ -15,7 +16,6 @@ import CartItemBasket from "../product-list/cart-item-basket";
 import CartItemBasketSkeleton from "../product-list/cart-item-basket-skeleton";
 
 import { Product } from "@/types/catalog";
-import { useEcommerce } from "@/hooks/use-ecommerce";
 
 const OrderSummarySection = () => {
   const router = useRouter();

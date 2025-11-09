@@ -104,10 +104,7 @@ const ProductCardHero: React.FC<ProductCardHeroProps> = ({
       ) : null}
       <div className="pt-3 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
-          {/* <p className="text-gray-500 text-xs italic uppercase">
-            {brand}
-          </p> */}
-          <h3 className="text-sm font-bold  text-gray-900">
+          <h3 className="text-sm font-bold text-gray-900 line-clamp-2 text-balance">
             {brand + " " + name}
           </h3>
         </div>

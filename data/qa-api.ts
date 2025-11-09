@@ -9,7 +9,10 @@ export const getQA = async ({
 }): Promise<QA[] | undefined> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/qaes?pagination[limit]=${limit ? limit : 25}`
+      `${API_BASE_URL}/qaes?pagination[limit]=${limit ? limit : 25}`,
+      {
+        next: { revalidate: 600 },
+      }
     );
 
     if (!response.ok) {

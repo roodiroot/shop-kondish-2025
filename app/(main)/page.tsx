@@ -19,6 +19,23 @@ export const metadata: Metadata = {
   description:
     "Kondish — более 15 лет работаем для вас. Честные цены, профессиональный подбор, установка и обслуживание кондиционеров.",
   icons: "/kondish.svg",
+  openGraph: {
+    title: "Kóndish установка и продажа кондиционеров в Москве.",
+    description:
+      "Установка и подбор кондиционеров и сплит-систем. | Более 15 лет устанавливаем климатическую технику в ваших домах.",
+    siteName: "Kóndish",
+    type: "website",
+    locale: "ru_RU",
+    url: "https://kondish.su",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Kóndish установка и продажа кондиционеров в Москве.",
+      },
+    ],
+  },
 };
 
 export default async function Home() {
@@ -33,19 +50,12 @@ export default async function Home() {
     populate: "*",
   });
 
-  // получаем блок героя
   const heroScreens = await getHeroScreens();
-  // получаем блок о компании
   const content = await getHeroPage();
-  // получаем товары
   const productsSale = await getAllProducts(paramsSale.toString());
   const productsHit = await getAllProducts(paramsHit.toString());
-
-  // получаем отзывы
   const reviews = (await getReviews()) || [];
-  // получаем статьи
   const articles = await getArticles({ limit: 10 });
-  // получаем вопросы, важно не более 5 - 6
   const qaes = (await getQA({ limit: 5 })) || [];
   return (
     <>
