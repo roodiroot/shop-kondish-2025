@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import Footer from "@/components/general/footer/footer";
@@ -9,11 +10,10 @@ import GeneralToaster from "@/components/general/toaster/general-toaster";
 
 import { Lato } from "next/font/google";
 import { AuthProvider } from "@/context/authcontext";
+import { MetrikaTracker } from "../components/metrika-tracker/metrika-tracker";
 
 import "./globals.css";
 import "@smastrom/react-rating/style.css";
-import { Suspense } from "react";
-import { MetrikaTracker } from "./(static)/metrika-tracker/metrika-tracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kondish.su"),

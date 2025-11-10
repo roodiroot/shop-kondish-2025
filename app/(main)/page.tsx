@@ -57,6 +57,7 @@ export default async function Home() {
   const reviews = (await getReviews()) || [];
   const articles = await getArticles({ limit: 10 });
   const qaes = (await getQA({ limit: 5 })) || [];
+
   return (
     <>
       <HeroSection heroScreens={heroScreens} />

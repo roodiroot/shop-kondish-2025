@@ -13,6 +13,23 @@ export const metadata: Metadata = {
   description:
     "Контактная информация Kondish: адрес сервисного центра, телефоны, электронная почта и реквизиты. Мы работаем ежедневно с 08:00 до 22:00. Звоните!",
   icons: "/kondish.svg",
+  openGraph: {
+    title: "Контакты — Kondish: сервисный центр, телефоны, реквизиты",
+    description:
+      "Контактная информация Kondish: адрес сервисного центра, телефоны, электронная почта и реквизиты. Мы работаем ежедневно с 08:00 до 22:00. Звоните!",
+    siteName: "Kóndish",
+    type: "website",
+    locale: "ru_RU",
+    url: "https://kondish.su",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Kóndish установка и продажа кондиционеров в Москве.",
+      },
+    ],
+  },
 };
 
 export default async function ContactsPage() {

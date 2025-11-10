@@ -8,10 +8,27 @@ import BaseContainer from "@/components/general/containers/base-container";
 import HeadCatalog from "@/components/product-catalog/catalog/head-catalog";
 
 export const metadata: Metadata = {
-  title: "Политика обработки персональных данных",
+  title: "Политика обработки персональных данных.",
   description:
-    "Политика обработки персональных данных в интернет-магазине Kondish. Узнайте, как мы собираем, используем и защищаем ваши данные. Ознакомьтесь с правами пользователей.",
+    "Установка и подбор кондиционеров и сплит-систем. | Более 15 лет устанавливаем климатическую технику в ваших домах.",
   icons: "/kondish.svg",
+  openGraph: {
+    title: "Политика обработки персональных данных.",
+    description:
+      "Установка и подбор кондиционеров и сплит-систем. | Более 15 лет устанавливаем климатическую технику в ваших домах.",
+    siteName: "Kóndish",
+    type: "website",
+    locale: "ru_RU",
+    url: "https://kondish.su",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Kóndish установка и продажа кондиционеров в Москве.",
+      },
+    ],
+  },
 };
 
 export default async function PolicyPage() {
