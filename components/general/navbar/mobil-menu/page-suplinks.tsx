@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Page } from "@/navigation";
+import { Button } from "@/components/ui/button";
+import FButton from "../../fbutton";
 
 const PageSuplink = ({
   page,
@@ -20,7 +22,7 @@ const PageSuplink = ({
         {page.name} <ChevronRight className="size-4" />
       </div>
       {isOpen && (
-        <div className="absolute inset-0 bg-primary  px-4 py-8 border-b border-white/60">
+        <div className="absolute top-0 inset-x-0 bg-primary  px-4 py-8 border-b border-white/60">
           <div
             onClick={() => setIsOpen(false)}
             className="flex gap-1 items-center mb-6  uppercase"

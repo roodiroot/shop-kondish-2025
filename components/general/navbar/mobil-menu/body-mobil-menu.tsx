@@ -26,8 +26,8 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
         <div onClick={() => closeDrawer(false)}>
           <Logo className="h-11" />
         </div>
-        <a className="text-white font-bold text-sm" href="tel:84956752555">
-          8 (495) 675-2555
+        <a className="text-white font-bold text-sm" href="tel:79153294209">
+          +7 (915) 329-42-09
         </a>
       </div>
       <div className="h-full  overflow-auto flex flex-col justify-between">
@@ -72,24 +72,26 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
             </Button>
           </Suspense>
         </div>
-        <div className="px-4 py-8 max-w-xs space-y-4">
+        <div className="px-4 pt-8 pb-20 max-w-xs space-y-4">
           <div className="text-xs text-white">
             <div className="font-semibold">Москва</div>
             <div className="">1-й Кожуховский пр-д, 11, офис 127</div>
             <div className="font-semibold">info@kondish.su</div>
           </div>
           <div className="text-xs text-white">
-            <div className="font-semibold text-xl">8 (495) 675-2555</div>
+            <div className="font-semibold text-xl">
+              <a href="tel:79153294209">+7 (915) 329-42-09</a>
+            </div>
             <div className="">
               Принимаем звонки: Пн-Пт с 09:00 до 20:00 (МСК). Сб-Вс – выходные
             </div>
           </div>
-          <div className="text-xs text-white">
-            <div className="font-bold underline">Перезвоните мне</div>
+          {/* <div className="text-xs text-white">
+            < className="font-bold underline">Перезвоните мне</>
           </div>
           <div className="text-xs text-white pb-8">
             <div className="font-bold underline">Social</div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

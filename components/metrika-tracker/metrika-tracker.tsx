@@ -31,6 +31,12 @@ export function MetrikaTracker() {
         window.dataLayer = window.dataLayer || [];
       `}
       </Script>
+      <Script
+        src="//cdn.callibri.ru/callibri.js"
+        type="text/javascript"
+        charSet="utf-8"
+        strategy="afterInteractive"
+      />
     </>
   );
 }

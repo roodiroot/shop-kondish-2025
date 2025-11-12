@@ -12,12 +12,12 @@ const BrandPageLink = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <li className="text-sm font-semibold text-white">
+    <li className="text-sm font-semibold text-white ">
       <div onClick={() => setIsOpen(true)} className="flex gap-1 items-center">
         Бренды <ChevronRight className="size-4" />
       </div>
       {isOpen && (
-        <div className="absolute inset-0 bg-primary  px-4 py-8 border-b border-white/60">
+        <div className="absolute top-0 inset-x-0 bg-primary border-b border-white/60  px-4 py-8 ">
           <div
             onClick={() => setIsOpen(false)}
             className="flex gap-1 items-center mb-6  uppercase"

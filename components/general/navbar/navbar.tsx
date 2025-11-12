@@ -74,7 +74,7 @@ export default async function Navbar() {
               {/* Right section */}
               <div className="ml-auto pl-4 lg:pl-8 flex items-center gap-x-2 md:gap-x-4">
                 <div className="hidden sm:block ml-auto font-bold text-sm">
-                  <a href="tel:74956752555">+7 (495) 675-25-55</a>
+                  <a href="tel:79153294209">+7 (915) 329-42-09</a>
                 </div>
                 {/* Auth */}
                 <AuthComponentNavbar />
