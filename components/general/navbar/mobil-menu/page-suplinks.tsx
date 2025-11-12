@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Page } from "@/navigation";
-import { Button } from "@/components/ui/button";
-import FButton from "../../fbutton";
 
 const PageSuplink = ({
   page,
