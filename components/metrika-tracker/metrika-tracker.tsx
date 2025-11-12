@@ -35,6 +35,7 @@ export function MetrikaTracker() {
         src="//cdn.callibri.ru/callibri.js"
         type="text/javascript"
         charSet="utf-8"
+        defer
         strategy="afterInteractive"
       />
     </>

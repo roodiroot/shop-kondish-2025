@@ -31,7 +31,12 @@ const Footer = () => {
               <Logo />
             </div>
             <div className="flex flex-col mt-auto">
-              <span className="text-sm font-bold">+7 (495) 675-25-55</span>
+              <span className="text-sm font-bold">
+                <a href="tel:79153294209">+7 (915) 329-42-09</a>
+              </span>
+              <span className="text-sm font-bold mt-1">
+                <a href="tel:74956752555">+7 (495) 675-25-55</a>
+              </span>
               <span className="text-xs max-w-[150px]">
                 Принимаем звонки: Пн-Пт с 09:00 до 18:00 (МСК). Сб-Вс – выходные
               </span>
