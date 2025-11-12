@@ -21,12 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const image = brand?.image?.url;
 
   return {
-    title: brand?.name,
-    description: `Устанавливаем климатическую технику ${brand?.name} более 12 лет в Мосскве и области.`,
+    title: `Каталог техники бренда ${brand?.name}`,
+    description: `Устанавливаем климатическую технику ${brand?.name} более 12 лет в Москве и области.`,
     openGraph: {
-      title: "Kóndish установка и продажа кондиционеров в Москве.",
-      description:
-        "Установка и подбор кондиционеров и сплит-систем в Москве и Московской области. | Более 12 лет устанавливаем климатическую технику в ваших домах.",
+      title: `Каталог техники бренда ${brand?.name}`,
+      description: `Устанавливаем климатическую технику ${brand?.name} более 12 лет в Москве и области.`,
       siteName: "Kóndish",
       type: "website",
       locale: "ru_RU",
