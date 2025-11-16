@@ -6,7 +6,9 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
 export const getTermsPage = async (): Promise<TermsPage | undefined> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/terms-page`);
+    const response = await fetch(`${API_BASE_URL}/terms-page`, {
+      next: { revalidate: 600 },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
