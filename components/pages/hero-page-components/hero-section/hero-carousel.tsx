@@ -28,7 +28,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
               <div className="mt-4">
                 <div className="p-3 bg-black max-w-md">
                   <h1 className=" uppercase font-thin text-xl sm:text-2xl text-[#FB4C01]">
-                    Устанавливаем и продаем кондиционеры в ваших домах
+                    Устанавливаем и продаем кондиционеры.
                   </h1>
                 </div>
                 <span className="block uppercase text-white font-semibold mt-1 text-sm">
