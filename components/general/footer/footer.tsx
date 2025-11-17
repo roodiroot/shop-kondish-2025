@@ -98,12 +98,15 @@ const Footer = () => {
           </div>
 
           {/* Соцсети */}
-          <div className="flex gap-2 col-span-2 sm:col-span-1">
-            <a href="">
+          <div className="flex items-center gap-4 col-span-2 sm:col-span-1 ">
+            <a target="_blank" href="https://vk.me/kondish">
               <Icon.vk width={24} height={24} />
             </a>
-            <a href="">
+            <a target="_blank" href="https://t.me/mickkey_dee">
               <Icon.telegram width={24} height={24} />
+            </a>
+            <a target="_blank" href="https://wa.me/+79153294209">
+              <Icon.wa width={32} height={32} />
             </a>
           </div>
 
