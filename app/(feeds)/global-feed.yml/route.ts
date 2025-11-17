@@ -40,6 +40,7 @@ export async function GET() {
         <offers>
         ${products?.data
           .map((p) => {
+            if (!p.available) return;
             const params = [
               p.area_of_room
                 ? `<param name="Площадь помещения до м²:">${p.area_of_room}</param>`
