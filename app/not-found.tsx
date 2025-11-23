@@ -1,7 +1,7 @@
-import BaseContainer from "@/components/general/containers/base-container";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-import { Metadata } from "next";
 import Link from "next/link";
+import { Metadata } from "next";
+
+import BaseContainer from "@/components/general/containers/base-container";
 
 export const metadata: Metadata = {
   title: "Страница не найдена — Kondish",
