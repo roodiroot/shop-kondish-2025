@@ -8,26 +8,27 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FeedbackForm from "./feedback-form";
+import useFeedBack from "@/hooks/use-feedback";
 
 const FeedBackSheet = () => {
-  const path = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  // const path = usePathname();
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
 
-  const isOpen = searchParams.get("feedback") === "true";
+  // const isOpen = searchParams.get("feedback") === "true";
 
-  const closeSheet = () => {
-    const searchParam = new URLSearchParams(searchParams.toString());
-    searchParam.delete("feedback");
-    router.push(`${path}?${searchParam.toString()}`, { scroll: false });
-  };
+  // const closeSheet = () => {
+  //   const searchParam = new URLSearchParams(searchParams.toString());
+  //   searchParam.delete("feedback");
+  //   router.push(`${path}?${searchParam.toString()}`, { scroll: false });
+  // };
 
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
+  const { isOpen, close } = useFeedBack();
 
   return (
-    <Sheet open={true} onOpenChange={closeSheet}>
+    <Sheet open={isOpen} onOpenChange={close}>
       <SheetContent side="right">
         <SheetHeader className="flex flex-col">
           <SheetTitle className="text-2xl font-bold">Обратная связь</SheetTitle>
@@ -38,7 +39,7 @@ const FeedBackSheet = () => {
             Добро пожаловать в Kondish!
           </SheetDescription>
         </SheetHeader>
-        <FeedbackForm onCloseSheet={closeSheet} />
+        <FeedbackForm onCloseSheet={close} />
       </SheetContent>
     </Sheet>
   );

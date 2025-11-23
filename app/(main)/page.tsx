@@ -13,6 +13,7 @@ import HeroSection from "@/components/pages/hero-page-components/hero-section/he
 import ReviewsSection from "@/components/pages/hero-page-components/reviews-section/reviews-section";
 import SaleProductsSection from "@/components/pages/hero-page-components/sale-products-section/sale-products-section";
 import AboutSection from "@/components/pages/hero-page-components/about-section/about-section";
+import FeedbackButtonSection from "@/components/pages/hero-page-components/feedback-button-section/feedback-button-section";
 
 export const metadata: Metadata = {
   title: "Kondish — работаем честно",
@@ -70,6 +71,7 @@ export default async function Home() {
       <ReviewsSection reviews={reviews} />
       <BlogSection articles={articles?.data?.data} />
       <QASection qaes={qaes} />
+      <FeedbackButtonSection />
     </>
   );
 }

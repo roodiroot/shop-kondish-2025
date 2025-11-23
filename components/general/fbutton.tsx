@@ -1,27 +1,27 @@
 "use client";
 
-import { useMemo } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useFeedBack from "@/hooks/use-feedback";
 
 interface FButtonProps extends React.HTMLAttributes<HTMLButtonElement> {}
 
 const FButton: React.FC<FButtonProps> = ({ children, ...props }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { open } = useFeedBack();
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
 
-  const updatedSearchParams = useMemo(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("feedback", "true");
-    return params.toString();
-  }, [searchParams]);
+  // const updatedSearchParams = useMemo(() => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set("feedback", "true");
+  //   return params.toString();
+  // }, [searchParams]);
 
-  const handleOpenSheet = () => {
-    router.push(`${pathname}?${updatedSearchParams}`, { scroll: false });
-  };
+  // const handleOpenSheet = () => {
+  //   router.push(`${pathname}?${updatedSearchParams}`, { scroll: false });
+  // };
 
   return (
-    <button {...props} type="button" onClick={handleOpenSheet}>
+    <button {...props} type="button" onClick={open}>
       {children}
     </button>
   );
