@@ -58,26 +58,17 @@ export default function RootLayout({
     <AuthProvider>
       <TanstackProvider>
         <html lang="ru">
-          <head>
-            {/* Подключение скриптов */}
-            {/* <Script
-              src="https://lidrekon.ru/slep/js/jquery.js"
-              strategy="beforeInteractive"
-            />
-            <Script
-              src="https://lidrekon.ru/slep/js/uhpv-full.min.js"
-              strategy="afterInteractive"
-            /> */}
-          </head>
           <body
             className={`${lato.className} antialiased min-h-screen flex flex-col`}
           >
             <Navbar />
             <main className="flex-1 relative">{children}</main>
             <Footer />
+
             <OverlaySection />
             <GeneralToaster />
             <CookieBanner />
+
             <Suspense>
               <MetrikaTracker />
             </Suspense>

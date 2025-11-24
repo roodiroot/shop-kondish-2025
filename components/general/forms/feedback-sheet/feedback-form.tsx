@@ -52,7 +52,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
     await feedbackCastomer({
       username: values.username,
       email: values?.email || "no-email@example.com",
-      phone: values.phone,
+      phone: values.phone?.replace(/[^\d+]/g, ""),
       message: values.message,
     })
       .then((data) => {
