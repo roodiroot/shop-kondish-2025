@@ -32,7 +32,9 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({ articles }) => {
                       subtitle={article.subtitle}
                       dateString={article.createdAt}
                       label={article.label}
-                      image={article.image?.formats.small.url}
+                      image={
+                        article.image?.formats?.small?.url ?? article.image?.url
+                      }
                     />
                   </div>
                 </CarouselItem>

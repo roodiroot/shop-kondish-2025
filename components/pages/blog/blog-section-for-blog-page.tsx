@@ -21,7 +21,7 @@ const BlogSectionForBlogPage: React.FC<BlogSectionProps> = ({
             subtitle={article.subtitle}
             dateString={article.createdAt}
             label={article.label}
-            image={article.image?.formats.small.url}
+            image={article.image?.formats?.small?.url ?? article.image?.url}
           />
         ))}
       </div>

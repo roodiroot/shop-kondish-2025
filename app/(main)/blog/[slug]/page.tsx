@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         {
           url: article?.image?.formats?.large?.url
             ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.large?.url}`
-            : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.medium?.url}`,
+            : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.url}`,
           width: 1200,
           height: 630,
           alt: "Kóndish установка и продажа кондиционеров в Москве.",
@@ -66,7 +66,7 @@ export default async function AriclePage({ params }: Props) {
           src={
             article.image?.formats?.large?.url
               ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.large?.url}`
-              : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.formats?.medium?.url}`
+              : `${process.env.NEXT_PUBLIC_API_BASE_URL}${article?.image?.url}`
           }
           alt=""
         />

@@ -58,7 +58,7 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({
         </div>
         <div className="mt-6">
           <h4 className="font-bold text-sm">{title}</h4>
-          <p className="mt-2 text-sm text-gray-400">{subtitle}</p>
+          <p className="mt-2 text-sm text-gray-400 line-clamp-2">{subtitle}</p>
         </div>
       </div>
     </div>
