@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
+import { cn } from "@/lib/utils";
 
 interface BlogPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
