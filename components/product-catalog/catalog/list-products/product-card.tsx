@@ -85,7 +85,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               ? removeFavoriteHandle
               : addToFavoritesHandle
           }
-          className="p-2 group"
+          className="relative p-2 group z-10"
         >
           <HeartIcon
             className={cn(
@@ -105,7 +105,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="pt-4 flex-1 flex h-full flex-col space-y-2 justify-between">
         <div className="">
           <h3 className="text-sm font-bold text-gray-900 text-balance line-clamp-2">
-            <Link href={`/product/${slug}`}>{brand + " " + name}</Link>
+            <Link className="absolute inset-0" href={`/product/${slug}`} />
+            {brand + " " + name}
           </h3>
         </div>
         <div className="">
@@ -180,7 +181,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <Button
                 size="sm"
                 variant="secondary"
-                className="font-semibold"
+                className="font-semibold z-10"
                 asChild
               >
                 <Link href="/cart">В корзину</Link>
