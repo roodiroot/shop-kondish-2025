@@ -26,7 +26,7 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
         <div onClick={() => closeDrawer(false)}>
           <Logo className="h-11" />
         </div>
-        <a className="text-white font-bold text-sm" href="tel:79153294209">
+        <a className="text-white font-bold text-sm" href="tel:+79153294209">
           +7 (915) 329-42-09
         </a>
       </div>
@@ -80,7 +80,7 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
           </div>
           <div className="text-xs text-white">
             <div className="font-semibold text-xl">
-              <a href="tel:79153294209">+7 (915) 329-42-09</a>
+              <a href="tel:+79153294209">+7 (915) 329-42-09</a>
             </div>
             <div className="">
               Принимаем звонки: Пн-Пт с 09:00 до 20:00 (МСК). Сб-Вс – выходные

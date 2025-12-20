@@ -32,10 +32,10 @@ const Footer = () => {
             </div>
             <div className="flex flex-col mt-auto">
               <span className="text-sm font-bold">
-                <a href="tel:79153294209">+7 (915) 329-42-09</a>
+                <a href="tel:+79153294209">+7 (915) 329-42-09</a>
               </span>
               <span className="text-sm font-bold mt-1">
-                <a href="tel:74956752555">+7 (495) 675-25-55</a>
+                <a href="tel:+74956752555">+7 (495) 675-25-55</a>
               </span>
               <span className="text-xs max-w-[150px]">
                 Принимаем звонки: Пн-Пт с 09:00 до 18:00 (МСК). Сб-Вс – выходные
@@ -102,7 +102,7 @@ const Footer = () => {
             <a target="_blank" href="https://vk.me/kondish">
               <Icon.vk width={24} height={24} />
             </a>
-            <a target="_blank" href="https://t.me/mickkey_dee">
+            <a target="_blank" href="https://t.me/Kondish_a">
               <Icon.telegram width={24} height={24} />
             </a>
             <a target="_blank" href="https://wa.me/+79153294209">
