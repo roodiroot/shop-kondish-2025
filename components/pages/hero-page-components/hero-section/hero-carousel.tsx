@@ -24,7 +24,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
         <div className="relative shadow-sm  overflow-hidden w-full aspect-[2/2] sm:aspect-[2/1] lg:aspect-[3.3/1] bg-gray-100 rounded-lg">
           <div className="absolute inset-0 z-10 flex flex-col sm:justify-center items-center p-4">
             <div className="w-full max-w-4xl">
-              <Icon.logo width={130} />
+              <Icon.logo width={150} />
               <div className="mt-4">
                 <div className="p-3 bg-black max-w-md">
                   <h1 className=" uppercase font-thin text-xl sm:text-2xl text-[#FB4C01]">

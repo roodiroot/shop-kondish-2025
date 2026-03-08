@@ -35,7 +35,7 @@ const MobilMenu: React.FC<MobilMenuProps> = ({ navigation }) => {
         <DrawerTitle className="sr-only">Mobil menu</DrawerTitle>
         <DrawerDescription className="sr-only">Mobil menu</DrawerDescription>
         <DrawerClose className="absolute z-10 right-1 top-1.5 p-3">
-          <XMarkIcon className="w-6 h-6 text-white" />
+          <XMarkIcon className="w-6 h-6 text-primary" />
         </DrawerClose>
         <BodyMobilMenu navigation={navigation} closeDrawer={setOpen} />
       </DrawerContent>

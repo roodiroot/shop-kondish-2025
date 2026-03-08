@@ -134,7 +134,7 @@ const Footer = () => {
       <BaseContainer className="mt-4">
         <div className="flex flex-col items-start md:flex-row justify-between">
           <div className="text-center text-xs text-gray-400">
-            © 2021-{new Date().getFullYear()} Kondish.
+            © 2021-{new Date().getFullYear()} Кондиш.
           </div>
           <Link href={"/terms"} className="text-center text-xs text-gray-400">
             Согласие на обработку данных

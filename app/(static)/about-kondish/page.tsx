@@ -40,12 +40,12 @@ export default async function AboutPage() {
     <div>
       <Breadcrumbs
         breadcrumbMap={{
-          "about-kondish": "О Kondish",
+          "about-kondish": "О нас",
         }}
       />
       <BaseContainer>
         {/* Блок оглавление страницы */}
-        <HeadCatalog name="О Kondish" />
+        <HeadCatalog name="О Кондиш" />
         <div className="flex flex-col gap-4 md:flex-row md:gap-10 items-start">
           <div className="flex-1 relative w-full aspect-[3/1.8] bg-gray-100 rounded-lg shadow-md overflow-hidden md:order-2 ">
             <Image

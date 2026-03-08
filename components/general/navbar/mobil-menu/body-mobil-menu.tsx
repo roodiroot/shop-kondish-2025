@@ -22,11 +22,11 @@ const BodyMobilMenu: React.FC<MobilMenuBodyProps> = ({
 }) => {
   return (
     <div {...props} className="h-full">
-      <div className="px-4 py-2 border-b border-white/60 flex items-center gap-4">
+      <div className="px-4 bg-white py-2 border-b border-white/60 flex items-center gap-4">
         <div onClick={() => closeDrawer(false)}>
           <Logo className="h-11" />
         </div>
-        <a className="text-white font-bold text-sm" href="tel:+79153294209">
+        <a className="text-primary font-bold text-sm" href="tel:+79153294209">
           +7 (915) 329-42-09
         </a>
       </div>
