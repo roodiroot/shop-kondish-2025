@@ -105,8 +105,8 @@ const Footer = () => {
             <a target="_blank" href="https://t.me/Kondish_a">
               <Icon.telegram width={24} height={24} />
             </a>
-            <a target="_blank" href="https://wa.me/+79153294209">
-              <Icon.wa width={32} height={32} />
+            <a target="_blank" href="https://max.ru/u/f9LHodD0cOKf9sApV7xwO5GunbeY-pF2x_3FIWrzVQ20fPh2vGUgJUXaJ2Q">
+              <Icon.max width={22} fill={"#6366f1"} />
             </a>
           </div>
 
