@@ -6,7 +6,8 @@ import {
   ChatBubbleBottomCenterTextIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import { FaTelegramPlane, FaWhatsapp, FaPhone } from "react-icons/fa";
+import { FaTelegramPlane, FaPhone } from "react-icons/fa";
+import { Icon } from "@/components/ui/icon";
 
 export default function FloatingContacts() {
   const [open, setOpen] = useState(false);
@@ -18,19 +19,18 @@ export default function FloatingContacts() {
         className={`
           flex flex-col gap-3 mb-3
           transition-all duration-150 ease-out
-          ${
-            open
-              ? "opacity-100 scale-100 pointer-events-auto"
-              : "opacity-0 scale-95 pointer-events-none"
+          ${open
+            ? "opacity-100 scale-100 pointer-events-auto"
+            : "opacity-0 scale-95 pointer-events-none"
           }
         `}
       >
         <a
-          href="https://wa.me/79153294209"
+          href="https://max.ru/u/f9LHodD0cOKf9sApV7xwO5GunbeY-pF2x_3FIWrzVQ20fPh2vGUgJUXaJ2Q"
           target="_blank"
-          className="p-3 rounded-full bg-green-500 text-white shadow-lg hover:scale-110 transition-transform"
+          className="p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:scale-110 transition-transform"
         >
-          <FaWhatsapp size={20} />
+          <Icon.max width={20} />
         </a>
 
         <a
@@ -43,7 +43,7 @@ export default function FloatingContacts() {
 
         <a
           href="tel:+79153294209"
-          className="p-3 rounded-full bg-gray-900 text-white shadow-lg hover:scale-110 transition-transform"
+          className="p-3 rounded-full bg-sky-900 text-white shadow-lg hover:scale-110 transition-transform"
         >
           <FaPhone size={20} />
         </a>
