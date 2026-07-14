@@ -16,7 +16,7 @@ import "./globals.css";
 import "@smastrom/react-rating/style.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kondish.su"),
+  metadataBase: new URL("https://shop.kondish.su"),
   title: {
     template: "%s | Kóndish установка и продажа кондиционеров.",
     default: "Kóndish установка кондиционеров в Москве и Московской области.",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Kóndish",
     type: "website",
     locale: "ru_RU",
-    url: "https://kondish.su",
+    url: "https://shop.kondish.su",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
@@ -58,9 +58,7 @@ export default function RootLayout({
     <AuthProvider>
       <TanstackProvider>
         <html lang="ru">
-          <body
-            className={`${lato.className} antialiased min-h-screen flex flex-col`}
-          >
+          <body className={`${lato.className} antialiased min-h-screen flex flex-col`}>
             <Navbar />
             <main className="flex-1 relative">{children}</main>
             <Footer />
