@@ -10,8 +10,8 @@ import Image from "next/image";
 //   CarouselPrevious,
 // } from "@/components/ui/carousel";
 import { HeroScreens } from "@/data/hero-screen-api";
-import { Icon } from "@/components/ui/icon";
-import FButton from "@/components/general/fbutton";
+// import { Icon } from "@/components/ui/icon";
+// import FButton from "@/components/general/fbutton";
 
 interface HeroCarouselProps {
   heroScreens?: HeroScreens[];
