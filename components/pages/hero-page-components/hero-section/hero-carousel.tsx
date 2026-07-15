@@ -21,8 +21,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
   if (!heroScreens?.length) {
     return (
       <div className="py-4">
-        <div className="relative shadow-sm  overflow-hidden w-full aspect-[2/2] sm:aspect-[2/1] lg:aspect-[3.3/1] bg-gray-100 rounded-lg">
-          <div className="absolute inset-0 z-10 flex flex-col sm:justify-center items-center p-4">
+        <div className="relative shadow-sm  overflow-hidden w-full aspect-[1400/567] bg-gray-100 rounded-lg">
+          {/* <div className="absolute inset-0 z-10 flex flex-col sm:justify-center items-center p-4">
             <div className="w-full max-w-4xl">
               <Icon.logo width={150} />
               <div className="mt-4">
@@ -41,14 +41,17 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ heroScreens }) => {
                 </FButton>
               </div>
             </div>
-          </div>
+          </div> */}
+          <h1 className="sr-only uppercase font-thin text-xl sm:text-2xl text-[#FB4C01]">
+            Устанавливаем и продаем кондиционеры.
+          </h1>
           <Image
-            width={1216}
-            height={369}
+            width={1400}
+            height={567}
             priority
-            src={"/images/main_hero_page.jpg"}
+            src={"/images/hero.jpg"}
             alt={"command_kondish"}
-            className="absolute w-full h-full object-cover z-0"
+            className="w-full h-full object-cover z-0"
           />
         </div>
       </div>
