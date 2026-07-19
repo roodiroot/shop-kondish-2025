@@ -2,11 +2,11 @@ import { ImageForProduct } from "@/types/catalog";
 
 export interface HeroScreens {
   documentId: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  link?: string;
-  buttonText?: string;
+  // title?: string;
+  // subtitle?: string;
+  // description?: string;
+  // link?: string;
+  // buttonText?: string;
   image?: ImageForProduct;
 }
 

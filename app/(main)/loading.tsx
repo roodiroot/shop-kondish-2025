@@ -8,7 +8,7 @@ export default function Loading() {
     <BaseContainer className="relative">
       <Spinner />
       <div className="py-4">
-        <Skeleton className="relative shadow-sm  overflow-hidden w-full aspect-[2/2] sm:aspect-[2/1] lg:aspect-[3.3/1] bg-gray-100 rounded-lg"></Skeleton>
+        <Skeleton className="relative shadow-sm  overflow-hidden w-full aspect-[11/5] bg-gray-100 rounded-lg"></Skeleton>
       </div>
       <Skeleton className="mt-10 h-7 w-[150px]"></Skeleton>
       <div className="relative z-10 w-full mt-4">

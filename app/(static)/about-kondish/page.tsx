@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "Kóndish",
     type: "website",
     locale: "ru_RU",
-    url: "https://kondish.su",
+    url: "https://shop.kondish.su",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/Frame_23_81477b6c9e.jpg`,
@@ -56,10 +56,7 @@ export default async function AboutPage() {
               className="absolute w-full h-full object-cover"
             />
           </div>
-          <ContentMarkdown
-            className="flex-1 max-w-2xl text-sm"
-            content={content?.content}
-          />
+          <ContentMarkdown className="flex-1 max-w-2xl text-sm" content={content?.content} />
         </div>
       </BaseContainer>
       <FeedbackBlock />
