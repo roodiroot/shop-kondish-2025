@@ -45,13 +45,19 @@ export default async function Home() {
     "filters[sale][$gt]": "0",
     populate: "*",
   });
+
   const paramsHit = new URLSearchParams({
     "filters[available]": "true",
     "filters[hit]": "true",
     populate: "*",
   });
 
-  const heroScreens = await getHeroScreens();
+  const screensParams = new URLSearchParams({
+    sort: "updatedAt:desc",
+    populate: "*",
+  });
+
+  const heroScreens = await getHeroScreens(screensParams.toString());
   const content = await getHeroPage();
   const productsSale = await getAllProducts(paramsSale.toString());
   const productsHit = await getAllProducts(paramsHit.toString());

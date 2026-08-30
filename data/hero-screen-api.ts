@@ -12,9 +12,9 @@ export interface HeroScreens {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
-export const getHeroScreens = async (): Promise<HeroScreens[] | undefined> => {
+export const getHeroScreens = async (params?: string): Promise<HeroScreens[] | undefined> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/hero-screens?populate=*`);
+    const response = await fetch(`${API_BASE_URL}/hero-screens?${params}`);
 
     if (!response.ok) {
       const errorData = await response.json();

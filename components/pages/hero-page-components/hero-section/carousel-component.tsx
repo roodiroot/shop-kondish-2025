@@ -28,7 +28,6 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ heroScreens }) =>
       delay: AUTO_DELAY,
       playOnInit: true,
       stopOnInteraction: false,
-      stopOnMouseEnter: false,
     }),
   );
 
@@ -50,12 +49,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ heroScreens }) =>
     autoplay.current.reset();
   };
   return (
-    <Carousel
-      setApi={setApi}
-      opts={{ loop: true }}
-      plugins={[Autoplay({ delay: AUTO_DELAY })]}
-      className="w-full"
-    >
+    <Carousel setApi={setApi} opts={{ loop: true }} plugins={[autoplay.current]} className="w-full">
       <CarouselContent>
         {heroScreens?.map((screen) => (
           <CarouselItem key={screen.documentId}>
@@ -74,7 +68,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ heroScreens }) =>
         ))}
       </CarouselContent>
       <div className="py-2 sm:py-3">
-        <div className="flex gap-1 sm:gap-2 justify-center">
+        <div className="flex gap-1 justify-center">
           {new Array(count).fill("").map((_, index) => {
             const isActive = current === index + 1;
             return (

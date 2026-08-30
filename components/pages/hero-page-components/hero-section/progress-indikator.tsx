@@ -11,7 +11,10 @@ const ProgressIndicator = ({ active, duration = 3000, onClick }: ProgressIndicat
     <button
       type="button"
       onClick={onClick}
-      className="bg-gray-200 w-6 h-0.5 rounded-lg relative overflow-hidden sm:h-[3px] sm:w-10"
+      className={cn(
+        "bg-gray-200 rounded-lg relative overflow-hidden",
+        active ? "w-6 h-1 sm:w-10" : "w-1.5",
+      )}
     >
       <span
         style={{
